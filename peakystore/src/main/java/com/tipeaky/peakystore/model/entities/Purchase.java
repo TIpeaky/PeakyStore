@@ -48,6 +48,4 @@ public class Purchase {
     @JoinColumn(name = "delivery_address_id")
     private Address deliveryAddress;
 
-
-
 }
