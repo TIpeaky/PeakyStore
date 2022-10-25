@@ -1,8 +1,4 @@
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-
-
-/*package com.tipeaky.peakystore.config.security;
+package com.tipeaky.peakystore.config.security;
 
 import com.tipeaky.peakystore.model.entities.User;
 import io.jsonwebtoken.Claims;
@@ -12,6 +8,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import java.util.Date;
+import java.util.UUID;
+
 @Service
 public class TokenService {
 
@@ -41,10 +39,10 @@ public class TokenService {
         }
     }
 
-    public Long getIdUsuario(String token) {
+    public UUID getIdUsuario(String token) {
         Claims claims = Jwts.parser().setSigningKey(this.secret).parseClaimsJws(token).getBody();
-        return Long.parseLong(claims.getSubject());
+        return UUID.fromString(claims.getSubject());
     }
 
 }
-*/
+

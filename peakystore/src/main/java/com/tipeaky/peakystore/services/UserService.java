@@ -21,7 +21,7 @@ public class UserService {
 
     public UserDTO save(UserForm userForm) {
         User user = mapper.map(userForm, User.class);
-        user.setRole(new Role(null, "Client"));
+        user.setRoles(new Role(null, "Client"));
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
         User savedUser = userRepository.save(user);
