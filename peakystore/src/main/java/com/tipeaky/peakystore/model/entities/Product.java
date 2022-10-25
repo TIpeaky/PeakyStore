@@ -32,17 +32,28 @@ public class Product {
     @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID id;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String sku;
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private String description;
+    @Column(nullable = false)
     private BigDecimal purchasePrice;
+    @Column(nullable = false)
     private BigDecimal salePrice;
+    @Column(nullable = false)
     private Integer stockQuantity;
+    @Column(nullable = false)
     private String productBrand;
+    @Column(nullable = false)
     private LocalDateTime lastUpdateDate;
+    @Column(nullable = false)
     private ColorEnum color;
+    @Column(nullable = false)
     private SizeEnum size;
+    @Column(nullable = false)
     private CategoryEnum category;
+    @Column(nullable = false)
     private SectionEnum section;
 }

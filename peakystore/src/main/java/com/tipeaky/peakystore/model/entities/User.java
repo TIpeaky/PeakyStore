@@ -24,11 +24,13 @@ public class User {
     @Column(name = "id", columnDefinition = "char(36)")
     @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID id;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String cpf;
+    @Column(nullable = false)
     private String name;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
+    @Column(nullable = false)
     private String password;
     private GenderEnum gender;
     //private Longblob avatar; imagem do usuário
@@ -37,6 +39,7 @@ public class User {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "role_id", referencedColumnName = "id")
+    @Column(nullable = false)
     private Role role;
 
     @OneToMany(cascade = CascadeType.ALL)

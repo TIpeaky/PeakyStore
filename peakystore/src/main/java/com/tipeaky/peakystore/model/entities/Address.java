@@ -25,10 +25,17 @@ public class Address {
     @Column(name = "id", columnDefinition = "char(36)")
     @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID id;
+    @Column(nullable = false)
     private String zipCode;
+    @Column(nullable = false)
     private String publicPlace;
+    @Column(nullable = false)
     private Integer number;
+    @Column(nullable = false)
     private String city;
+    @Column(nullable = false)
     private String state;
+    @Column(nullable = false)
     private String country;
+    private String complement;
 }

@@ -28,11 +28,15 @@ public class Card {
     @Column(name = "id", columnDefinition = "char(36)")
     @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID id;
-
+    @Column(nullable = false)
     private String number;
+    @Column(nullable = false)
     private LocalDate expirationDate;
+    @Column(nullable = false)
     private String securityCode;
+    @Column(nullable = false)
     private FlagEnum flag;
+    @Column(nullable = false)
     private CardTypeEnum cardType;
 
 }

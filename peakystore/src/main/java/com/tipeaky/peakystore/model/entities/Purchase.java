@@ -27,21 +27,29 @@ public class Purchase {
     @Column(name = "id", columnDefinition = "char(36)")
     @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID id;
+    @Column(nullable = false)
     private LocalDateTime orderMadeDateTime;
     private LocalDateTime paymentConfirmedDateTime;
     private LocalDateTime orderDispatchedDateTime;
     private LocalDateTime orderDeliveredDateTime;
     private LocalDateTime orderReturnedDateTime;
+    @Column(nullable = false)
     private BigDecimal totalValue;
+    @Column(nullable = false)
     private PaymentEnum payment;
+    @Column(nullable = false)
     private StatusEnum status;
+    @Column(nullable = false)
+    private Boolean isDelivered;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @Column(nullable = false)
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "purchase_id")
+    @Column(nullable = false)
     private List<CartItem> cartItemList;
 
     @OneToOne

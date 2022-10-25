@@ -25,5 +25,6 @@ public class Role {
     @Column(name = "id", columnDefinition = "char(36)")
     @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID id;
+    @Column(nullable = false)
     private String authority;
 }
