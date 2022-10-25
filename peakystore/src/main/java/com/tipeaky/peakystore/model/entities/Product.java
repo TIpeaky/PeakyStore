@@ -37,10 +37,10 @@ public class Product {
     private String description;
     private BigDecimal purchasePrice;
     private BigDecimal salePrice;
+    private Integer stockQuantity;
+    private String productBrand;
     private ColorEnum color;
     private SizeEnum size;
-    private Integer stockQuantity;
     private CategoryEnum category;
     private SectionEnum section;
-    private String productBrand;
 }

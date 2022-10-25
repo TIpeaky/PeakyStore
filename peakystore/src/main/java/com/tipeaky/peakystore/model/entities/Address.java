@@ -28,6 +28,7 @@ public class Address {
     private String zipCode;
     private String publicPlace;
     private Integer number;
+    private String city;
     private String state;
     private String country;
 }
