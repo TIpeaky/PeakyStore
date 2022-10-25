@@ -27,15 +27,15 @@ public class CartItem {
     private Integer quantity;
     @ManyToOne
     @JoinColumn(name = "product_id")
-    @Column(nullable = false)
     private Product product;
+
+    @Column(nullable = false)
+    private BigDecimal totalPrice;
 
     @ManyToOne
     @JoinColumn(name = "purchase_id")
-    @Column(nullable = false)
     private Purchase purchase;
-    @Column(nullable = false)
-    private BigDecimal totalPrice;
+
 
 }
 

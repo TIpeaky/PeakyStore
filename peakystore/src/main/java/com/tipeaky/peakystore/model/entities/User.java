@@ -39,7 +39,6 @@ public class User {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "role_id", referencedColumnName = "id")
-    @Column(nullable = false)
     private Role role;
 
     @OneToMany(cascade = CascadeType.ALL)

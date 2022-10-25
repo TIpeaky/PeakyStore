@@ -44,12 +44,10 @@ public class Purchase {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @Column(nullable = false)
     private User user;
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "purchase_id")
-    @Column(nullable = false)
     private List<CartItem> cartItemList;
 
     @OneToOne

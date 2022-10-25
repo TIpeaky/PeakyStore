@@ -1,3 +1,7 @@
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+
+
 /*package com.tipeaky.peakystore.config.security;
 
 import com.tipeaky.peakystore.model.entities.User;
