@@ -16,6 +16,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -39,6 +40,7 @@ public class Product {
     private BigDecimal salePrice;
     private Integer stockQuantity;
     private String productBrand;
+    private LocalDateTime lastUpdateDate;
     private ColorEnum color;
     private SizeEnum size;
     private CategoryEnum category;

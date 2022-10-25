@@ -33,6 +33,7 @@ public class User {
     private GenderEnum gender;
     //private Longblob avatar; imagem do usuário
     private LocalDate birthDate;
+    private Boolean notification;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "role_id", referencedColumnName = "id")

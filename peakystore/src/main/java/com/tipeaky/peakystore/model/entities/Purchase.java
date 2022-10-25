@@ -27,7 +27,11 @@ public class Purchase {
     @Column(name = "id", columnDefinition = "char(36)")
     @Type(type = "org.hibernate.type.UUIDCharType")
     private UUID id;
-    private LocalDateTime dateTime;
+    private LocalDateTime orderMadeDateTime;
+    private LocalDateTime paymentConfirmedDateTime;
+    private LocalDateTime orderDispatchedDateTime;
+    private LocalDateTime orderDeliveredDateTime;
+    private LocalDateTime orderReturnedDateTime;
     private BigDecimal totalValue;
     private PaymentEnum payment;
     private StatusEnum status;
@@ -39,6 +43,10 @@ public class Purchase {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "purchase_id")
     private List<CartItem> cartItemList;
+
+    @OneToOne
+    @JoinColumn(name = "delivery_address_id")
+    private Address deliveryAddress;
 
 
 
