@@ -3,6 +3,7 @@ package com.tipeaky.peakystore.services;
 import com.tipeaky.peakystore.exceptions.EntityNotFoundException;
 import com.tipeaky.peakystore.model.dtos.PurchaseDTO;
 import com.tipeaky.peakystore.model.entities.Purchase;
+import com.tipeaky.peakystore.model.entities.User;
 import com.tipeaky.peakystore.repositories.PurchaseRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,12 @@ public class PurchaseService {
         if(purchase.isEmpty()){
             throw new EntityNotFoundException("Pedido não encontrado");
         }
+        PurchaseDTO purchaseDTO = mapper.map(purchase.get(), PurchaseDTO.class);
 
-        return mapper.map(purchase.get(), PurchaseDTO.class);
+        purchaseDTO.setUser(new User());
+        purchaseDTO.getUser().setName(purchase.get().getUser().getName());
+        purchaseDTO.getUser().setCpf(purchase.get().getUser().getCpf());
+
+        return purchaseDTO;
     }
 }

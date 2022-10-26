@@ -1,5 +1,6 @@
 package com.tipeaky.peakystore.model.dtos;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.tipeaky.peakystore.model.enums.CategoryEnum;
 import com.tipeaky.peakystore.model.enums.ColorEnum;
 import com.tipeaky.peakystore.model.enums.SectionEnum;
@@ -14,6 +15,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_EMPTY) //Não mostrará atributos nulos
 public class ProductDTO {
 
     private UUID id;

@@ -1,5 +1,6 @@
 package com.tipeaky.peakystore.model.dtos;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.tipeaky.peakystore.model.entities.Address;
 import com.tipeaky.peakystore.model.entities.CartItem;
 import com.tipeaky.peakystore.model.entities.User;
@@ -14,6 +15,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL) //Não mostrará atributos nulos
 public class PurchaseDTO {
     private UUID id;
     private LocalDateTime orderMadeDateTime;

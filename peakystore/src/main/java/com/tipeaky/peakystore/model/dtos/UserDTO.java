@@ -1,6 +1,7 @@
 package com.tipeaky.peakystore.model.dtos;
 
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.tipeaky.peakystore.model.entities.Role;
 import com.tipeaky.peakystore.model.enums.GenderEnum;
 import lombok.Getter;
@@ -10,6 +11,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
+@JsonInclude(JsonInclude.Include.NON_NULL) //Não mostrará atributos nulos
 public class UserDTO {
     private UUID id;
     private String cpf;
