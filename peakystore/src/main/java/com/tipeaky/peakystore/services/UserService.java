@@ -28,7 +28,7 @@ public class UserService {
     @Transactional
     public UserDTO saveClient(UserForm userForm) {
         if(userRepository.findByCpf(userForm.getCpf()).isPresent())
-            throw new DuplicatedEntityException("user already registered in the system");
+            throw new DuplicatedEntityException("Usuário com esse CPF já existe no sistema");
 
         User user = mapper.map(userForm, User.class);
 
@@ -44,7 +44,7 @@ public class UserService {
 
     public UserDTO findUserById(UUID userId) {
         Optional<User> optionalUser = userRepository.findById(userId);
-        if (optionalUser.isEmpty()) throw new EntityNotFoundException("User not found");
+        if (optionalUser.isEmpty()) throw new EntityNotFoundException("Usuário não encontrado");
         return mapper.map(optionalUser.get(), UserDTO.class);
     }
 }
