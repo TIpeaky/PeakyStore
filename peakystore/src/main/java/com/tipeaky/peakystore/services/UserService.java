@@ -1,6 +1,7 @@
 package com.tipeaky.peakystore.services;
 
 import com.tipeaky.peakystore.exceptions.DuplicatedEntityException;
+import com.tipeaky.peakystore.exceptions.EntityNotFoundException;
 import com.tipeaky.peakystore.model.dtos.UserDTO;
 import com.tipeaky.peakystore.model.entities.Role;
 import com.tipeaky.peakystore.model.entities.User;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -28,16 +30,21 @@ public class UserService {
         if(userRepository.findByCpf(userForm.getCpf()).isPresent())
             throw new DuplicatedEntityException("user already registered in the system");
 
-
         User user = mapper.map(userForm, User.class);
+
         user.setRoles(new Role(null, "Client"));
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
+        if(user.getNotification() == null)
+            user.setNotification(false);
+
         User savedUser = userRepository.save(user);
         return mapper.map(savedUser, UserDTO.class);
     }
 
-    public UserDTO findUserById(UUID userID) {
-        return null;
+    public UserDTO findUserById(UUID userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isEmpty()) throw new EntityNotFoundException("User not found");
+        return mapper.map(optionalUser.get(), UserDTO.class);
     }
 }

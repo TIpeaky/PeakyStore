@@ -241,7 +241,3 @@ Tpeakystore/src/main/java/com/tipeaky/peakystore/repositories/PurchaseRepository
 Ppeakystore/src/main/java/com/tipeaky/peakystore/repositories/RoleRepository.java,9\f\9f340530d0356e99c9253c9092a9167029e28ab1
 x
 Hpeakystore/src/main/java/com/tipeaky/peakystore/model/entities/User.java,3\7\371f674885abeb679e12118e4cfab4b5b38593aa
-w
-Gpeakystore/src/main/java/com/tipeaky/peakystore/model/dtos/UserDTO.java,f\0\f0704a419412894f7c1b9443f73be4a1c423e2ee
-y
-Ipeakystore/src/main/java/com/tipeaky/peakystore/model/forms/UserForm.java,c\c\cc43976370d6b59b6f5a4e702c1faa4cf03edc12

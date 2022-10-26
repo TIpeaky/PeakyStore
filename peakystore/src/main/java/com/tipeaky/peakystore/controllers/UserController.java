@@ -6,7 +6,6 @@ import com.tipeaky.peakystore.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -25,7 +24,7 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<UserDTO> findUserById(@PathVariable UUID userID) {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.findUserById(userID));
+    public ResponseEntity<UserDTO> findUserById(@PathVariable UUID userId) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findUserById(userId));
     }
 }
