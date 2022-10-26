@@ -1,0 +1,40 @@
+
+L
+java:S5869!"*Remove duplicates in this character class.(È÷è×ÿÿÿÿÿ8Ä­ƒÁ0
+R
+java:S6397 "5Replace this character class by the character itself.(÷†áş8±Ä­ƒÁ0
+R
+java:S6397 "5Replace this character class by the character itself.(÷†áş8³Ä­ƒÁ0
+R
+java:S6397 "5Replace this character class by the character itself.(÷†áş8³Ä­ƒÁ0
+W
+java:S6397!"5Replace this character class by the character itself.(È÷è×ÿÿÿÿÿ8³Ä­ƒÁ0
+W
+java:S6397!"5Replace this character class by the character itself.(È÷è×ÿÿÿÿÿ8´Ä­ƒÁ0
+W
+java:S6397!"5Replace this character class by the character itself.(È÷è×ÿÿÿÿÿ8¶Ä­ƒÁ0
+Y
+java:S6353 "<Use concise character class syntax '\\d' instead of '[0-9]'.(÷†áş8¶Ä­ƒÁ0
+^
+java:S6353!"<Use concise character class syntax '\\d' instead of '[0-9]'.(È÷è×ÿÿÿÿÿ8·Ä­ƒÁ0
+^
+java:S6353!"<Use concise character class syntax '\\d' instead of '[0-9]'.(È÷è×ÿÿÿÿÿ8·Ä­ƒÁ0
+`
+java:S1128"JRemove this unused import 'com.tipeaky.peakystore.model.entities.Address'.(¿µëÏ
+b
+java:S1128"GRemove this unused import 'com.tipeaky.peakystore.model.entities.Card'.(‹èè˜ÿÿÿÿÿ
+]
+java:S1128"GRemove this unused import 'com.tipeaky.peakystore.model.entities.Role'.(ÖÀ†¡
+]
+java:S1128	"GRemove this unused import 'org.hibernate.annotations.GenericGenerator'.(ƒİŸÉ
+Q
+java:S1128
+";Remove this unused import 'org.hibernate.annotations.Type'.(ı®™Ê
+D
+java:S1128".Remove this unused import 'javax.persistence'.(¬£şç
+F
+java:S1128"+Remove this unused import 'java.util.List'.(Õë±Äøÿÿÿÿ
+F
+java:S1128"+Remove this unused import 'java.util.UUID'.(ÀãÄ£úÿÿÿÿ
+q
+java:S5843 "TSimplify this regular expression to reduce its complexity from 71 to the 20 allowed.(÷†áş8¼Ä­ƒÁ0
