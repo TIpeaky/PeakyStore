@@ -10,9 +10,7 @@ import lombok.Setter;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -24,15 +22,14 @@ public class ProductRegisterForm {
     private String name;
     @NotBlank
     private String description;
-    @DecimalMin("1")
+    @DecimalMin("0")
     private BigDecimal purchasePrice;
-    @DecimalMin("1")
+    @DecimalMin("0")
     private BigDecimal salePrice;
-    @Min(1)
+    @Min(0)
     private Integer stockQuantity;
     @NotBlank
     private String productBrand;
-    private LocalDateTime lastUpdateDate;
     private ColorEnum color;
     private SizeEnum size;
     private CategoryEnum category;
