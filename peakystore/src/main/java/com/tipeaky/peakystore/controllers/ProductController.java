@@ -21,7 +21,7 @@ public class ProductController {
 
     @PostMapping
     public ResponseEntity<?> save(@RequestBody @Valid ProductRegisterForm productRegisterForm) {
-        return ResponseEntity.status(HttpStatus.OK).body(productService.save(productRegisterForm));
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(productRegisterForm));
     }
 
 
