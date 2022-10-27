@@ -2,6 +2,7 @@ package com.tipeaky.peakystore.services;
 
 import com.tipeaky.peakystore.exceptions.EntityNotFoundException;
 import com.tipeaky.peakystore.model.dtos.PurchaseDTO;
+import com.tipeaky.peakystore.model.dtos.UserDTO;
 import com.tipeaky.peakystore.model.entities.Purchase;
 import com.tipeaky.peakystore.model.entities.User;
 import com.tipeaky.peakystore.repositories.PurchaseRepository;
@@ -26,8 +27,7 @@ public class PurchaseService {
             throw new EntityNotFoundException("Pedido não encontrado");
         }
         PurchaseDTO purchaseDTO = mapper.map(purchase.get(), PurchaseDTO.class);
-
-        purchaseDTO.setUser(new User());
+        purchaseDTO.setUser(new UserDTO());
         purchaseDTO.getUser().setName(purchase.get().getUser().getName());
         purchaseDTO.getUser().setCpf(purchase.get().getUser().getCpf());
 

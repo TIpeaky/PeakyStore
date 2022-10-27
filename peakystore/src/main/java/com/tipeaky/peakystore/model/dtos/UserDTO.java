@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@JsonInclude(JsonInclude.Include.NON_NULL) //Não mostrará atributos nulos
+@JsonInclude(JsonInclude.Include.NON_EMPTY) //Não mostrará atributos nulos e nem vazios
 public class UserDTO {
     private UUID id;
     private String cpf;

@@ -1,5 +1,6 @@
 package com.tipeaky.peakystore.config.mapper;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

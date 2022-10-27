@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@JsonInclude(JsonInclude.Include.NON_EMPTY) //Não mostrará atributos nulos
+@JsonInclude(JsonInclude.Include.NON_EMPTY) //Não mostrará atributos nulos e nem vazios
 public class ProductDTO {
 
     private UUID id;
