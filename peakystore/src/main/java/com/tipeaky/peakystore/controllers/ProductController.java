@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
@@ -13,7 +15,7 @@ import java.util.UUID;
 public class ProductController {
 
     @Autowired
-    ProductService productService;
+    private ProductService productService;
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductDTO> getProduct(@PathVariable UUID id) {
@@ -23,5 +25,11 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable UUID id) {
         return productService.deleteProduct(id);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductDTO> update(@PathVariable UUID id, @RequestBody @Valid ProductDTO dto){
+        dto.setId(id);
+        return ResponseEntity.ok().body(productService.update(dto));
     }
 }

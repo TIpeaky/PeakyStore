@@ -5,16 +5,19 @@ import com.tipeaky.peakystore.model.enums.CategoryEnum;
 import com.tipeaky.peakystore.model.enums.ColorEnum;
 import com.tipeaky.peakystore.model.enums.SectionEnum;
 import com.tipeaky.peakystore.model.enums.SizeEnum;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_EMPTY) //Não mostrará atributos nulos e nem vazios
 public class ProductDTO {
 
