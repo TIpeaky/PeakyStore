@@ -1,5 +1,6 @@
 package com.tipeaky.peakystore.services;
 
+import com.tipeaky.peakystore.exceptions.InvalidFormatException;
 import com.tipeaky.peakystore.model.dtos.ProductDTO;
 import com.tipeaky.peakystore.model.entities.Product;
 import com.tipeaky.peakystore.model.forms.ProductRegisterForm;
@@ -22,6 +23,7 @@ public class ProductService {
     public ProductDTO save(ProductRegisterForm productRegisterForm) {
         Product product = mapper.map(productRegisterForm, Product.class);
         product.setLastUpdateDate(LocalDateTime.now());
+        product.setSku(product.generateSku());
         productRepository.save(product);
 
         return mapper.map(product, ProductDTO.class);
