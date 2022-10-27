@@ -5,13 +5,9 @@ import com.tipeaky.peakystore.model.enums.GenderEnum;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.UniqueElements;
 import org.hibernate.validator.constraints.br.CPF;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 
@@ -19,19 +15,15 @@ import java.time.LocalDate;
 public class UserForm {
     @CPF @NotBlank
     private String cpf;
-    @NotBlank
+    @NotBlank @Length(min = 3, max = 50)
     private String name;
     @Email
     @NotBlank
     private String email;
-    @NotBlank @Length(min = 6)
+    @NotBlank @Length(min = 6, max = 50)
     private String password;
     private GenderEnum gender;
-
-//    @Pattern(regexp = "(^(((0[1-9]|1[0-9]|2[0-8])[\\/](0[1-9]|1[012]))|((29|30|31)[\\/](0[13578]|1[02]))|((29|30)[\\/](0" +
-//            "[4,6,9]|11)))[\\/](19|[2-9][0-9])\\d\\d$)|(^29[\\/]02[\\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32" +
-//            "|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)")
-//    @NotBlank @Past @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$")
+    @NotNull @Past
     private LocalDate birthDate;
     private Boolean notification;
 }

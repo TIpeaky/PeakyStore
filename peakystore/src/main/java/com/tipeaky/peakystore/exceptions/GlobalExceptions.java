@@ -17,4 +17,10 @@ public class GlobalExceptions {
         StandardError se = new StandardError(LocalDateTime.now(), 404, "Not Found", e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(se);
     }
+
+    @ExceptionHandler(DuplicatedEntityException.class)
+    public ResponseEntity<StandardError> entityNotFoundHandlerMethod(DuplicatedEntityException e, HttpServletRequest request) {
+        StandardError se = new StandardError(LocalDateTime.now(), 409, "Conflict", e.getMessage(), request.getRequestURI());
+        return  ResponseEntity.status(HttpStatus.CONFLICT).body(se);
+    }
 }
