@@ -10,14 +10,13 @@ import lombok.Setter;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 @Getter
 @Setter
 public class ProductRegisterForm {
 
-    @NotBlank
-    private String sku;
     @NotBlank
     private String name;
     @NotBlank
@@ -30,9 +29,13 @@ public class ProductRegisterForm {
     private Integer stockQuantity;
     @NotBlank
     private String productBrand;
+    @NotNull
     private ColorEnum color;
+    @NotNull
     private SizeEnum size;
+    @NotNull
     private CategoryEnum category;
+    @NotNull
     private SectionEnum section;
 
 }
