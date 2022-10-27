@@ -17,4 +17,10 @@ public class GlobalExceptions {
         StandardError se = new StandardError(LocalDateTime.now(), 404, "Not Found", e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(se);
     }
+
+    @ExceptionHandler(OutOfStockException.class)
+    public ResponseEntity<StandardError> entityNotFoundHandlerMethod(OutOfStockException e, HttpServletRequest request) {
+        StandardError se = new StandardError(LocalDateTime.now(), 422, "Unprocessable Entity", e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(se);
+    }
 }

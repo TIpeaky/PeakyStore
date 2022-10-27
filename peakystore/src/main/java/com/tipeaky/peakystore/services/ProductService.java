@@ -1,6 +1,7 @@
 package com.tipeaky.peakystore.services;
 
 import com.tipeaky.peakystore.exceptions.MethodNotAllowedException;
+import com.tipeaky.peakystore.exceptions.OutOfStockException;
 import com.tipeaky.peakystore.model.dtos.ProductDTO;
 import com.tipeaky.peakystore.model.entities.Product;
 import com.tipeaky.peakystore.repositories.ProductRepository;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -42,4 +44,26 @@ public class ProductService {
         }
         return ResponseEntity.ok().body("Produto excluído com sucesso");
     }
+
+    private void updateProduct(ProductDTO productDTO) {
+        productRepository.save(mapper.map(productDTO, Product.class));
+    }
+
+    public void reduceStock(UUID id, Integer quantity) {
+        ProductDTO productDTO = getProduct(id);
+        if(Boolean.FALSE.equals(haveStock(productDTO, quantity)))
+            throw new OutOfStockException("Não há estoque disponível");
+
+        productDTO.setStockQuantity(productDTO.getStockQuantity() - quantity);
+        productDTO.setLastUpdateDate(LocalDateTime.now());
+        updateProduct(productDTO);
+    }
+
+    public Boolean haveStock(ProductDTO productDTO, Integer quantity) {
+        return productDTO.getStockQuantity() >= quantity;
+    }
+
+
+
+
 }

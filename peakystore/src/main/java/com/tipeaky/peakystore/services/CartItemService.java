@@ -22,6 +22,9 @@ public class CartItemService {
     @Autowired
     private PurchaseRepository purchaseRepository;
 
+    @Autowired
+    private ProductService productService;
+
     @Transactional
     public CartItemDTO insert(CartItemDTO dto) {
         Product product = productRepository.getReferenceById(dto.getProductId());
@@ -31,6 +34,9 @@ public class CartItemService {
         cartItem.setId(cartItemPK);
         cartItem.setQuantity(dto.getQuantity());
         cartItem.setTotalPrice(dto.getTotalPrice());
+
+        productService.reduceStock(product.getId(), dto.getQuantity());
+
         return new CartItemDTO(repository.save(cartItem));
     }
 
