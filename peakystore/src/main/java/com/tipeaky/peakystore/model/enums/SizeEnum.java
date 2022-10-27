@@ -28,4 +28,15 @@ public enum SizeEnum {
         return description;
     }
 
+    public static final Map<String, SizeEnum> sizeEnumMap = new HashMap<String, SizeEnum>();
+    static {
+        for (SizeEnum sizeEnum : EnumSet.allOf(SizeEnum.class)) {
+            sizeEnumMap.put(sizeEnum.getKey(), sizeEnum);
+        }
+    }
+
+    public static SizeEnum get(String string) {
+        return sizeEnumMap.get(string);
+    }
+
 }

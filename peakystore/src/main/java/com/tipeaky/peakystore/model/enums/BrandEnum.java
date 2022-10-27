@@ -1,5 +1,9 @@
 package com.tipeaky.peakystore.model.enums;
 
+import java.util.EnumSet;
+import java.util.HashMap;
+import java.util.Map;
+
 public enum BrandEnum {
 
     NIKE("NI", "Nike"),
@@ -24,6 +28,17 @@ public enum BrandEnum {
 
     public String getDescription() {
         return description;
+    }
+
+    public static final Map<String, BrandEnum> brandEnumMap = new HashMap<String, BrandEnum>();
+    static {
+        for (BrandEnum brandEnum : EnumSet.allOf(BrandEnum.class)) {
+            brandEnumMap.put(brandEnum.getKey(), brandEnum);
+        }
+    }
+
+    public static BrandEnum get(String string) {
+        return brandEnumMap.get(string);
     }
 
 }

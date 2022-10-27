@@ -28,5 +28,16 @@ public enum SectionEnum {
         return description;
     }
 
+    public static final Map<String, SectionEnum> sectionEnumMap = new HashMap<String, SectionEnum>();
+    static {
+        for (SectionEnum sectionEnum : EnumSet.allOf(SectionEnum.class)) {
+            sectionEnumMap.put(sectionEnum.getKey(), sectionEnum);
+        }
+    }
+
+    public static SectionEnum get(String string) {
+        return sectionEnumMap.get(string);
+    }
+
 }
 

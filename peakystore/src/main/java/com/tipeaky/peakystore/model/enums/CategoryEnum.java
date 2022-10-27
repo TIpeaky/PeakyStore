@@ -39,4 +39,15 @@ public enum CategoryEnum {
         return description;
     }
 
+    public static final Map<String, CategoryEnum> categoryEnumMap = new HashMap<String, CategoryEnum>();
+    static {
+        for (CategoryEnum categoryEnum : EnumSet.allOf(CategoryEnum.class)) {
+            categoryEnumMap.put(categoryEnum.getKey(), categoryEnum);
+        }
+    }
+
+    public static CategoryEnum get(String string) {
+        return categoryEnumMap.get(string);
+    }
+
 }

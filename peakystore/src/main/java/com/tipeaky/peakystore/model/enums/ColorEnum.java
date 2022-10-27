@@ -33,4 +33,15 @@ public enum ColorEnum {
         return description;
     }
 
+    public static final Map<String, ColorEnum> colorEnumMap = new HashMap<String, ColorEnum>();
+    static {
+        for (ColorEnum colorEnum : EnumSet.allOf(ColorEnum.class)) {
+            colorEnumMap.put(colorEnum.getKey(), colorEnum);
+        }
+    }
+
+    public static ColorEnum get(String string) {
+        return colorEnumMap.get(string);
+    }
+
 }
