@@ -1,15 +1,17 @@
 package com.tipeaky.peakystore.model.entities;
 
+import com.tipeaky.peakystore.model.entities.pk.CartItemPK;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Type;
+import org.hibernate.Hibernate;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
 import java.math.BigDecimal;
-import java.util.UUID;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -17,25 +19,26 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CartItem {
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "id", columnDefinition = "char(36)")
-    @Type(type = "org.hibernate.type.UUIDCharType")
-    private UUID id;
+
+    @EmbeddedId
+    private CartItemPK id = new CartItemPK();
     @Column(nullable = false)
     private Integer quantity;
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
 
     @Column(nullable = false)
     private BigDecimal totalPrice;
 
-    @ManyToOne
-    @JoinColumn(name = "purchase_id")
-    private Purchase purchase;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        CartItem cartItem = (CartItem) o;
+        return id != null && Objects.equals(id, cartItem.id);
+    }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
 
