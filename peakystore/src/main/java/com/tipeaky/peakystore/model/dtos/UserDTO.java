@@ -2,7 +2,6 @@ package com.tipeaky.peakystore.model.dtos;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.tipeaky.peakystore.model.entities.Role;
 import com.tipeaky.peakystore.model.enums.GenderEnum;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +16,6 @@ public class UserDTO {
     private String cpf;
     private String name;
     private String email;
-    private String password;
     private GenderEnum gender;
     //private Longblob avatar; imagem do usuário
     private LocalDate birthDate;

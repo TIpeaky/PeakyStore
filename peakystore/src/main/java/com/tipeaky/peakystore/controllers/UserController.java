@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -26,5 +27,10 @@ public class UserController {
     @GetMapping("/{userId}")
     public ResponseEntity<UserDTO> findUserById(@PathVariable UUID userId) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findUserById(userId));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUseres());
     }
 }

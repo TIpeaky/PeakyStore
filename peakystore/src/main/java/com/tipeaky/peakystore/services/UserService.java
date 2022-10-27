@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -46,5 +46,16 @@ public class UserService {
         Optional<User> optionalUser = userRepository.findById(userId);
         if (optionalUser.isEmpty()) throw new EntityNotFoundException("Usuário não encontrado");
         return mapper.map(optionalUser.get(), UserDTO.class);
+    }
+
+    public List<UserDTO> getAllUseres() {
+        List<User> users= userRepository.findAll();
+        if(users.isEmpty()){
+            throw new EntityNotFoundException("Usuário não encontrado");
+        }
+
+
+
+        return users.stream().map(user -> mapper.map(user, UserDTO.class)).toList();
     }
 }
