@@ -48,7 +48,7 @@ public class UserService {
         return mapper.map(optionalUser.get(), UserDTO.class);
     }
 
-    public List<UserDTO> getAllUseres() {
+    public List<UserDTO> getAllUsers() {
         List<User> users= userRepository.findAll();
         if(users.isEmpty()){
             throw new EntityNotFoundException("Usuário não encontrado");

@@ -3,24 +3,17 @@ package com.tipeaky.peakystore.services;
 import com.tipeaky.peakystore.exceptions.MethodNotAllowedException;
 import com.tipeaky.peakystore.model.dtos.ProductDTO;
 import com.tipeaky.peakystore.model.entities.Product;
+import com.tipeaky.peakystore.model.forms.ProductRegisterForm;
 import com.tipeaky.peakystore.repositories.ProductRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
-import com.tipeaky.peakystore.exceptions.InvalidFormatException;
-import com.tipeaky.peakystore.model.dtos.ProductDTO;
-import com.tipeaky.peakystore.model.entities.Product;
-import com.tipeaky.peakystore.model.forms.ProductRegisterForm;
-import com.tipeaky.peakystore.repositories.ProductRepository;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
 
 @Service
 public class ProductService {

@@ -31,6 +31,6 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<UserDTO>> getAllUsers() {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUseres());
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUsers());
     }
 }
