@@ -2,9 +2,11 @@ package com.tipeaky.peakystore.services;
 
 import com.tipeaky.peakystore.exceptions.DuplicatedEntityException;
 import com.tipeaky.peakystore.exceptions.EntityNotFoundException;
+import com.tipeaky.peakystore.exceptions.UnauthorizedException;
 import com.tipeaky.peakystore.model.dtos.UserDTO;
 import com.tipeaky.peakystore.model.entities.Role;
 import com.tipeaky.peakystore.model.entities.User;
+import com.tipeaky.peakystore.model.forms.NewPasswordForm;
 import com.tipeaky.peakystore.model.forms.UserForm;
 import com.tipeaky.peakystore.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -46,5 +48,19 @@ public class UserService {
         Optional<User> optionalUser = userRepository.findById(userId);
         if (optionalUser.isEmpty()) throw new EntityNotFoundException("Usuário não encontrado");
         return mapper.map(optionalUser.get(), UserDTO.class);
+    }
+
+    public String newPassword(UUID id, NewPasswordForm form) {
+        Optional<User> optionalUser = userRepository.findById(id);
+        User user = mapper.map(optionalUser, User.class);
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String oldPassword = encoder.encode(form.getPassword());
+        if(oldPassword.equals(user.getPassword())) {
+            throw new UnauthorizedException("Senha Incorreta");
+        }
+        user.setPassword(encoder.encode(form.getNewPassword()));
+
+
+        return "Senha Alterada com sucesso";
     }
 }
