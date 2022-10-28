@@ -19,7 +19,6 @@ public class ProductController {
     public ResponseEntity<ProductDTO> getProduct(@PathVariable UUID id) {
         return ResponseEntity.status(HttpStatus.OK).body(productService.getProduct(id));
     }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable UUID id) {
         return productService.deleteProduct(id);
