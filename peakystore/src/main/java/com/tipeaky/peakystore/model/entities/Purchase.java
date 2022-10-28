@@ -47,7 +47,7 @@ public class Purchase {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<CartItem> cartItemList;
 
