@@ -11,6 +11,16 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 import java.util.UUID;
+import com.tipeaky.peakystore.exceptions.InvalidFormatException;
+import com.tipeaky.peakystore.model.dtos.ProductDTO;
+import com.tipeaky.peakystore.model.entities.Product;
+import com.tipeaky.peakystore.model.forms.ProductRegisterForm;
+import com.tipeaky.peakystore.repositories.ProductRepository;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 @Service
 public class ProductService {
@@ -42,4 +52,13 @@ public class ProductService {
         }
         return ResponseEntity.ok().body("Produto excluído com sucesso");
     }
+    public ProductDTO save(ProductRegisterForm productRegisterForm) {
+        Product product = mapper.map(productRegisterForm, Product.class);
+        product.setLastUpdateDate(LocalDateTime.now());
+        product.setSku(product.generateSku());
+        productRepository.save(product);
+
+        return mapper.map(product, ProductDTO.class);
+    }
+
 }

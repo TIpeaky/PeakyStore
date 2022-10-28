@@ -1,6 +1,5 @@
-package com.tipeaky.peakystore.model.dtos;
+package com.tipeaky.peakystore.model.forms;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.tipeaky.peakystore.model.enums.CategoryEnum;
 import com.tipeaky.peakystore.model.enums.ColorEnum;
 import com.tipeaky.peakystore.model.enums.SectionEnum;
@@ -8,28 +7,35 @@ import com.tipeaky.peakystore.model.enums.SizeEnum;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
-@JsonInclude(JsonInclude.Include.NON_EMPTY) //Não mostrará atributos nulos e nem vazios
-public class ProductDTO {
+public class ProductRegisterForm {
 
-    private UUID id;
-    private String sku;
+    @NotBlank
     private String name;
+    @NotBlank
     private String description;
+    @DecimalMin("0")
     private BigDecimal purchasePrice;
+    @DecimalMin("0")
     private BigDecimal salePrice;
+    @Min(0)
     private Integer stockQuantity;
+    @NotBlank
     private String productBrand;
-    private LocalDateTime lastUpdateDate;
+    @NotNull
     private ColorEnum color;
+    @NotNull
     private SizeEnum size;
+    @NotNull
     private CategoryEnum category;
+    @NotNull
     private SectionEnum section;
 
 }

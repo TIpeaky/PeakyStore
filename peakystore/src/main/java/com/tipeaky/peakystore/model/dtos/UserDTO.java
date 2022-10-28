@@ -16,6 +16,7 @@ public class UserDTO {
     private String cpf;
     private String name;
     private String email;
+    private String password;
     private GenderEnum gender;
     //private Longblob avatar; imagem do usuário
     private LocalDate birthDate;
