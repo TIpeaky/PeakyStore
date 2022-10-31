@@ -48,14 +48,17 @@ public class ProductService {
         }
         return ResponseEntity.ok().body("Produto excluído com sucesso");
     }
-
     @Transactional
-    public ProductDTO update(ProductUpdateForm form) {
-        getProduct(form.getId());
-        //TODO
-        //aqui deve ser chamado o método save em productService, para gerar o novo sku do produto.
-        return mapper.map(productRepository.save(mapper.map(form, Product.class)), ProductDTO.class);
+    public ProductDTO update(ProductUpdateForm productUpdateForm) {
+        ProductDTO recoveryProductDTO = getProduct(productUpdateForm.getId());
+        mapper.map(productUpdateForm, recoveryProductDTO);
+        Product product = mapper.map(recoveryProductDTO, Product.class);
+        product.setLastUpdateDate(LocalDateTime.now());
+        product.setSku(product.generateSku());
+
+        return mapper.map(productRepository.save(product), ProductDTO.class);
     }
+
     public ProductDTO save(ProductRegisterForm productRegisterForm) {
         Product product = mapper.map(productRegisterForm, Product.class);
         product.setLastUpdateDate(LocalDateTime.now());

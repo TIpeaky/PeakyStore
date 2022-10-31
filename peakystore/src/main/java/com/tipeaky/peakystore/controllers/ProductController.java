@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/product")
@@ -35,16 +34,11 @@ public class ProductController {
     public ResponseEntity<String> deleteProduct(@PathVariable UUID id) {
         return productService.deleteProduct(id);
     }
+
     @PostMapping
     public ResponseEntity<?> save(@RequestBody @Valid ProductRegisterForm productRegisterForm) {
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(productRegisterForm));
     }
-
-
-
-
-
-
     @PutMapping("/{id}")
     public ResponseEntity<ProductDTO> update(@PathVariable UUID id, @RequestBody @Valid ProductUpdateForm form){
         if(form.checkNull()) throw new NullObjectException("Todos os atributos são nulos");
