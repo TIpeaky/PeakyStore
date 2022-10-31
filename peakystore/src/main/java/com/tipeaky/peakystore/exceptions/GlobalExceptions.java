@@ -23,4 +23,10 @@ public class GlobalExceptions {
         StandardError se = new StandardError(LocalDateTime.now(), 409, "Conflict", e.getMessage(), request.getRequestURI());
         return  ResponseEntity.status(HttpStatus.CONFLICT).body(se);
     }
+
+    @ExceptionHandler(NullObjectException.class)
+    public ResponseEntity<StandardError> entityNotFoundHandlerMethod(NullObjectException e, HttpServletRequest request) {
+        StandardError se = new StandardError(LocalDateTime.now(), 400, "Bad Request", e.getMessage(), request.getRequestURI());
+        return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(se);
+    }
 }

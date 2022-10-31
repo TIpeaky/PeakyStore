@@ -33,8 +33,10 @@ public class UserService {
         User user = mapper.map(userForm, User.class);
 
         user.setRoles(new Role(null, "Client"));
+
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
+
         if(user.getNotification() == null)
             user.setNotification(false);
 

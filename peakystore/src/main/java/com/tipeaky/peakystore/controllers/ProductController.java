@@ -1,6 +1,8 @@
 package com.tipeaky.peakystore.controllers;
 
+import com.tipeaky.peakystore.exceptions.NullObjectException;
 import com.tipeaky.peakystore.model.dtos.ProductDTO;
+import com.tipeaky.peakystore.model.forms.ProductUpdateForm;
 import com.tipeaky.peakystore.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,8 +30,10 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductDTO> update(@PathVariable UUID id, @RequestBody @Valid ProductDTO dto){
-        dto.setId(id);
-        return ResponseEntity.ok().body(productService.update(dto));
+    public ResponseEntity<ProductDTO> update(@PathVariable UUID id, @RequestBody @Valid ProductUpdateForm form){
+        if(form.checkNull()) throw new NullObjectException("Todos os atributos são nulos");
+
+        form.setId(id);
+        return ResponseEntity.ok().body(productService.update(form));
     }
 }

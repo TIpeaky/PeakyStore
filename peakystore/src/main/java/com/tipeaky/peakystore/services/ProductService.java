@@ -3,6 +3,7 @@ package com.tipeaky.peakystore.services;
 import com.tipeaky.peakystore.exceptions.MethodNotAllowedException;
 import com.tipeaky.peakystore.model.dtos.ProductDTO;
 import com.tipeaky.peakystore.model.entities.Product;
+import com.tipeaky.peakystore.model.forms.ProductUpdateForm;
 import com.tipeaky.peakystore.repositories.ProductRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +47,10 @@ public class ProductService {
     }
 
     @Transactional
-    public ProductDTO update(ProductDTO dto) {
-        getProduct(dto.getId());
-        return mapper.map(productRepository.save(mapper.map(dto, Product.class)), ProductDTO.class);
+    public ProductDTO update(ProductUpdateForm form) {
+        getProduct(form.getId());
+        //TODO
+        //aqui deve ser chamado o método save em productService, para gerar o novo sku do produto.
+        return mapper.map(productRepository.save(mapper.map(form, Product.class)), ProductDTO.class);
     }
 }
