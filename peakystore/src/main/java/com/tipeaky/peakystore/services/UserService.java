@@ -4,11 +4,13 @@ import com.tipeaky.peakystore.config.security.TokenService;
 import com.tipeaky.peakystore.exceptions.DuplicatedEntityException;
 import com.tipeaky.peakystore.exceptions.EntityNotFoundException;
 import com.tipeaky.peakystore.exceptions.UnauthorizedException;
+import com.tipeaky.peakystore.model.dtos.NotificationDTO;
 import com.tipeaky.peakystore.model.dtos.UserDTO;
 import com.tipeaky.peakystore.model.entities.Role;
 import com.tipeaky.peakystore.model.entities.User;
 import com.tipeaky.peakystore.model.forms.LoginForm;
 import com.tipeaky.peakystore.model.forms.NewPasswordForm;
+import com.tipeaky.peakystore.model.forms.NotificationForm;
 import com.tipeaky.peakystore.model.forms.UserForm;
 import com.tipeaky.peakystore.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -19,7 +21,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -46,8 +48,10 @@ public class UserService {
         User user = mapper.map(userForm, User.class);
 
         user.setRoles(new Role(null, "Client"));
+
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
+
         if(user.getNotification() == null)
             user.setNotification(false);
 
@@ -59,6 +63,24 @@ public class UserService {
         Optional<User> optionalUser = userRepository.findById(userId);
         if (optionalUser.isEmpty()) throw new EntityNotFoundException("Usuário não encontrado");
         return mapper.map(optionalUser.get(), UserDTO.class);
+    }
+
+    public List<UserDTO> getAllUsers() {
+        List<User> users= userRepository.findAll();
+        if(users.isEmpty()){
+            throw new EntityNotFoundException("Usuário não encontrado");
+        }
+
+
+
+        return users.stream().map(user -> mapper.map(user, UserDTO.class)).toList();
+    }
+
+    public NotificationDTO updateNotification(NotificationForm notificationForm, UUID userId) {
+        UserDTO userDto = findUserById(userId);
+        userDto.setNotification(notificationForm.getNotification());
+        userRepository.save(mapper.map(userDto, User.class));
+        return (mapper.map (notificationForm, NotificationDTO.class));
     }
 
     public String newPassword(UUID id, NewPasswordForm form) {
