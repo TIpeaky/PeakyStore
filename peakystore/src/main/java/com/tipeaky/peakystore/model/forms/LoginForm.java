@@ -1,11 +1,13 @@
 package com.tipeaky.peakystore.model.forms;
 
+import lombok.AllArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
+@AllArgsConstructor
 public class LoginForm {
 
 	@NotBlank
