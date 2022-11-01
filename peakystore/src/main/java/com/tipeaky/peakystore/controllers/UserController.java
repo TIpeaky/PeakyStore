@@ -1,6 +1,8 @@
 package com.tipeaky.peakystore.controllers;
 
+import com.tipeaky.peakystore.model.dtos.NotificationDTO;
 import com.tipeaky.peakystore.model.dtos.UserDTO;
+import com.tipeaky.peakystore.model.forms.NotificationForm;
 import com.tipeaky.peakystore.model.forms.UserForm;
 import com.tipeaky.peakystore.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -26,5 +29,16 @@ public class UserController {
     @GetMapping("/{userId}")
     public ResponseEntity<UserDTO> findUserById(@PathVariable UUID userId) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findUserById(userId));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUsers());
+    }
+
+    @PutMapping("/notification/{userId}")
+    public ResponseEntity <NotificationDTO> updateNotification(@RequestBody @Valid NotificationForm notificationForm, @PathVariable UUID userId){
+        return ResponseEntity.status(HttpStatus.OK).body(userService.updateNotification(notificationForm, userId));
+
     }
 }

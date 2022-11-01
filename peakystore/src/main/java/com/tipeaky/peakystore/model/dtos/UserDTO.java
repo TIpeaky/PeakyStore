@@ -2,7 +2,6 @@ package com.tipeaky.peakystore.model.dtos;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.tipeaky.peakystore.model.entities.Role;
 import com.tipeaky.peakystore.model.enums.GenderEnum;
 import lombok.Getter;
 import lombok.Setter;
