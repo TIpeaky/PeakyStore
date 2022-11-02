@@ -26,7 +26,7 @@ public class PurchaseDTO {
     private BigDecimal totalValue;
     private PaymentEnum payment;
     private StatusEnum status;
-    private Boolean isDelivered;
+    private boolean isDelivered;
     private UserDTO user;
     private List<CartItem> cartItemList;
     private Address deliveryAddress;

@@ -1,5 +1,6 @@
 package com.tipeaky.peakystore.model.entities;
 
+import com.tipeaky.peakystore.exceptions.InvalidFormatException;
 import com.tipeaky.peakystore.model.enums.CategoryEnum;
 import com.tipeaky.peakystore.model.enums.ColorEnum;
 import com.tipeaky.peakystore.model.enums.SectionEnum;
@@ -61,5 +62,12 @@ public class Product {
     public String generateSku() {
         String sku = this.color.getKey() + this.size.getKey() + this.category.getKey() + this.section.getKey();
         return sku;
+    }
+
+    public void updateStockQuantity(int valor){
+        if(valor > this.stockQuantity) {
+            throw new InvalidFormatException("Quantidade indisponível do Produto");
+        }
+        this.stockQuantity -= valor;
     }
 }

@@ -17,6 +17,7 @@ public class TokenService {
     private String expiration;
     @Value("${forum.jwt.secret}")
     private String secret;
+
     public String gerarToken(Authentication authentication) {
         User logado = (User) authentication.getPrincipal();
         Date hoje = new Date();
