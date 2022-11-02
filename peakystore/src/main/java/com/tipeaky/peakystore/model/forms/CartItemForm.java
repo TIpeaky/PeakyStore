@@ -1,9 +1,7 @@
 package com.tipeaky.peakystore.model.forms;
 
-import com.tipeaky.peakystore.model.entities.Product;
 import lombok.Getter;
 import lombok.Setter;
-
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -13,5 +11,5 @@ public class CartItemForm {
     @Min(1)
     private Integer quantity;
     @NotNull
-    private ProductIdForm productIdForm;
+    private ProductIdForm product;
 }

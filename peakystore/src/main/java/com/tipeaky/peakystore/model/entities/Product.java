@@ -1,10 +1,7 @@
 package com.tipeaky.peakystore.model.entities;
 
 import com.tipeaky.peakystore.exceptions.InvalidFormatException;
-import com.tipeaky.peakystore.model.enums.CategoryEnum;
-import com.tipeaky.peakystore.model.enums.ColorEnum;
-import com.tipeaky.peakystore.model.enums.SectionEnum;
-import com.tipeaky.peakystore.model.enums.SizeEnum;
+import com.tipeaky.peakystore.model.enums.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -47,7 +44,7 @@ public class Product {
     @Column(nullable = false)
     private Integer stockQuantity;
     @Column(nullable = false)
-    private String productBrand;
+    private BrandEnum productBrand;
     @Column(nullable = false)
     private LocalDateTime lastUpdateDate;
     @Column(nullable = false)
@@ -60,8 +57,12 @@ public class Product {
     private SectionEnum section;
 
     public String generateSku() {
-        String sku = this.color.getKey() + this.size.getKey() + this.category.getKey() + this.section.getKey();
+        this.sku = this.color.getKey() + this.size.getKey() + this.category.getKey() + this.section.getKey() + this.productBrand.getKey();
         return sku;
+    }
+
+    public String setSku() {
+        return generateSku();
     }
 
     public void updateStockQuantity(int valor){
