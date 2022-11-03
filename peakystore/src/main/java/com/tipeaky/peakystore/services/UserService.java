@@ -67,6 +67,24 @@ public class UserService {
 
         return users.stream().map(user -> mapper.map(user, UserDTO.class)).toList();
     }
+    @Transactional
+    public UserDTO saveEmployee(UserForm userForm) {
+        if(userRepository.findByCpf(userForm.getCpf()).isPresent())
+            throw new DuplicatedEntityException("Funcionario com esse CPF já existe no sistema");
+
+        User user = mapper.map(userForm, User.class);
+
+        user.setRoles(new Role(null, "Employee"));
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(user.getPassword()));
+
+        if(user.getNotification() == null)
+            user.setNotification(false);
+
+        User savedUser = userRepository.save(user);
+        return mapper.map(savedUser, UserDTO.class);
+    }
 
     public NotificationDTO updateNotification(NotificationForm notificationForm, UUID userId) {
         UserDTO userDto = findUserById(userId);

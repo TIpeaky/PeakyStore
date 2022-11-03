@@ -11,6 +11,7 @@ import com.tipeaky.peakystore.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -49,5 +50,11 @@ public class UserController {
     public ResponseEntity <NotificationDTO> updateNotification(@RequestBody @Valid NotificationForm notificationForm, @PathVariable UUID userId){
         return ResponseEntity.status(HttpStatus.OK).body(userService.updateNotification(notificationForm, userId));
 
+    }
+
+    @PostMapping("/employee")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ResponseEntity<UserDTO> saveEmployee(@RequestBody @Valid UserForm userForm){
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveEmployee(userForm));
     }
 }

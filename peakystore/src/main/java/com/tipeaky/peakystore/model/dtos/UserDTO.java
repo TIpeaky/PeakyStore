@@ -6,9 +6,7 @@ import com.tipeaky.peakystore.model.enums.GenderEnum;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,7 +19,6 @@ public class UserDTO {
     private String cpf;
     private String name;
     private String email;
-    private String password;
     private GenderEnum gender;
     //private Longblob avatar; imagem do usuário
     private LocalDate birthDate;
