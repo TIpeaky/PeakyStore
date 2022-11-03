@@ -1,11 +1,13 @@
 package com.tipeaky.peakystore.controllers;
 
 import com.tipeaky.peakystore.model.dtos.UserDTO;
+import com.tipeaky.peakystore.model.entities.User;
 import com.tipeaky.peakystore.model.forms.UserForm;
 import com.tipeaky.peakystore.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -32,5 +34,10 @@ public class UserController {
     @GetMapping
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUsers());
+    }
+    @PostMapping("/employee")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ResponseEntity<UserDTO> saveEmployee(@RequestBody @Valid UserForm userForm){
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveEmployee(userForm));
     }
 }
