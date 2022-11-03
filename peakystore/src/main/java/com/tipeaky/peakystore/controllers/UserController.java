@@ -1,10 +1,13 @@
 package com.tipeaky.peakystore.controllers;
 
 import com.tipeaky.peakystore.config.security.TokenService;
+import com.tipeaky.peakystore.exceptions.NullObjectException;
+import com.tipeaky.peakystore.model.dtos.AddressDTO;
 import com.tipeaky.peakystore.model.dtos.NotificationDTO;
 import com.tipeaky.peakystore.model.dtos.UserDTO;
 import com.tipeaky.peakystore.model.entities.User;
 import com.tipeaky.peakystore.model.forms.NewPasswordForm;
+import com.tipeaky.peakystore.model.forms.AddressRegisterForm;
 import com.tipeaky.peakystore.model.forms.NotificationForm;
 import com.tipeaky.peakystore.model.forms.UserForm;
 import com.tipeaky.peakystore.services.UserService;
@@ -12,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -43,6 +47,12 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.getAllUsers());
     }
 
+    @PostMapping("/address/{userId}")
+    public ResponseEntity<AddressDTO> saveAddress(@RequestBody @Valid AddressRegisterForm addressForm, @PathVariable UUID userId) {
+        if(addressForm.checkNull()) throw new NullObjectException("Todos os atributos são nulos");
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveAddress(addressForm, userId));
+    }
+
     @PutMapping("/notification/{userId}")
     public ResponseEntity <NotificationDTO> updateNotification(@RequestBody @Valid NotificationForm notificationForm, @PathVariable UUID userId){
         return ResponseEntity.status(HttpStatus.OK).body(userService.updateNotification(notificationForm, userId));
@@ -54,5 +64,11 @@ public class UserController {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UUID id = ((User)principal).getId();
         return ResponseEntity.status(HttpStatus.OK).body(userService.newPassword(id, form));
+    }
+
+    @PostMapping("/employee")
+    @PreAuthorize("hasAnyRole('ADMIN')")
+    public ResponseEntity<UserDTO> saveEmployee(@RequestBody @Valid UserForm userForm){
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveEmployee(userForm));
     }
 }

@@ -1,6 +1,7 @@
 package com.tipeaky.peakystore.controllers;
 
 import com.tipeaky.peakystore.config.security.TokenService;
+import com.tipeaky.peakystore.exceptions.CustomAuthenticationException;
 import com.tipeaky.peakystore.model.dtos.TokenDTO;
 import com.tipeaky.peakystore.model.forms.LoginForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,7 @@ public class AutenticacaoController {
 			String token = tokenService.gerarToken(authentication);
 			return ResponseEntity.ok(new TokenDTO(token, "Bearer"));
 		} catch (AuthenticationException e) {
-			return ResponseEntity.badRequest().build();
+			throw new CustomAuthenticationException(e.getMessage());
 		}
 	}
-	
 }

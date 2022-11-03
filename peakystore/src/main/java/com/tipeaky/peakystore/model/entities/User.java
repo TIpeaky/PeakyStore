@@ -55,11 +55,11 @@ public class User implements UserDetails {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    private List<Address> addressList;
+    private List<Address> addressList = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    private List<Card> cardList;
+    private List<Card> cardList = new ArrayList<>();
 
     @Override
     public int hashCode() {

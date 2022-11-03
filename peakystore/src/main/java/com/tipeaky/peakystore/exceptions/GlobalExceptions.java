@@ -1,11 +1,8 @@
 package com.tipeaky.peakystore.exceptions;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -29,6 +26,12 @@ public class GlobalExceptions {
     public ResponseEntity<StandardError> entityNotFoundHandlerMethod(DuplicatedEntityException e, HttpServletRequest request) {
         StandardError se = new StandardError(LocalDateTime.now(), 409, "Conflict", e.getMessage(), request.getRequestURI());
         return  ResponseEntity.status(HttpStatus.CONFLICT).body(se);
+    }
+
+    @ExceptionHandler(CustomAuthenticationException.class)
+    public ResponseEntity<StandardError> entityNotFoundHandlerMethod(CustomAuthenticationException e, HttpServletRequest request) {
+        StandardError se = new StandardError(LocalDateTime.now(), 401, "Unauthorized", e.getMessage(), request.getRequestURI());
+        return  ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(se);
     }
 
     @ExceptionHandler(NullObjectException.class)
