@@ -25,6 +25,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product {
+
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
@@ -56,4 +57,9 @@ public class Product {
     private CategoryEnum category;
     @Column(nullable = false)
     private SectionEnum section;
+
+    public String generateSku() {
+        String sku = this.color.getKey() + this.size.getKey() + this.category.getKey() + this.section.getKey();
+        return sku;
+    }
 }

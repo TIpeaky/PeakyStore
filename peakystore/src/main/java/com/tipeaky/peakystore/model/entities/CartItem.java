@@ -1,5 +1,6 @@
 package com.tipeaky.peakystore.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,7 +34,7 @@ public class CartItem {
     private BigDecimal totalPrice;
 
     @ManyToOne
-    @JoinColumn(name = "purchase_id")
+    @JsonBackReference
     private Purchase purchase;
 
 

@@ -3,12 +3,18 @@ package com.tipeaky.peakystore.services;
 import com.tipeaky.peakystore.exceptions.MethodNotAllowedException;
 import com.tipeaky.peakystore.model.dtos.ProductDTO;
 import com.tipeaky.peakystore.model.entities.Product;
+import com.tipeaky.peakystore.model.forms.ProductUpdateForm;
+import com.tipeaky.peakystore.model.forms.ProductRegisterForm;
 import com.tipeaky.peakystore.repositories.ProductRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+
 import javax.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -42,4 +48,24 @@ public class ProductService {
         }
         return ResponseEntity.ok().body("Produto excluído com sucesso");
     }
+    @Transactional
+    public ProductDTO update(ProductUpdateForm productUpdateForm) {
+        ProductDTO recoveryProductDTO = getProduct(productUpdateForm.getId());
+        mapper.map(productUpdateForm, recoveryProductDTO);
+        Product product = mapper.map(recoveryProductDTO, Product.class);
+        product.setLastUpdateDate(LocalDateTime.now());
+        product.setSku(product.generateSku());
+
+        return mapper.map(productRepository.save(product), ProductDTO.class);
+    }
+
+    public ProductDTO save(ProductRegisterForm productRegisterForm) {
+        Product product = mapper.map(productRegisterForm, Product.class);
+        product.setLastUpdateDate(LocalDateTime.now());
+        product.setSku(product.generateSku());
+        productRepository.save(product);
+
+        return mapper.map(product, ProductDTO.class);
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.tipeaky.peakystore.model.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.tipeaky.peakystore.model.enums.PaymentEnum;
 import com.tipeaky.peakystore.model.enums.StatusEnum;
 import lombok.AllArgsConstructor;
@@ -40,14 +41,14 @@ public class Purchase {
     @Column(nullable = false)
     private StatusEnum status;
     @Column(nullable = false)
-    private Boolean isDelivered;
+    private boolean isDelivered;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "purchase_id")
+    @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<CartItem> cartItemList;
 
     @OneToOne
