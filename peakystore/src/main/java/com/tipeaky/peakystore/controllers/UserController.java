@@ -6,7 +6,6 @@ import com.tipeaky.peakystore.model.dtos.NotificationDTO;
 import com.tipeaky.peakystore.model.dtos.UserDTO;
 import com.tipeaky.peakystore.model.forms.AddressRegisterForm;
 import com.tipeaky.peakystore.model.forms.NotificationForm;
-import com.tipeaky.peakystore.model.entities.User;
 import com.tipeaky.peakystore.model.forms.UserForm;
 import com.tipeaky.peakystore.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +51,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.updateNotification(notificationForm, userId));
 
     }
+
     @PostMapping("/employee")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<UserDTO> saveEmployee(@RequestBody @Valid UserForm userForm){
