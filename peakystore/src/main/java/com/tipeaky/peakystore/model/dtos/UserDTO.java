@@ -5,11 +5,16 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.tipeaky.peakystore.model.enums.GenderEnum;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
 @Setter
+@ToString
 @JsonInclude(JsonInclude.Include.NON_EMPTY) //Não mostrará atributos nulos e nem vazios
 public class UserDTO {
     private UUID id;
@@ -21,5 +26,6 @@ public class UserDTO {
     //private Longblob avatar; imagem do usuário
     private LocalDate birthDate;
     private Boolean notification;
+    private List<AddressDTO> addressDTOList;
 
 }
