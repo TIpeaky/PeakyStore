@@ -45,7 +45,7 @@ public class User implements UserDetails {
     private LocalDate birthDate;
     private Boolean notification;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private List<Role> roles = new ArrayList<>();
 

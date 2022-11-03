@@ -28,6 +28,12 @@ public class GlobalExceptions {
         return  ResponseEntity.status(HttpStatus.CONFLICT).body(se);
     }
 
+    @ExceptionHandler(CustomAuthenticationException.class)
+    public ResponseEntity<StandardError> entityNotFoundHandlerMethod(CustomAuthenticationException e, HttpServletRequest request) {
+        StandardError se = new StandardError(LocalDateTime.now(), 401, "Unauthorized", e.getMessage(), request.getRequestURI());
+        return  ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(se);
+    }
+
     @ExceptionHandler(NullObjectException.class)
     public ResponseEntity<StandardError> entityNotFoundHandlerMethod(NullObjectException e, HttpServletRequest request) {
         StandardError se = new StandardError(LocalDateTime.now(), 400, "Bad Request", e.getMessage(), request.getRequestURI());

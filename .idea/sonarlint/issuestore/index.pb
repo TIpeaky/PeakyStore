@@ -19,3 +19,15 @@ Jpeakystore/src/main/java/com/tipeaky/peakystore/model/dtos/ProductDTO.java,e\a
 Rpeakystore/src/main/java/com/tipeaky/peakystore/controllers/ProductController.java,6\c\6cc1b6a9c6bd6e664e4cba2a3a81bc9cd7fe3695
 B
 peakystore/pom.xml,0\b\0bfa7049d63e2d2effab75c894d9718903565019
+…
+Upeakystore/src/main/java/com/tipeaky/peakystore/exceptions/UnauthorizedException.java,9\a\9a980b53891a9b02a218ebaab113a69ffb2d6f1f
+S
+#.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
+€
+Ppeakystore/src/main/java/com/tipeaky/peakystore/exceptions/GlobalExceptions.java,c\2\c2787e2bbb9828ffea35491d82b1377a0bc894ef
+
+Opeakystore/src/main/java/com/tipeaky/peakystore/controllers/UserController.java,1\f\1fb92c557e7548940cc90655d658cb6b25e38479
+‡
+Wpeakystore/src/main/java/com/tipeaky/peakystore/controllers/AutenticacaoController.java,7\4\74f9ac3c5d2d7409f7f9a17d4169c348a431846e
+z
+Jpeakystore/src/main/java/com/tipeaky/peakystore/model/forms/LoginForm.java,2\e\2e11fde38a36a4b27d0513b935a569bb662f19c5
