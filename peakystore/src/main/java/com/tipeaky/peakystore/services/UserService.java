@@ -2,11 +2,13 @@ package com.tipeaky.peakystore.services;
 
 import com.tipeaky.peakystore.exceptions.DuplicatedEntityException;
 import com.tipeaky.peakystore.exceptions.EntityNotFoundException;
+import com.tipeaky.peakystore.model.dtos.NotificationDTO;
 import com.tipeaky.peakystore.model.dtos.AddressDTO;
 import com.tipeaky.peakystore.model.dtos.UserDTO;
 import com.tipeaky.peakystore.model.entities.Address;
 import com.tipeaky.peakystore.model.entities.Role;
 import com.tipeaky.peakystore.model.entities.User;
+import com.tipeaky.peakystore.model.forms.NotificationForm;
 import com.tipeaky.peakystore.model.forms.AddressRegisterForm;
 import com.tipeaky.peakystore.model.forms.UserForm;
 import com.tipeaky.peakystore.repositories.UserRepository;
@@ -60,7 +62,17 @@ public class UserService {
         if(users.isEmpty()){
             throw new EntityNotFoundException("Usuário não encontrado");
         }
+
+
+
         return users.stream().map(user -> mapper.map(user, UserDTO.class)).toList();
+    }
+
+    public NotificationDTO updateNotification(NotificationForm notificationForm, UUID userId) {
+        UserDTO userDto = findUserById(userId);
+        userDto.setNotification(notificationForm.getNotification());
+        userRepository.save(mapper.map(userDto, User.class));
+        return (mapper.map (notificationForm, NotificationDTO.class));
     }
 
     public AddressDTO saveAddress(AddressRegisterForm addressForm, UUID userId) {
