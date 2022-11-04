@@ -1,11 +1,11 @@
 package com.tipeaky.peakystore.services;
 
+import com.tipeaky.peakystore.exceptions.CustomAuthenticationException;
 import com.tipeaky.peakystore.exceptions.EntityNotFoundException;
+import com.tipeaky.peakystore.model.dtos.AddressDTO;
+import com.tipeaky.peakystore.model.dtos.CartItemDTO;
 import com.tipeaky.peakystore.model.dtos.PurchaseDTO;
-import com.tipeaky.peakystore.model.entities.CartItem;
-import com.tipeaky.peakystore.model.entities.Product;
-import com.tipeaky.peakystore.model.entities.Purchase;
-import com.tipeaky.peakystore.model.entities.User;
+import com.tipeaky.peakystore.model.entities.*;
 import com.tipeaky.peakystore.model.enums.StatusEnum;
 import com.tipeaky.peakystore.model.forms.CartItemForm;
 import com.tipeaky.peakystore.model.forms.PurchaseForm;
@@ -34,6 +34,9 @@ public class PurchaseService {
     private CartItemRepository cartItemRepository;
 
     @Autowired
+    UserService userService;
+
+    @Autowired
     ProductRepository productRepository;
     @Autowired
     ModelMapper mapper;
@@ -55,10 +58,15 @@ public class PurchaseService {
         purchase.setOrderMadeDateTime(LocalDateTime.now());
         purchase.setStatus(StatusEnum.ORDER_MADE);
 
+        if(!purchase.getIsDelivered()) {
+            purchase.setDeliveryAddress(null);
+        } else {
+            AddressDTO addressDTO = userService.findAddressById(purchaseForm.getDeliveryAddress().getId());
+            purchase.setDeliveryAddress(mapper.map(addressDTO, Address.class));
+        }
+
         BigDecimal totalValue = BigDecimal.ZERO;
         List<CartItem> cartItems = new ArrayList<>();
-
-        if(!purchase.getIsDelivered()) purchase.setDeliveryAddress(null);
 
         for (CartItemForm cartItemForm : cartItemFormList) {
 
@@ -84,13 +92,26 @@ public class PurchaseService {
 
         Purchase purchaseSaved = purchaseRepository.save(purchase);
 
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        purchaseSaved.setUser(((User)principal));
+        try {
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            purchaseSaved.setUser(((User)principal));
+        } catch (Exception e) {
+            throw new CustomAuthenticationException("usuário não autenticado");
+        }
 
-        cartItemRepository.saveAll(cartItems);
-        purchase.setTotalValue(totalValue);
+        List<CartItem> savedCartItemList = cartItemRepository.saveAll(cartItems);
 
-        return mapper.map(purchaseRepository.save(purchaseSaved),PurchaseDTO.class);
+        List<CartItemDTO> cartItemDTOList = savedCartItemList.stream().map(cartItem ->
+                mapper.map(cartItem, CartItemDTO.class)).toList();
+        for(CartItemDTO cartItem : cartItemDTOList) {
+            cartItem.getProduct().setDescription(null);
+            cartItem.getProduct().setPurchasePrice(null);
+            cartItem.getProduct().setStockQuantity(null);
+            cartItem.getProduct().setLastUpdateDate(null);
+        }
 
+        PurchaseDTO purchaseDTO = mapper.map(purchaseRepository.save(purchaseSaved),PurchaseDTO.class);
+        purchaseDTO.setCartItemList(cartItemDTOList);
+        return purchaseDTO;
     }
 }

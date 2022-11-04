@@ -28,6 +28,6 @@ public class PurchaseDTO {
     private StatusEnum status;
     private boolean isDelivered;
     private UserDTO user;
-    private List<CartItem> cartItemList;
-    private Address deliveryAddress;
+    private List<CartItemDTO> cartItemList;
+    private AddressDTO deliveryAddress;
 }
