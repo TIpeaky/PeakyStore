@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -15,8 +16,9 @@ public class PurchaseForm {
     @NotNull
     private PaymentEnum payment;
     @NotNull
-    private boolean isDelivered;
+    private Boolean isDelivered;
     @NotEmpty
     private List<CartItemForm> cartItemList;
-    private Address deliveryAddress;
+    private AddressFormId deliveryAddress;
+    //private Address deliveryAddress;
 }

@@ -16,6 +16,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -46,6 +47,7 @@ public class PurchaseService {
         return mapper.map(purchase.get(), PurchaseDTO.class);
     }
 
+    @Transactional
     public PurchaseDTO save(PurchaseForm purchaseForm) {
         List<CartItemForm> cartItemFormList = purchaseForm.getCartItemList();
         purchaseForm.setCartItemList(null);
@@ -55,6 +57,8 @@ public class PurchaseService {
 
         BigDecimal totalValue = BigDecimal.ZERO;
         List<CartItem> cartItems = new ArrayList<>();
+
+        if(!purchase.getIsDelivered()) purchase.setDeliveryAddress(null);
 
         for (CartItemForm cartItemForm : cartItemFormList) {
 
