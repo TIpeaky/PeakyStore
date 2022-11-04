@@ -15,6 +15,7 @@ import com.tipeaky.peakystore.model.forms.NewPasswordForm;
 import com.tipeaky.peakystore.model.forms.NotificationForm;
 import com.tipeaky.peakystore.model.forms.AddressRegisterForm;
 import com.tipeaky.peakystore.model.forms.UserForm;
+import com.tipeaky.peakystore.repositories.AddressRepository;
 import com.tipeaky.peakystore.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    AddressRepository addressRepository;
 
     @Autowired
     private AuthenticationManager authManager;
@@ -141,5 +145,11 @@ public class UserService {
         userRepository.save(user);
 
         return "Senha Alterada com sucesso";
+    }
+
+    public AddressDTO findAddressById(UUID addressId) {
+        Optional<Address> optionalAddress = addressRepository.findById(addressId);
+        if (optionalAddress.isEmpty()) throw new EntityNotFoundException("Endereço não encontrado");
+        return mapper.map(optionalAddress.get(), AddressDTO.class);
     }
 }
