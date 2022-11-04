@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom"
 
 import Banner from '../../components/Banner';
 import NavBar from '../../components/NavBar';
-import Rodape from "../../components/Footer/Footer"
+import Rodape from "../../components/footer/index"
 
 const PaginaBase = () => {
     return (<main>

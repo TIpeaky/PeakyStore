@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Banner from '../../components/Banner';
 import NavBar from '../../components/NavBar';
-import Rodape from '../../components/Footer/Footer';
-import estilos from './Home.module.scss';
+import Rodape from '../../components/footer/index';
+//import estilos from './Home.module.scss';
 
 function App() {
   return (
