@@ -52,7 +52,7 @@ public class SecurityConfigurations implements WebMvcConfigurer {
 				.httpBasic()
 				.and()
 				.authorizeRequests()
-				.antMatchers("/**").permitAll()
+				.antMatchers("/**").permitAll()//.antMatchers(HttpMethod.POST,"/parking-spot").hasRole("user")
 				.and().csrf().disable()
 //				.anyRequest().authenticated()
 //				.and().cors()
