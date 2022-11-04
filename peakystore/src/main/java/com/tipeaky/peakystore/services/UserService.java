@@ -5,6 +5,7 @@ import com.tipeaky.peakystore.exceptions.EntityNotFoundException;
 import com.tipeaky.peakystore.model.dtos.UserDTO;
 import com.tipeaky.peakystore.model.entities.Role;
 import com.tipeaky.peakystore.model.entities.User;
+import com.tipeaky.peakystore.model.forms.EmailForm;
 import com.tipeaky.peakystore.model.forms.UserForm;
 import com.tipeaky.peakystore.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -23,6 +24,9 @@ public class UserService {
     UserRepository userRepository;
 
     @Autowired
+    EmailService emailService;
+
+    @Autowired
     ModelMapper mapper;
 
     @Transactional
@@ -39,6 +43,10 @@ public class UserService {
             user.setNotification(false);
 
         User savedUser = userRepository.save(user);
+
+        EmailForm emailForm = new EmailForm("TIpeaky", "tipeakyorg@gmail.com", savedUser.getEmail(), "Confirmação de cadastro!", "Obrigado por se cadastrar na PeakyStore!");
+        emailService.sendEmail(emailForm);
+
         return mapper.map(savedUser, UserDTO.class);
     }
 
