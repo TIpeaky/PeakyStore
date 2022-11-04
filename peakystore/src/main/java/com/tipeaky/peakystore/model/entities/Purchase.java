@@ -41,13 +41,13 @@ public class Purchase {
     @Column(nullable = false)
     private StatusEnum status;
     @Column(nullable = false)
-    private boolean isDelivered;
+    private Boolean isDelivered = false;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<CartItem> cartItemList;
 

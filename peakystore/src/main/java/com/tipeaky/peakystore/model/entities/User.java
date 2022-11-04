@@ -1,6 +1,5 @@
 package com.tipeaky.peakystore.model.entities;
 
-
 import com.tipeaky.peakystore.model.enums.GenderEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -45,7 +44,7 @@ public class User implements UserDetails {
     private LocalDate birthDate;
     private Boolean notification;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private List<Role> roles = new ArrayList<>();
 
@@ -55,11 +54,11 @@ public class User implements UserDetails {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    private List<Address> addressList;
+    private List<Address> addressList = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
-    private List<Card> cardList;
+    private List<Card> cardList = new ArrayList<>();
 
     @Override
     public int hashCode() {
@@ -78,8 +77,9 @@ public class User implements UserDetails {
         if (getClass() != obj.getClass())
             return false;
         User other = (User) obj;
-        if (id == null && other.id != null) {
-            return false;
+        if (id == null) {
+            if(other.id != null)
+                return false;
         } else if (!id.equals(other.id))
             return false;
         return true;
