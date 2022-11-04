@@ -1,7 +1,10 @@
 package com.tipeaky.peakystore.controllers;
 
+import com.tipeaky.peakystore.exceptions.NullObjectException;
+import com.tipeaky.peakystore.model.dtos.CardDTO;
 import com.tipeaky.peakystore.model.dtos.NotificationDTO;
 import com.tipeaky.peakystore.model.dtos.UserDTO;
+import com.tipeaky.peakystore.model.forms.CardForm;
 import com.tipeaky.peakystore.model.forms.NotificationForm;
 import com.tipeaky.peakystore.model.forms.UserForm;
 import com.tipeaky.peakystore.services.UserService;
@@ -40,5 +43,11 @@ public class UserController {
     public ResponseEntity <NotificationDTO> updateNotification(@RequestBody @Valid NotificationForm notificationForm, @PathVariable UUID userId){
         return ResponseEntity.status(HttpStatus.OK).body(userService.updateNotification(notificationForm, userId));
 
+    }
+
+    @PostMapping("/card/{userId}")
+    public ResponseEntity<CardDTO> saveCard(@RequestBody @Valid CardForm cardForm, @PathVariable UUID userId) {
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveCard(cardForm, userId));
     }
 }
