@@ -1,12 +1,10 @@
 import React, { Component, useState } from 'react';
-import { IconButton, InputAdornment, Box } from '@mui/material';
+import { Box } from '@mui/material';
 import ButtonUnstyled from '@mui/base/ButtonUnstyled';
 import InputUnstyled, {
   InputUnstyledProps,
   inputUnstyledClasses,
 } from '@mui/base/InputUnstyled';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { styled } from '@mui/system';
 import { AbBotao } from '../../components/AbBotao';
 import http from "../../http"
@@ -121,7 +119,7 @@ const blue = {
     showPassword: boolean;
   }
   
-  export default function InputAdornments() {
+  const LoginUsuario = () => {
     const [values, setValues] = React.useState<State>({
       amount: '',
       password: '',
@@ -145,8 +143,6 @@ const blue = {
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
       event.preventDefault();
     };
-
-const LoginUsuario = () => {
 
     const [email, setEmail] = useState('')
     const [senha, setSenha] = useState('')
@@ -197,7 +193,6 @@ const LoginUsuario = () => {
                         onClick={handleClickShowPassword}
                         onMouseDown={handleMouseDownPassword}
                         >
-                        {values.showPassword ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
                     </InputAdornment>
                     }
