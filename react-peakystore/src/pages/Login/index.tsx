@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import { Box } from '@mui/material';
 import ButtonUnstyled from '@mui/base/ButtonUnstyled';
 import InputUnstyled, {
@@ -7,6 +7,7 @@ import InputUnstyled, {
 } from '@mui/base/InputUnstyled';
 import { styled } from '@mui/system';
 import { AbBotao } from '../../components/AbBotao';
+//import styled from "styled-components";
 import http from "../../http"
 
 import LogoWhite from "./assets/logoWhite.png"
@@ -32,7 +33,7 @@ const blue = {
     800: '#2D3843',
     900: '#1A2027',
   };
-  
+
   const StyledInputRoot = styled('div')(
     ({ theme }) => `
     font-family: IBM Plex Sans, sans-serif;
@@ -46,7 +47,6 @@ const blue = {
     align-items: center;
     justify-content: center;
   
-  
     &.${inputUnstyledClasses.focused} {
       border-color: ${blue[400]};
       outline: 3px solid ${theme.palette.mode === 'dark' ? blue[500] : blue[200]};
@@ -55,7 +55,7 @@ const blue = {
     &:hover {
       border-color: ${blue[400]};
     }
-  `,
+  `
   );
   
   const StyledInputElement = styled('input')(
@@ -176,7 +176,6 @@ const blue = {
             </figure>
             <form onSubmit={aoSubmeterFormular}>
             <Box sx={{ display: 'flex', '& > * + *': { ml: 1 } }}>
-                // eslint-disable-next-line react/jsx-no-undef
                 <CustomInput
                     id="outlined-start-adornment"
                     startAdornment={<InputAdornment>Email</InputAdornment>}

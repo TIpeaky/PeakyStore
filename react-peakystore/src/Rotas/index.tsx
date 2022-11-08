@@ -1,8 +1,8 @@
 import { Route, Routes} from 'react-router-dom'
-import Footer from '../components/Footer'
+// import Footer from '../components/Footer'
 import Home from "../pages/Home"
 import PaginaBase from "../pages/PageBase"
-import LoginUsuario from "../pages/Login"
+// import LoginUsuario from "../pages/Login"
 
 
 const Rotas = () => {
