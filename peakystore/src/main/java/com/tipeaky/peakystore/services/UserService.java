@@ -3,18 +3,22 @@ package com.tipeaky.peakystore.services;
 import com.tipeaky.peakystore.config.security.TokenService;
 import com.tipeaky.peakystore.exceptions.DuplicatedEntityException;
 import com.tipeaky.peakystore.exceptions.EntityNotFoundException;
+import com.tipeaky.peakystore.model.dtos.CardDTO;
 import com.tipeaky.peakystore.exceptions.UnauthorizedException;
 import com.tipeaky.peakystore.model.dtos.NotificationDTO;
 import com.tipeaky.peakystore.model.dtos.AddressDTO;
 import com.tipeaky.peakystore.model.dtos.UserDTO;
+import com.tipeaky.peakystore.model.entities.Card;
 import com.tipeaky.peakystore.model.entities.Address;
 import com.tipeaky.peakystore.model.entities.Role;
 import com.tipeaky.peakystore.model.entities.User;
+import com.tipeaky.peakystore.model.forms.CardForm;
 import com.tipeaky.peakystore.model.forms.LoginForm;
 import com.tipeaky.peakystore.model.forms.NewPasswordForm;
 import com.tipeaky.peakystore.model.forms.NotificationForm;
 import com.tipeaky.peakystore.model.forms.AddressRegisterForm;
 import com.tipeaky.peakystore.model.forms.UserForm;
+import com.tipeaky.peakystore.repositories.AddressRepository;
 import com.tipeaky.peakystore.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +39,9 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    AddressRepository addressRepository;
 
     @Autowired
     private AuthenticationManager authManager;
@@ -106,6 +113,24 @@ public class UserService {
         return (mapper.map (notificationForm, NotificationDTO.class));
     }
 
+
+
+    public CardDTO saveCard(CardForm cardForm, UUID userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if(optionalUser.isEmpty()) throw new EntityNotFoundException("Usuário não encontrado");
+
+        Card card = mapper.map(cardForm, Card.class);
+        optionalUser.get().getCardList().add(card);
+
+
+        User user = userRepository.save(optionalUser.get());
+
+        CardDTO cardDTO = mapper.map(card, CardDTO.class);
+
+
+        return cardDTO;
+    }
+
     public AddressDTO saveAddress(AddressRegisterForm addressForm, UUID userId) {
         Optional<User> optionalUser = userRepository.findById(userId);
         if(optionalUser.isEmpty()) throw new EntityNotFoundException("Usuário não encontrado");
@@ -141,5 +166,11 @@ public class UserService {
         userRepository.save(user);
 
         return "Senha Alterada com sucesso";
+    }
+
+    public AddressDTO findAddressById(UUID addressId) {
+        Optional<Address> optionalAddress = addressRepository.findById(addressId);
+        if (optionalAddress.isEmpty()) throw new EntityNotFoundException("Endereço não encontrado");
+        return mapper.map(optionalAddress.get(), AddressDTO.class);
     }
 }
