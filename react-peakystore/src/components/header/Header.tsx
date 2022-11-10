@@ -7,22 +7,34 @@ import { faCartShopping, faCircleUser, faMagnifyingGlass, faAngleDown } from '@f
 import * as React from 'react';
 import Popover from '@mui/material/Popover';
 import CategoriesPopUp from './CategoriesPopUp';
+import UserPopUp from './UserPopUp';
 
 
 function Header() {
     //Pop Over
-    const [anchorEl, setAnchorEl] = React.useState<HTMLAnchorElement | null>(null);
+    const [anchorEl, setAnchorCategory] = React.useState<HTMLAnchorElement | null>(null);
+    const [anchorEl2, setAnchorUser] = React.useState<HTMLAnchorElement | null>(null);
 
-    const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
-        setAnchorEl(event.currentTarget);
+
+    const handleClickCategory = (event: React.MouseEvent<HTMLAnchorElement>) => {
+        setAnchorCategory(event.currentTarget);
+    };
+    const handleClickUser = (event: React.MouseEvent<HTMLAnchorElement>) => {
+        setAnchorUser(event.currentTarget);
     };
 
     const handleClose = () => {
-        setAnchorEl(null);
+        setAnchorCategory(null);
+    };
+
+    const handleCloseUser = () => {
+        setAnchorUser(null);
     };
 
     const open = Boolean(anchorEl);
     const id = open ? 'simple-popover' : undefined;
+    const open2 = Boolean(anchorEl2);
+    const id2 = open ? 'simple-popover' : undefined;
 
 
     return (
@@ -36,14 +48,13 @@ function Header() {
                 <li><a href="#">Produtos</a></li>
                 <div>
                     <li className={styles.category_li}>
-                        <a className={styles.category_link} onClick={handleClick}>Categorias
+                        <a className={styles.category_link} onClick={handleClickCategory}>Categorias
                         <FontAwesomeIcon className={styles.angle_down_icon} icon={faAngleDown}/>
                         </a>  
                     </li>
-                        <Popover className={styles.teste2} id={id} open={open} anchorEl={anchorEl} onClose={handleClose}
-                            anchorOrigin={{ vertical: 25, horizontal: -200}}
-                            anchorReference='anchorEl'
-                            >
+                        <Popover id={id} open={open} anchorEl={anchorEl} onClose={handleClose}
+                            anchorOrigin={{ vertical: 25, horizontal: -170}}
+                            anchorReference='anchorEl'>
                             <CategoriesPopUp />
                         </Popover>
                 </div>
@@ -63,9 +74,14 @@ function Header() {
                     <a href='#'>
                         <FontAwesomeIcon icon={faCartShopping} className={styles.icon} />
                     </a>
-                    <a href='#'>
+                    <a onClick={handleClickUser}>
                         <FontAwesomeIcon icon={faCircleUser} className={styles.icon} />
                     </a>
+                    <Popover id={id2} open={open2} anchorEl={anchorEl2} onClose={handleCloseUser}
+                            anchorOrigin={{ vertical: 'bottom', horizontal: -50}}
+                            anchorReference='anchorEl'>
+                        <UserPopUp/>
+                    </Popover>
                 </div>
             </div>
         </header>
