@@ -26,7 +26,7 @@ const LoginUsuario = () => {
               sessionStorage.setItem('token', reposta.data.access_token)
               setUsername('')
               setPassword('')
-              navigate('/')
+              navigate(-1)
           })
           .catch(erro => {
               if (erro?.response?.data?.message) {
