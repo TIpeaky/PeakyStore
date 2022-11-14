@@ -2,32 +2,39 @@ import React from "react";
 import styled from "styled-components";
 
 const LabelEstilizada = styled.label<{ darkmode: boolean }>`
-    color: ${(props) => props.darkmode ? '#FFF' : '#002F52'};
     display: block;
-    font-weight: 700;
-    font-size: 16px;
-    font-family: Arial, Helvetica, sans-serif;
-    margin-left: 16px;
-    margin-bottom: 8px
+    width: 70px;
+    height: 20px;
+    margin-top: 22px;
+
+    font-family: 'Poppins', sans-serif;
+    font-size: 20px;
+
+    color: #7C838A;
 `
 
 const InputEstilizado = styled.input<{ placeholderAlign: string, darkmode: boolean }>`
+    box-sizing: border-box;
+    width: 100%;
+    height: 44px;
+    margin-top: 9px;
+
+    background: rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 20px;
+
     font-size: 16px;
-    line-height: 24px;
     padding: 8px 24px;
-    border: 1px solid;
-    border-radius: 45px;
     &:focus{
         outline: none;
     }
-    width: 100%;
-    box-sizing: border-box;
-    background: ${(props) => props.darkmode ? 'transparent' : '#FFF'};
-    border-color: ${(props) => props.darkmode ? '#FFF' : '#002F52'};
     text-align: ${(props) => props.placeholderAlign};
     ::placeholder,
     ::-webkit-input-placeholder  {
-        color: ${(props) => props.darkmode ? '#FFF' : '#002F52'};
+        color: ${(props) => props.darkmode ? '#FFF' : 'rgba(0, 0, 0, 0.5)'};
+        font-family: 'Poppins';
+        font-size: 20px;
     }
 `
 

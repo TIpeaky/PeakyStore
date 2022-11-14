@@ -7,24 +7,28 @@ export interface AbBotaoProps {
 }
 
 const BotaoEstilizado = styled.button<AbBotaoProps>`
-    background: ${(props: AbBotaoProps) => props.tipo === 'primario' ? '#EB9B00' : '#FFF'};
-    padding: 16px 32px;
-    border: 2px solid #EB9B00;
-    color: ${(props: AbBotaoProps) => props.tipo === 'primario' ? '#FFF' : '#EB9B00'};
+    background: ${(props: AbBotaoProps) => props.tipo === 'primario' ? '#0083FD' : '#FFF'};
+    border: 2px solid #0083FD;
+    color: ${(props: AbBotaoProps) => props.tipo === 'primario' ? '#FFF' : '#0083FD'};
     font-size: 20px;
+    margin-top: 25px;
     cursor: pointer;
+    width: 240px;
+    height: 40px;
+    border-radius: 10px;
+
     ${(props: AbBotaoProps) => props.tipo === 'primario' 
         ? css`
             &:hover {
-                background: #B87900;
-                border: 2px solid #B87900;
+                background: #47A5FC;
+                border: 2px solid #47A5FC;
             }
         `
         : css`
         &:hover {
             background: #FFF;
-            border: 2px solid #B87900;
-            color: #B87900;
+            border: 2px solid #0083FD;
+            color: #47A5FC;
         }
         `
     }

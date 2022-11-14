@@ -1,12 +1,10 @@
 import estilos from './NavBar.module.scss';
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react';
-import LoginUsuario from '../Login';
 import usuario from './assets/userCircle.svg'
 import BotaoNavegacao from '../BotaoNavegacao';
 
 const NavBar = () => {
-  const [modalLoginAberta, setModalLoginAberta] = useState(false)
 
   let navigate = useNavigate();
 
@@ -14,10 +12,9 @@ const NavBar = () => {
 
   const [usuarioEstaLogado, setUsuarioEstaLogado] = useState<boolean>(token != null)
 
-  const aoEfetuarLogin = () => {
-    setModalLoginAberta(false)
-    setUsuarioEstaLogado(true)
-}
+  //const aoEfetuarLogin = () => {
+  //  setUsuarioEstaLogado(true)
+  //}
 
 const efetuarLogout = () => {
     setUsuarioEstaLogado(false)
@@ -41,12 +38,7 @@ const efetuarLogout = () => {
                         texto="Login"
                         textoAltSrc="Icone representando um usuário"
                         imagemSrc={usuario}
-                        onClick={() => setModalLoginAberta(true)}
-                    />
-                    <LoginUsuario
-                        aberta={modalLoginAberta}
-                        aoFechar={() => setModalLoginAberta(false)}
-                        aoEfetuarLogin={aoEfetuarLogin}
+                        onClick={() => navigate('/login')}
                     />
                 </li>
             </>)}
