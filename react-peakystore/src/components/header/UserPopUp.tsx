@@ -1,7 +1,9 @@
 import {useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 import styles from './UserPopUp.module.scss'
 
 function UserPopUp() {
+    let navigate = useNavigate();
     const [userIsLoggedIn, setUserIsLoggedIn] = useState(false)
     const [user, setUser] = useState("João")
     return (
@@ -18,7 +20,9 @@ function UserPopUp() {
                 </div>
             ) : (
                 <div>
-                    <a href="#"><button className={styles.btn_login}>Fazer login</button></a>
+                    <a href="#"><button 
+                    className={styles.btn_login} 
+                    onClick={() => navigate('/login')}>Fazer Login</button></a>
                     <span className={styles.span_signup}>Cliente novo?</span>
                     <a className={styles.link_signup} href="#">Cadastrar</a>
                 </div>
