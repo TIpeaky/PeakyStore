@@ -3,13 +3,16 @@ package com.tipeaky.peakystore.services;
 import com.tipeaky.peakystore.config.security.TokenService;
 import com.tipeaky.peakystore.exceptions.DuplicatedEntityException;
 import com.tipeaky.peakystore.exceptions.EntityNotFoundException;
+import com.tipeaky.peakystore.model.dtos.CardDTO;
 import com.tipeaky.peakystore.exceptions.UnauthorizedException;
 import com.tipeaky.peakystore.model.dtos.NotificationDTO;
 import com.tipeaky.peakystore.model.dtos.AddressDTO;
 import com.tipeaky.peakystore.model.dtos.UserDTO;
+import com.tipeaky.peakystore.model.entities.Card;
 import com.tipeaky.peakystore.model.entities.Address;
 import com.tipeaky.peakystore.model.entities.Role;
 import com.tipeaky.peakystore.model.entities.User;
+import com.tipeaky.peakystore.model.forms.CardForm;
 import com.tipeaky.peakystore.model.forms.LoginForm;
 import com.tipeaky.peakystore.model.forms.NewPasswordForm;
 import com.tipeaky.peakystore.model.forms.NotificationForm;
@@ -108,6 +111,24 @@ public class UserService {
         userDto.setNotification(notificationForm.getNotification());
         userRepository.save(mapper.map(userDto, User.class));
         return (mapper.map (notificationForm, NotificationDTO.class));
+    }
+
+
+
+    public CardDTO saveCard(CardForm cardForm, UUID userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if(optionalUser.isEmpty()) throw new EntityNotFoundException("Usuário não encontrado");
+
+        Card card = mapper.map(cardForm, Card.class);
+        optionalUser.get().getCardList().add(card);
+
+
+        User user = userRepository.save(optionalUser.get());
+
+        CardDTO cardDTO = mapper.map(card, CardDTO.class);
+
+
+        return cardDTO;
     }
 
     public AddressDTO saveAddress(AddressRegisterForm addressForm, UUID userId) {
