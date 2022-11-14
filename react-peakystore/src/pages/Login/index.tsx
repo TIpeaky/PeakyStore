@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 const LoginUsuario = () => {
 
   let navigate = useNavigate()
-  
+
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
@@ -20,7 +20,7 @@ const LoginUsuario = () => {
         username,
           password,
       }
-      
+
       http.post('auth', usuario)
           .then(reposta => {
               sessionStorage.setItem('token', reposta.data.access_token)
@@ -34,7 +34,7 @@ const LoginUsuario = () => {
               } else {
                   alert('Aconteceu um erro inesperado ao afetuar o seu login! Entre em contato com o suporte!')
               }
-              
+
           })
   }
 
@@ -48,14 +48,14 @@ const LoginUsuario = () => {
             <h2>
                 Já sou Cliente
             </h2>
-            <AbCampoTexto 
+            <AbCampoTexto
                 label="E-mail"
                 value={username}
                 placeholder= "Entre com o seu E-mail aqui"
                 onChange={setUsername}
                 type="email"
             />
-            <AbCampoTexto 
+            <AbCampoTexto
                 label="Senha"
                 value={password}
                 onChange={setPassword}

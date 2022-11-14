@@ -1,0 +1,52 @@
+.container {
+    padding: 10px;
+}
+
+.btn_login {
+    cursor: pointer;
+    color: #fff;
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    background-color: #005a81;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 10px;
+}
+
+.link_signup {
+    font-size: 0.8em;
+    display: block;
+    color: #004563;
+}
+
+.link_signup:hover {
+    text-decoration: underline;
+}
+
+.span_signup {
+    font-size: 0.9em;
+}
+
+.account_title {
+    margin-bottom: 10px;
+}
+
+.account_menu li {
+    margin-bottom: 5px;
+}
+
+.account_menu a:hover {
+    text-decoration: underline;
+}
+
+.account_menu .link_standard {
+    color: #000;
+}
+
+.account_menu .link_logout {
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: #666;
+}

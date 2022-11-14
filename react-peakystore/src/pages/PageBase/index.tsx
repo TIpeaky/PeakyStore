@@ -1,12 +1,11 @@
 import { Outlet } from "react-router-dom"
-import NavBar from '../../components/NavBar';
-import Footer from "../../components/Footer"
-
+import Rodape from "../../components/Footer"
+import Header from "../../components/header/Header"
 const PaginaBase = () => {
     return (<main>
-        <NavBar />
+        <Header/>
         <Outlet />
-        <Footer />
+        <Rodape />
     </main>)
 }
 
