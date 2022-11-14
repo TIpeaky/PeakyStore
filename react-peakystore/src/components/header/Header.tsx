@@ -1,5 +1,5 @@
 import styles from './Header.module.scss'
-import logo from '../../images/logo.png'
+import logo from '../../images/logoWhiteMin.png'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCartShopping, faCircleUser, faMagnifyingGlass, faAngleDown } from '@fortawesome/free-solid-svg-icons'
@@ -40,7 +40,7 @@ function Header() {
     return (
         <header className={styles.header}>
             <div className={styles.header_logo}>
-                <a href="#"><img src={logo} alt="logo" /><span>PeakyStore</span></a>
+                <a href="#"><img src={logo} alt="logo" /></a>
             </div>
 
             <ul className={styles.header_nav}>
@@ -53,7 +53,7 @@ function Header() {
                         </a>  
                     </li>
                         <Popover id={id} open={open} anchorEl={anchorEl} onClose={handleClose}
-                            anchorOrigin={{ vertical: 25, horizontal: -170}}
+                            anchorOrigin={{ vertical: 25, horizontal: -300}}
                             anchorReference='anchorEl'>
                             <CategoriesPopUp />
                         </Popover>
