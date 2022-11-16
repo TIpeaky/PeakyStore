@@ -12,7 +12,6 @@ const Rotas = () => {
             <Route path='/' element={<Home />} />
             <Route path='login' element={<LoginUsuario />} />
           </Route>
-          
         </Routes>)
 }
 
