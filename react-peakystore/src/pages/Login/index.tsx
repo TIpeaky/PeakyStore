@@ -31,7 +31,7 @@ const LoginUsuario = () => {
 
         http.post('auth', usuario)
             .then(resposta => {
-                sessionStorage.setItem('token', resposta.data.token)
+                sessionStorage.setItem('token', JSON.stringify(resposta.data))
                 setUsername('')
                 setPassword('')
                 navigate(-1)
