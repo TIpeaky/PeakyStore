@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { AbBotao } from '../../components/AbBotao';
-import http from "../../http"
+import { AbBotao } from '../../../components/AbBotao';
+import http from "../../../http"
 import LogoWhite from "./assets/PeakyStore.png"
-import { AbCampoTexto } from '../../components/AbCampoTexto';
+import { AbCampoTexto } from '../../../components/AbCampoTexto';
 import styled from './Login.module.scss';
 import { useNavigate } from 'react-router-dom';
 
@@ -20,8 +20,6 @@ const LoginUsuario = () => {
         }
     }, [navigate])
 
-
-
     const aoSubmeterFormular = (evento: React.FormEvent<HTMLFormElement>) => {
         evento.preventDefault()
         const usuario = {
@@ -31,10 +29,11 @@ const LoginUsuario = () => {
 
         http.post('auth', usuario)
             .then(resposta => {
-                sessionStorage.setItem('token', JSON.stringify(resposta.data))
+                sessionStorage.setItem('token', resposta.data.token)
+                sessionStorage.setItem('name', resposta.data.name)
                 setUsername('')
                 setPassword('')
-                navigate(-1)
+                navigate(-2)
             })
             .catch(erro => {
                 if (erro?.response?.data?.message) {

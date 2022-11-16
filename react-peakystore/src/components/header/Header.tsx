@@ -8,6 +8,7 @@ import * as React from 'react';
 import Popover from '@mui/material/Popover';
 import CategoriesPopUp from './CategoriesPopUp';
 import UserPopUp from './UserPopUp';
+import { Link } from 'react-router-dom';
 
 
 function Header() {
@@ -40,12 +41,12 @@ function Header() {
     return (
         <header className={styles.header}>
             <div className={styles.header_logo}>
-                <a href="#"><img src={logo} alt="logo" /></a>
+                <Link to="/"><img src={logo} alt="logo" /></Link>
             </div>
 
             <ul className={styles.header_nav}>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Produtos</a></li>
+                <li><Link to="/">Home</Link></li>
+                <li><Link to="/produto">Produtos</Link></li>
                 <div>
                     <li className={styles.category_li}>
                         <a className={styles.category_link} onClick={handleClickCategory}>Categorias
