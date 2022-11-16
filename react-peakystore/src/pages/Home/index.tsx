@@ -47,7 +47,7 @@ function App() {
           </div>
         </div>
         <div className={estilos.carrouselCategoryContainer}>
-          
+         
         </div>
       </div>
     </>
