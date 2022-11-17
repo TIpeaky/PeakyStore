@@ -1,5 +1,65 @@
 
 .footer {
-    width: 100px;
+    padding-top: 2%;
     background-color: #004563;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    width: 100%;
+    padding-bottom: 7%;
+
+    p {
+        font-size: 20px;
+    }
+
+    .div {
+        margin-left: 12%;
+    }
+
+    .ofertas {
+        margin-bottom: 3%;
+    }
+
+    .footerBottom {
+        position: fixed;
+        display: block;
+        bottom: 2%;
+        left: 45%;
+        
+    }
+}
+
+input {
+    height: 34px;
+    width: 200px;
+    margin-right: 10px;
+}
+
+button {
+    background-color: white;
+    border: white;
+    border-radius: 2px;
+    height: 35px;
+    width: 50px;
+    font-size: medium;
+    margin-bottom: 50px;
+}
+
+.redes {
+    margin-left: 75px;
+    font-size: 20px;
+}
+
+.icons {
+    padding-left: 85px;
+}
+
+.topicos {
+    margin-left: 5px;
+    margin-bottom: 0;
+
+    p {
+        margin-top: 5%;
+    }
 }
