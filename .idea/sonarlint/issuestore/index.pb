@@ -15,8 +15,6 @@ Kpeakystore/src/main/java/com/tipeaky/peakystore/model/entities/Product.java,a\
 Lpeakystore/src/main/java/com/tipeaky/peakystore/services/ProductService.java,b\c\bca86822d0c8b27aaf61e31d19927789b8413587
 z
 Jpeakystore/src/main/java/com/tipeaky/peakystore/model/dtos/ProductDTO.java,e\a\ea3812e381f2b89ca69fd77ff3a4c8dc0a1d1b9a
-‚
-Rpeakystore/src/main/java/com/tipeaky/peakystore/controllers/ProductController.java,6\c\6cc1b6a9c6bd6e664e4cba2a3a81bc9cd7fe3695
 B
 peakystore/pom.xml,0\b\0bfa7049d63e2d2effab75c894d9718903565019
 …
@@ -31,3 +29,7 @@ Opeakystore/src/main/java/com/tipeaky/peakystore/controllers/UserController.java
 Wpeakystore/src/main/java/com/tipeaky/peakystore/controllers/AutenticacaoController.java,7\4\74f9ac3c5d2d7409f7f9a17d4169c348a431846e
 z
 Jpeakystore/src/main/java/com/tipeaky/peakystore/model/forms/LoginForm.java,2\e\2e11fde38a36a4b27d0513b935a569bb662f19c5
+z
+Jpeakystore/src/main/java/com/tipeaky/peakystore/PeakyStoreApplication.java,9\3\93dd76d59ddd5231575749380801c25c24a9c67c
+‚
+Rpeakystore/src/main/java/com/tipeaky/peakystore/controllers/ProductController.java,6\c\6cc1b6a9c6bd6e664e4cba2a3a81bc9cd7fe3695
