@@ -26,6 +26,7 @@ function UserPopUp() {
     const efetuarLogout = () => {
         setUserIsLoggedIn(false)
         sessionStorage.removeItem('token')
+        sessionStorage.removeItem('name')
         navigate('/')
     }
 

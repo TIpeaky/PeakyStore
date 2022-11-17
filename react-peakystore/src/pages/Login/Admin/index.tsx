@@ -20,16 +20,31 @@ const LoginAdmin = () => {
         }
 
         http.post('auth', usuario)
-            .then(resposta => {
-                sessionStorage.setItem('token', resposta.data.token)
-                setUsername('')
-                setPassword('')
-                //navigate('/dashboard')
+            .then(response => {
+                const roles = (response.data.roles)
+
+                for (const role in roles) {
+                    const authority = roles[role].authority
+                    if(authority.toUpperCase() === "ADMIN") {
+                        sessionStorage.setItem('token', response.data.token)
+                        setUsername('')
+                        setPassword('')
+                        //navigate('/dashboard')
+                        return;
+                    }
+                }
+                const error = "Usuário ou senha inválido(s)"
+                throw error
             })
             .catch(erro => {
+                console.log(erro)
                 if (erro?.response?.data?.message) {
                     alert(erro.response.data.message)
-                } else {
+                } 
+                else if(erro) {
+                    alert(erro)
+                }
+                else {
                     alert('Aconteceu um erro inesperado ao afetuar o seu login! Entre em contato com o suporte!')
                 }
 
