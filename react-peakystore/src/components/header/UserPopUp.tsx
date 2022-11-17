@@ -6,7 +6,7 @@ import styles from './UserPopUp.module.scss'
 function UserPopUp() {
     let navigate = useNavigate();
     const token = sessionStorage.getItem('token')
-    const name = sessionStorage.getItem('name')
+    const fullName = sessionStorage.getItem('name')
 
 
     const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(token != null)
@@ -15,8 +15,9 @@ function UserPopUp() {
     useEffect(() => {
         if (token) {
             setUserIsLoggedIn(true)
-            if(name != null) {
-                setUser(name)
+            if(fullName != null) {
+                let name = fullName.split(" ")
+                setUser(name[0])
             }
         }
     }, [])
