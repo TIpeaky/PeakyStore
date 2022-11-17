@@ -1,3 +1,124 @@
-.form {
-    background-color: #004563;
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 1.07rem;
+    font-family: 'Poppins', sans-serif;
 }
+
+.background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #004563;
+    flex-direction: column;
+}
+
+.container {
+    background-color: white;
+    height: 100%;
+    width: 65%;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 5%;
+    margin-top: 5%;
+    display: flex;
+}
+
+.label {
+    margin-bottom: 1%;
+    display: block;
+}
+
+input[type="date" i] {
+    font-size: 0.85rem;
+    padding-left: 0.5rem;
+}
+
+.input {
+    display: flex;
+    font-size: 1rem;
+    color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    margin-bottom: 4%;
+    border: none;
+    background-color: rgba(176, 186, 195, 0.4);
+    border-radius: 10px;
+}
+
+.input::placeholder {
+    font-size: 0.85rem;
+    padding-left: 0.5rem;
+}
+
+.inputPassword {
+    display: flex;
+    font-size: 1rem;
+    color: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    margin-bottom: 0;
+    border: none;
+    background-color: rgba(176, 186, 195, 0.4);
+    border-radius: 10px;
+}
+
+.inputPassword::placeholder {
+    font-size: 0.85rem;
+    padding-left: 0.5rem;
+}
+
+.p {
+    font-size: 0.8rem;
+    margin-top: 1%;
+    margin-bottom: 4%;
+    color: #7C838A;
+}
+
+.preferencia {
+    display: flex;
+    margin-bottom: 3%;
+}
+
+.preferencia_input {
+    display: flex;
+    width: 3%;
+    margin: 0;
+    margin-right: 2%;
+}
+
+.preferencia_label {
+    color: #7C838A;
+}
+
+.notificacao {
+    display: flex;
+    margin-bottom: 3%;
+}
+
+.notificacao_input {
+    display: flex;
+    width: 3%;
+    margin: 0;
+    margin-right: 2%;
+}
+
+.notificacao_label {
+    color: #7C838A;
+    font-size: 0.9rem;
+}
+
+.notificacao_label a {
+    color: #7C838A;
+    font-size: 0.9rem;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+}
+
+// .logo {
+//     width: 50%;
+// }
