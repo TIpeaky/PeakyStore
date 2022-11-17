@@ -1,6 +1,5 @@
 package com.tipeaky.peakystore.model.entities;
 
-
 import com.tipeaky.peakystore.model.enums.GenderEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -78,8 +77,9 @@ public class User implements UserDetails {
         if (getClass() != obj.getClass())
             return false;
         User other = (User) obj;
-        if (id == null && other.id != null) {
-            return false;
+        if (id == null) {
+            if(other.id != null)
+                return false;
         } else if (!id.equals(other.id))
             return false;
         return true;
