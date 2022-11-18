@@ -4,6 +4,7 @@ import Home from "../pages/Home"
 import LoginAdmin from '../pages/Login/Admin'
 import LoginUsuario from '../pages/Login/User'
 import PaginaBase from "../pages/PageBase"
+import ProductCrud from '../pages/product_crud/ProductCrud'
 
 
 const Rotas = () => {
@@ -15,6 +16,7 @@ const Rotas = () => {
           </Route>
           <Route path='/admin'>
             <Route path='login' element={<LoginAdmin />} />
+            <Route path='products' element={<ProductCrud />} />
           </Route>
         </Routes>)
 }
