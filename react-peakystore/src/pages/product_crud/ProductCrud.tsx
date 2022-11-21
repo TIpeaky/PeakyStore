@@ -3,73 +3,93 @@ import { DataGrid, GridColDef, GridRowsProp, GridToolbarQuickFilter, GridActions
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import http from "../../http"
+import { useState, useEffect } from 'react';
+//import { IProduct } from '../../interfaces/IProduct';
 
-function QuickSearchToolbar() {
-  return (
-    <Box
-      sx={{
-        p: 0.5,
-        pb: 0,
-      }}
-    >
-      <GridToolbarQuickFilter />
-    </Box>
-  );
-}
-const rows: GridRowsProp = [
-  { id: 1, name: 'Camiseta branca', stock: '100', category: 'Camiseta', section: 'Masculina', brand: "Nike" },
 
-  { id: 2, name: 'Camiseta preta', stock: '200', category: 'Camiseta', section: 'Feminina', brand: 'Adidas' },
 
-  { id: 3, name: 'Pijama listrado', stock: '350', category: 'Pijama', section: 'Infantil Unisex', brand: 'Zara' },
 
-  { id: 4, name: 'Vestido de casamento', stock: '240', category: 'Vestido', section: 'Feminina', brand: 'Louis Vuitton' },
 
-  { id: 5, name: 'Bermuda de praia', stock: '80', category: 'Bermuda', section: 'Masculina', brand: 'Nike' },
-];
-
-const columns: GridColDef[] = [
-  { field: 'id', headerName: 'ID', width: 60 },
-  { field: 'name', headerName: 'NOME', width: 200 },
-  { field: 'stock', headerName: 'ESTOQUE', width: 100 },
-  { field: 'category', headerName: 'CATEGORIA', width: 150 },
-  { field: 'section', headerName: 'SEÇÃO', width: 150 },
-  { field: 'brand', headerName: 'MARCA', width: 150 },
-  {
-    field: 'actions',
-    type: 'actions',
-    headerName: 'AÇÕES',
-    width: 80,
-    renderCell: () => [
-      <GridActionsCellItem
-        icon={<RemoveRedEyeOutlinedIcon/>}
-        label="Read"
-        //onClick={() => alert("oi")}
-      />,
-      <GridActionsCellItem
-        icon={<EditOutlinedIcon/>}
-        label="Update"
-        //onClick={() => alert("oi")}
-      />,
-      <GridActionsCellItem
-        icon={<DeleteOutlineOutlinedIcon/>}
-        label="Delete"
-        //onClick={() => alert("oi")}
-      />
-    ]
-  }
-];
 
 const ProductCrud = () => {
+
+  const [productList, setProductList] = useState<GridRowsProp>([]);
+
+  useEffect(() => {
+    http.get('product')
+      .then(response => {
+        setProductList(response.data)
+      })
+      .catch(erro => {
+        console.log(erro)
+      })
+  }, [])
+
+
+  function QuickSearchToolbar() {
+    return (
+      <Box
+        sx={{
+          p: 0.5,
+          pb: 0,
+        }}
+      >
+        <GridToolbarQuickFilter />
+      </Box>
+    );
+  }
+
+  const columns: GridColDef[] = [
+    { field: 'name', headerName: 'NOME', width: 200 },
+    { field: 'category', headerName: 'CATEGORIA', width: 130 },
+    { field: 'section', headerName: 'SEÇÃO', width: 130 },
+    { field: 'productBrand', headerName: 'MARCA', width: 130 },
+    { field: 'color', headerName: 'COR', width: 130 },
+    { field: 'size', headerName: 'TAMANHO', width: 100 },
+    { field: 'stockQuantity', headerName: 'ESTOQUE', width: 100 },
+    {
+      field: 'actions',
+      type: 'actions',
+      headerName: 'AÇÕES',
+      width: 80,
+      renderCell: () => [
+        <GridActionsCellItem
+          icon={<RemoveRedEyeOutlinedIcon />}
+          label="Read"
+          key="read"
+        //onClick={() => alert("Leitura")}
+        />,
+        <GridActionsCellItem
+          icon={<EditOutlinedIcon />}
+          label="Update"
+          key="update"
+        //onClick={() => alert("Atualização")}
+        />,
+        <GridActionsCellItem
+          icon={<DeleteOutlineOutlinedIcon />}
+          label="Delete"
+          key="delete"
+        //onClick={() => alert("Exclusão")}
+        />
+      ]
+    }
+  ];
+
   return (
-    <Box sx={{ height: 400, width: 1 }}>
+    <Box key={1} sx={{ height: 500, width: 1 }}>
       <DataGrid
-        rows={rows} columns={columns}
+        rows={productList} columns={columns}
         disableSelectionOnClick
         disableColumnFilter
         disableColumnSelector
         disableDensitySelector
         components={{ Toolbar: QuickSearchToolbar }}
+        initialState={{
+          pagination: {
+            pageSize: 25,
+          },
+        }}
       />
     </Box>
   )

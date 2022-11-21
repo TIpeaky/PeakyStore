@@ -1,11 +1,12 @@
 export interface IProduct {
     id : string
+    key : string
     sku : string
     name : string
     description : string
-    purchasePrice : string
-    salePrice : string
-    stockQuantity : string
+    purchasePrice : number
+    salePrice : number
+    stockQuantity : number
     productBrand : string
     lastUpdateDate : string
     color : string

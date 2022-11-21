@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -66,6 +67,12 @@ public class ProductService {
         productRepository.save(product);
 
         return mapper.map(product, ProductDTO.class);
+    }
+
+    public List<ProductDTO> getAllProducts() {
+        List<Product> productList = productRepository.findAll();
+        if(productList.isEmpty()) throw new EntityNotFoundException("Não há produtos cadastrados");
+        return productList.stream().map(product -> mapper.map(product, ProductDTO.class)).toList();
     }
 
 }
