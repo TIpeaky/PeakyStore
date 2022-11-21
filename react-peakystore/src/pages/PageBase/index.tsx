@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom"
-import Rodape from "../../components/footer"
+import Rodape from "../../components/Footer"
 import Header from "../../components/header/Header"
 const PaginaBase = () => {
     return (<main>
