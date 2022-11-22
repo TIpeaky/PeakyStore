@@ -32,15 +32,17 @@ const ProductCrud = () => {
   //Modal
   const [openModal, setOpenModal] = React.useState(false);
 
-  const [operation, setOperation] = useState("Sou uma operação");
+  const [operation, setOperation] = useState("edit");
 
 
-  const handleOpen = (product: IProduct) => {
-    setOpenModal(true)
+  const handleOpen = (product: IProduct, operation: string) => {
+    setOperation(operation)
     setSelectedProduct(product)
-
+    setOpenModal(true)
   };
-  const handleClose = () => setOpenModal(false);
+
+  const handleClose = ():void => setOpenModal(false);
+
 
   //COLUNAS
   const columns: GridColDef[] = [
@@ -50,7 +52,7 @@ const ProductCrud = () => {
     { field: 'productBrand', headerName: 'MARCA', width: 130 },
     { field: 'color', headerName: 'COR', width: 130 },
     { field: 'size', headerName: 'TAMANHO', width: 100 },
-    { field: 'stockQuantity', headerName: 'ESTOQUE', width: 100 },
+    { field: 'stockQuantity', headerName: 'ESTOQUE', width: 130 },
     {
       field: 'actions',
       type: 'actions',
@@ -61,14 +63,14 @@ const ProductCrud = () => {
           icon={<RemoveRedEyeOutlinedIcon />}
           label="Read"
           key="read"
-          onClick={() => handleOpen(param.row)}
+          onClick={() => handleOpen(param.row, "read")}
   
         />,
         <GridActionsCellItem
           icon={<EditOutlinedIcon />}
           label="Update"
           key="update"
-          onClick={() => console.log(param.row)}
+          onClick={() => handleOpen(param.row, "update")}
         />,
         <GridActionsCellItem
           icon={<DeleteOutlineOutlinedIcon />}
@@ -79,6 +81,7 @@ const ProductCrud = () => {
       ]
     }
   ];
+
 
   //LINHAS
   useEffect(() => {
@@ -91,26 +94,13 @@ const ProductCrud = () => {
       })
   }, [])
 
-
-
-
-  
-
   return (
     <>
-    <Box key={1} sx={{ height: 500, width: 1 }}>
+    <Box key={1} sx={{ height: 500, width: 1,  }}>
       <DataGrid
-        rows={productList} columns={columns}
-        disableSelectionOnClick
-        disableColumnSelector
-        disableDensitySelector
+        rows={productList} columns={columns} disableSelectionOnClick disableColumnSelector disableDensitySelector
         components={{ Toolbar: QuickSearchToolbar }}
-        initialState={{
-          pagination: {
-            pageSize: 25,
-          },
-        }}
-      />
+        initialState={{pagination: {pageSize: 25,}}}/>
     </Box>
 
     <Modal
@@ -119,7 +109,7 @@ const ProductCrud = () => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <ProductDetails product={selectedProduct!} operation={operation}/>
+        <ProductDetails product={selectedProduct!} operation={operation} closeModal={handleClose}/>
       </Modal>
     </>
     
