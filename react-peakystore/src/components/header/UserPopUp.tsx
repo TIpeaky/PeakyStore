@@ -24,7 +24,7 @@ function UserPopUp() {
                     className={styles.btn_login} 
                     onClick={() => navigate('/login')}>Fazer Login</button></a>
                     <span className={styles.span_signup}>Cliente novo?</span>
-                    <a className={styles.link_signup} href="#">Cadastrar</a>
+                    <a className={styles.link_signup} href="#" onClick={() => navigate('/register')}>Cadastrar</a>
                 </div>
             )}
         </div>
