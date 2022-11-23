@@ -23,8 +23,6 @@ const UserRegister = () => {
   const register = (evento: React.FormEvent<HTMLFormElement>) => {
     evento.preventDefault();
 
-    validatePassword();
-
     const user = {
       cpf,
       name,
@@ -43,7 +41,8 @@ const UserRegister = () => {
     console.log("Usuário - data de nascimento: " + user.birthDate);
     console.log("Usuário - notificação: " + user.notification);
 
-    http
+    if(validatePassword()) {
+      http
       .post("user/client", user)
       .then((response) => {
         setCpf("");
@@ -61,6 +60,7 @@ const UserRegister = () => {
           alert("Erro ao realizar o cadastro!");
         }
       });
+    }
 
   };
 
@@ -101,7 +101,7 @@ const UserRegister = () => {
     if(passwordConfirm != password) {
       alert("Senhas estão diferentes!");
       return false;
-    }
+    } return true;
   }
 
   return (
