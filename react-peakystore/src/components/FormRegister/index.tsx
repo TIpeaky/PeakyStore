@@ -23,6 +23,8 @@ const UserRegister = () => {
   const register = (evento: React.FormEvent<HTMLFormElement>) => {
     evento.preventDefault();
 
+    validatePassword();
+
     const user = {
       cpf,
       name,
@@ -94,6 +96,13 @@ const UserRegister = () => {
       }
     });
   };
+
+  const validatePassword = () => {
+    if(passwordConfirm != password) {
+      alert("Senhas estão diferentes!");
+      return false;
+    }
+  }
 
   return (
     <div className={estilos.background}>
