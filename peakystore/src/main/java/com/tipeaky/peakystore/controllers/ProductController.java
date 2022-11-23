@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.UUID;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +30,12 @@ public class ProductController {
     public ResponseEntity<ProductDTO> getProduct(@PathVariable UUID id) {
         return ResponseEntity.status(HttpStatus.OK).body(productService.getProduct(id));
     }
+
+    @GetMapping
+    public ResponseEntity<List<ProductDTO>> getAllProducts() {
+        return ResponseEntity.status(HttpStatus.OK).body(productService.getAllProducts());
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable UUID id) {
         return productService.deleteProduct(id);
