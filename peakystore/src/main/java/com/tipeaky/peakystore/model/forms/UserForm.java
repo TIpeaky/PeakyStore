@@ -22,6 +22,7 @@ public class UserForm {
     private String email;
     @NotBlank @Length(min = 6, max = 50)
     private String password;
+    @NotEmpty
     private List<GenderForm> genderFormList = new ArrayList<>();
     @NotNull @Past
     private LocalDate birthDate;
