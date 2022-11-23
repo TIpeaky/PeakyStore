@@ -12,12 +12,7 @@ import com.tipeaky.peakystore.model.entities.Card;
 import com.tipeaky.peakystore.model.entities.Address;
 import com.tipeaky.peakystore.model.entities.Role;
 import com.tipeaky.peakystore.model.entities.User;
-import com.tipeaky.peakystore.model.forms.CardForm;
-import com.tipeaky.peakystore.model.forms.LoginForm;
-import com.tipeaky.peakystore.model.forms.NewPasswordForm;
-import com.tipeaky.peakystore.model.forms.NotificationForm;
-import com.tipeaky.peakystore.model.forms.AddressRegisterForm;
-import com.tipeaky.peakystore.model.forms.UserForm;
+import com.tipeaky.peakystore.model.forms.*;
 import com.tipeaky.peakystore.repositories.AddressRepository;
 import com.tipeaky.peakystore.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -50,6 +45,9 @@ public class UserService {
     private TokenService tokenService;
 
     @Autowired
+    private EmailService emailService;
+
+    @Autowired
     ModelMapper mapper;
 
     @Transactional
@@ -68,6 +66,10 @@ public class UserService {
             user.setNotification(false);
 
         User savedUser = userRepository.save(user);
+
+        EmailForm emailForm = new EmailForm("TIpeaky", "tipeakyorg@gmail.com", savedUser.getEmail(), "Confirmação de cadastro!", "Obrigado por se cadastrar na PeakyStore!");
+        emailService.sendEmail(emailForm);
+
         return mapper.map(savedUser, UserDTO.class);
     }
 
