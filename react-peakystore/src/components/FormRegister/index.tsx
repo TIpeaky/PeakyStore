@@ -16,18 +16,19 @@ const UserRegister = () => {
   const [email, setEmail] = useState("");
   const [password, setPassWord] = useState("");
   const [passwordConfirm, setPassWordConfirm] = useState("");
-  const [gender, setGender] = useState<string[]>([]);
+  const [genderFormList, setGenderFormList] = useState<arrayPrincipal[]>([]);
   const [birthDate, setBirthDate] = useState("");
   const [notification, setNotification] = useState(false);
 
   const register = (evento: React.FormEvent<HTMLFormElement>) => {
     evento.preventDefault();
+
     const user = {
       cpf,
       name,
       email,
       password,
-      gender,
+      genderFormList,
       birthDate,
       notification,
     };
@@ -36,7 +37,7 @@ const UserRegister = () => {
     console.log("Usuário - nome: " + user.name);
     console.log("Usuário - email: " + user.email);
     console.log("Usuário - senha: " + user.password);
-    console.log("Usuário - preferências (lista): " + user.gender);
+    console.log("Usuário - preferências (lista): " + user.genderFormList);
     console.log("Usuário - data de nascimento: " + user.birthDate);
     console.log("Usuário - notificação: " + user.notification);
 
@@ -47,7 +48,7 @@ const UserRegister = () => {
         setName("");
         setEmail("");
         setPassWord("");
-        setGender([]);
+        setGenderFormList([]);
         setBirthDate("");
         setNotification(Boolean);
       })
@@ -75,15 +76,21 @@ const UserRegister = () => {
   const handleChangePreferences = (
     evento: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setGender((prevState) => {
-      if (prevState.includes(evento.target.value)) {
-        const clone = [...prevState];
-        clone.splice(prevState.indexOf(evento.target.value), 1);
-        console.log("Desmarcou: " + gender);
-        return clone;
+    setGenderFormList((prevState) => {
+      let exist: boolean = false;
+
+      prevState.forEach(function (value) {
+        if(value.genderEnum == evento.target.value) {
+          exist = true;
+        }
+      })
+
+      if(exist) {
+        const newArray = [...prevState];
+        newArray.splice(prevState.indexOf({genderEnum: evento.target.value}), 1);
+        return newArray;
       } else {
-        console.log("Marcou");
-        return [...prevState, evento.target.value];
+        return [...prevState, {genderEnum: evento.target.value}];
       }
     });
   };
