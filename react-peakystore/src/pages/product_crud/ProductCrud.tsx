@@ -1,6 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import { DataGrid, GridColDef, GridRowsProp, GridToolbarQuickFilter, GridActionsCellItem } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridToolbarQuickFilter, GridActionsCellItem } from '@mui/x-data-grid';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
@@ -9,6 +9,9 @@ import http from "../../http"
 import { useState, useEffect } from 'react';
 import ProductDetails from './ProductDetails';
 import { IProduct } from '../../interfaces/IProduct';
+import Button from '@mui/material/Button';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import styles from './ProductCrud.module.scss'
 
 function QuickSearchToolbar() {
   return (
@@ -26,23 +29,45 @@ function QuickSearchToolbar() {
 
 const ProductCrud = () => {
 
-  const [productList, setProductList] = useState<GridRowsProp>([]);
+  const [productList, setProductList] = useState<IProduct[]>([]);
+
   const [selectedProduct, setSelectedProduct] = useState<IProduct>()
 
   //Modal
   const [openModal, setOpenModal] = React.useState(false);
 
-  const [operation, setOperation] = useState("edit");
+  const [operation, setOperation] = useState("read");
+
+  useEffect(() => {
+    setProductList(productList)
+  }, [productList])
+
+  const updateProductList = (newProduct: IProduct): void => {
+    let updatedList = [...productList]
+    let updated: boolean = false
+    productList.forEach((product, i) => {
+      if (product.id === newProduct.id) {
+        updatedList[i] = newProduct
+        setProductList(updatedList)
+        updated = true
+      }
+    })
+    if (!updated) {
+      updatedList.push(newProduct)
+      setProductList(updatedList)
+    }
+
+  }
 
 
-  const handleOpen = (product: IProduct, operation: string) => {
+
+  const handleOpen = (operation: string, product?: IProduct): void => {
     setOperation(operation)
     setSelectedProduct(product)
     setOpenModal(true)
   };
 
-  const handleClose = ():void => setOpenModal(false);
-
+  const closeModal = (): void => { setOpenModal(false) }
 
   //COLUNAS
   const columns: GridColDef[] = [
@@ -63,14 +88,14 @@ const ProductCrud = () => {
           icon={<RemoveRedEyeOutlinedIcon />}
           label="Read"
           key="read"
-          onClick={() => handleOpen(param.row, "read")}
-  
+          onClick={() => handleOpen("read", param.row)}
+
         />,
         <GridActionsCellItem
           icon={<EditOutlinedIcon />}
           label="Update"
           key="update"
-          onClick={() => handleOpen(param.row, "update")}
+          onClick={() => handleOpen("update", param.row)}
         />,
         <GridActionsCellItem
           icon={<DeleteOutlineOutlinedIcon />}
@@ -96,23 +121,27 @@ const ProductCrud = () => {
 
   return (
     <>
-    <Box key={1} sx={{ height: 500, width: 1,  }}>
-      <DataGrid
-        rows={productList} columns={columns} disableSelectionOnClick disableColumnSelector disableDensitySelector
-        components={{ Toolbar: QuickSearchToolbar }}
-        initialState={{pagination: {pageSize: 25,}}}/>
-    </Box>
+      <Box key={1} sx={{ height: 500, padding: 2 }}>
+        <h1>Produtos</h1>
+        <Button className={styles.btn_save_product} size="small" variant="contained" startIcon={<AddShoppingCartIcon />}
+          onClick={() => handleOpen("create")}>
+          Adicionar novo produto
+        </Button>
+        <DataGrid
+          rows={productList} columns={columns} disableSelectionOnClick disableColumnSelector disableDensitySelector
+          components={{ Toolbar: QuickSearchToolbar }}
+          initialState={{ pagination: { pageSize: 25, } }} />
+      </Box>
 
-    <Modal
+      <Modal
         open={openModal}
-        onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <ProductDetails product={selectedProduct!} operation={operation} closeModal={handleClose}/>
+        <ProductDetails product={selectedProduct!} operation={operation} closeModal={closeModal} updateProductList={updateProductList} />
       </Modal>
     </>
-    
+
   )
 }
 
