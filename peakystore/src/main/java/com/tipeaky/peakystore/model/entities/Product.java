@@ -56,6 +56,9 @@ public class Product {
     @Column(nullable = false)
     private SectionEnum section;
 
+    @Column(nullable = false)
+    private Boolean isExcluded = false;
+
     public String generateSku() {
         this.sku = this.color.getKey() + this.size.getKey() + this.category.getKey() + this.section.getKey() + this.productBrand.getKey();
         return sku;
