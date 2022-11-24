@@ -4,19 +4,16 @@ import http from "../../http";
 import ButtonRegister from "../ButtonRegister";
 import logoGoogle from "./assets/logo-google.png";
 import logoFacebook from "./assets/logo-facebook.png";
+import { IGender } from "../../interfaces/IGender";
 
 const UserRegister = () => {
-
-  interface arrayPrincipal {
-    genderEnum: string
-  }
   
   const [cpf, setCpf] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassWord] = useState("");
   const [passwordConfirm, setPassWordConfirm] = useState("");
-  const [genderFormList, setGenderFormList] = useState<arrayPrincipal[]>([]);
+  const [genderFormList, setGenderFormList] = useState<IGender[]>([]);
   const [birthDate, setBirthDate] = useState("");
   const [notification, setNotification] = useState(false);
 
