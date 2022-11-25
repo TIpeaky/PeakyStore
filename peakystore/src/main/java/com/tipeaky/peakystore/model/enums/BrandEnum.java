@@ -12,7 +12,8 @@ public enum BrandEnum {
     POLO_WEAR("PO", "Polo Wear"),
     FILA("FI", "Fila"),
     LACOSTE("LA", "Lacoste"),
-    GUCCI("GU", "Gucci");
+    GUCCI("GU", "Gucci"),
+    LUPO("LU", "Lupo");
 
     private String key;
     private String description;

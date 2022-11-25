@@ -4,10 +4,11 @@ import Banner from '../../components/Banner';
 import NavBar from '../../components/NavBar';
 import Rodape from "../../components/footer/index"
 
+import Rodape from "../../components/Footer"
+import Header from "../../components/Header"
 const PaginaBase = () => {
     return (<main>
-        <NavBar />
-        <Banner />
+        <Header/>
         <Outlet />
         <Rodape />
     </main>)

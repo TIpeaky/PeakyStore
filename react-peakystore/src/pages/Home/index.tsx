@@ -1,3 +1,4 @@
+import Banner from '../../components/Banner';
 import React, { useState, useEffect, useRef, MutableRefObject } from "react";
 import CarrouselImage from "../../images/Rectangle2.png";
 import FemineImage from "../../images/FemineImage.png";
@@ -37,6 +38,8 @@ function App() {
   if (!data || !data.length) return null;
 
   return (
+    <Banner />
+
     <div className={estilos.homeContainer}>
       <div className={estilos.carrouselContainer}>
         <div className={estilos.carrouselImageContainer}>
@@ -97,6 +100,8 @@ function App() {
         </div>
       </div>
     </div>
+    <>
+    </>
   );
 }
 
