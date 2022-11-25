@@ -51,22 +51,20 @@ const ProductDetails = ({ product, operation, closeModal, updateProductList }: p
 
     const saveProduct = () => {
         http.post('product', productForm)
-        .then((response) => {
-            updateProductList(response.data)
-            closeModal()
-        })
-        .catch(error => {
-            if (error?.response?.data?.message) {
-                alert(error.response.data.message)
-            } else {
-                alert('Aconteceu um erro inesperado ao cadastrar o produto! Entre em contato com o suporte!')
-                console.log(error)
-            }
+            .then((response) => {
+                updateProductList(response.data)
+                closeModal()
+            })
+            .catch(error => {
+                if (error?.response?.data?.message) {
+                    alert(error.response.data.message)
+                } else {
+                    alert('Aconteceu um erro inesperado ao cadastrar o produto! Entre em contato com o suporte!')
+                    console.log(error)
+                }
 
-        })
-
+            })
     }
-
 
     return (
         <Box component="form" noValidate autoComplete="off" className={styles.container}>
@@ -88,7 +86,7 @@ const ProductDetails = ({ product, operation, closeModal, updateProductList }: p
 
             <TextField value={operation !== "create" ? productForm.name : undefined} id="name" label="Nome" className={styles.input} variant="outlined" fullWidth
                 {...(operation === "read" ? { disabled: true } : {})}
-                name="name" onChange={handleChange}/>
+                name="name" onChange={handleChange} />
 
             <TextField value={operation !== "create" ? productForm.description : undefined} id="description" label="Descrição" className={styles.input}
                 multiline maxRows={4} fullWidth {...(operation === "read" ? { disabled: true } : {})}
@@ -135,7 +133,7 @@ const ProductDetails = ({ product, operation, closeModal, updateProductList }: p
                 name="size" onChange={handleChange} />
 
             <TextField value={operation !== "create" ? productForm.category : undefined} id="category" label="Categoria" className={styles.input} variant="outlined" fullWidth
-                {...(operation === "read" ? { disabled: true } : {})} name="category" onChange={handleChange}/>
+                {...(operation === "read" ? { disabled: true } : {})} name="category" onChange={handleChange} />
 
             <TextField value={operation !== "create" ? productForm.section : undefined} id="section" label="Seção" className={styles.input} variant="outlined" fullWidth
                 {...(operation === "read" ? { disabled: true } : {})}

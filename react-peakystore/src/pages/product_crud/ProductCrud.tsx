@@ -13,17 +13,36 @@ import Button from '@mui/material/Button';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import styles from './ProductCrud.module.scss'
 
+//Barra de pesquisa
 function QuickSearchToolbar() {
   return (
-    <Box
-      sx={{
-        p: 0.5,
-        pb: 0,
-      }}
-    >
+    <Box sx={{p: 0.5,pb: 0, }}>
       <GridToolbarQuickFilter />
     </Box>
   );
+}
+
+//Excluir produto
+const deleteProduct = (product: IProduct):void => {
+  //abrir modal de confirmação de exclusão. Se for false, dar um return;
+
+
+  http.delete('product/' + product.id)
+  .then((response) => {
+    console.log(response)
+    //remover produto da lista
+    //informar que o produto foi removido com sucesso
+
+  })
+  .catch(error => {
+      if (error?.response?.data?.message) {
+          alert(error.response.data.message)
+      } else {
+          alert('Aconteceu um erro inesperado ao excluir o produto! Entre em contato com o suporte!')
+          console.log(error)
+      }
+
+  })
 }
 
 
@@ -35,9 +54,16 @@ const ProductCrud = () => {
 
   //Modal
   const [openModal, setOpenModal] = React.useState(false);
-
   const [operation, setOperation] = useState("read");
 
+  const handleOpen = (operation: string, product?: IProduct): void => {
+    setOperation(operation)
+    setSelectedProduct(product)
+    setOpenModal(true)
+  };
+  const closeModal = (): void => { setOpenModal(false) }
+
+  //atualiza a lista de produtos em tempo real
   useEffect(() => {
     setProductList(productList)
   }, [productList])
@@ -56,20 +82,11 @@ const ProductCrud = () => {
       updatedList.push(newProduct)
       setProductList(updatedList)
     }
-
   }
 
 
 
-  const handleOpen = (operation: string, product?: IProduct): void => {
-    setOperation(operation)
-    setSelectedProduct(product)
-    setOpenModal(true)
-  };
-
-  const closeModal = (): void => { setOpenModal(false) }
-
-  //COLUNAS
+  //COLUNAS DA TABELA
   const columns: GridColDef[] = [
     { field: 'name', headerName: 'NOME', width: 200 },
     { field: 'category', headerName: 'CATEGORIA', width: 130 },
@@ -101,14 +118,14 @@ const ProductCrud = () => {
           icon={<DeleteOutlineOutlinedIcon />}
           label="Delete"
           key="delete"
-          onClick={() => console.log(param.row)}
+          onClick={() => deleteProduct(param.row)}
         />
       ]
     }
   ];
 
 
-  //LINHAS
+  //LINHAS DA TABELA
   useEffect(() => {
     http.get('product')
       .then(response => {
