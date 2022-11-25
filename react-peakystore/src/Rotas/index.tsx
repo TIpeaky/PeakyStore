@@ -1,5 +1,4 @@
 import { Route, Routes} from 'react-router-dom'
-// import Footer from '../components/Footer'
 import Home from "../pages/Home"
 import LoginAdmin from '../pages/Login/Admin'
 import LoginUsuario from '../pages/Login/User'
@@ -15,10 +14,10 @@ const Rotas = () => {
           </Route>
           <Route path='/admin'>
             <Route path='login' element={<LoginAdmin />} />
-          <Route path='/' element={<Home />}>
-
+            <Route path='/' element={<Home />} />
           </Route>
-        </Routes>)
+        </Routes>
+    );
 }
 
 export default Rotas
