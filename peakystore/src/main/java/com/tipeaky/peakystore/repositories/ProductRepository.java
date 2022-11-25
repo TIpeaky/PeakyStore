@@ -16,4 +16,7 @@ public interface ProductRepository extends JpaRepository<Product, UUID> {
 
     @Query("SELECT p FROM Product p WHERE p.isExcluded = FALSE")
     List<Product> findAllNotExcluded();
+
+    Optional<Product> findBySku(String sku);
+
 }
