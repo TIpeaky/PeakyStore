@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, MutableRefObject } from "react";
-import CarrouselImage from "../../images/Rectangle2.png";
+import CarrouselImage from "../../images/carossel.png";
 import FemineImage from "../../images/FemineImage.png";
 import MasculineImage from "../../images/MasculineImage.png";
 import childishImage from "../../images/ChildishImage.png";
@@ -77,8 +77,9 @@ function App() {
 
       <div className={estilos.carrouselCategoryContainer} >
         <div className={estilos.buttons}>
-        <button onClick={handleLeftClick}><img src={Arrow} alt="Scroll Left" /></button>
+          <button onClick={handleLeftClick}><img src={Arrow} alt="Scroll Left" /></button>
         </div>
+
         <div className={estilos.carrousel} ref={carousel}>
           {data.map((item) => {
             const { id, urlImg, categoryName } = item;
@@ -93,7 +94,7 @@ function App() {
         </div>
 
         <div className={estilos.buttons}>
-        <button className={estilos.rightButton} onClick={handleRightClick}><img src={Arrow} alt="Scroll Right" /></button>
+          <button className={estilos.rightButton} onClick={handleRightClick}><img src={Arrow} alt="Scroll Right" /></button>
         </div>
       </div>
     </div>
