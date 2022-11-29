@@ -2,7 +2,6 @@ import { Outlet } from "react-router-dom"
 import NavBar from '../../../components/NavBar'
 import Sidebar from '../../../components/SideBar'
 import { useDispatch, useSelector } from 'react-redux';
-import { SET_MENU } from '../../../store/reducers/actions';
 import { AppBar, Box, CssBaseline, Toolbar } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
@@ -46,12 +45,10 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(({
         [theme.breakpoints.down('md')]: {
             marginLeft: '20px',
             width: `calc(100% - 260px)`,
-            padding: '16px'
         },
         [theme.breakpoints.down('sm')]: {
             marginLeft: '10px',
             width: `calc(100% - 260px)`,
-            padding: '16px',
             marginRight: '10px'
         }
     }),
@@ -78,9 +75,6 @@ const PaginaBase = () => {
 
     const { drawerOpen } = useSelector((state: RootState) => state.menu);
     const dispatch = useDispatch();
-    const handleLeftDrawerToggle = () => {
-        dispatch({ type: SET_MENU, opened: !drawerOpen });
-    };
 
     const [open, setOpen] = useState(drawerOpen);
     const handleDrawerToggle = () => {
@@ -95,7 +89,7 @@ const PaginaBase = () => {
 
 
     return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex'}}>
         <CssBaseline />
         {/* header */}
         <AppBar
@@ -108,13 +102,11 @@ const PaginaBase = () => {
                 transition: drawerOpen ? theme.transitions.create('width') : 'none'
             }}
         >
-            <Toolbar>
-                <NavBar handleLeftDrawerToggle={handleLeftDrawerToggle} />
-            </Toolbar>
+            <NavBar handleLeftDrawerToggle={handleDrawerToggle} />
         </AppBar>
 
         {/* drawer */}
-        <Sidebar drawerOpen={drawerOpen} drawerToggle={handleLeftDrawerToggle} />
+        <Sidebar drawerOpen={drawerOpen} drawerToggle={handleDrawerToggle} />
 
         {/* main content */}
         <Main theme={theme} open={drawerOpen}>

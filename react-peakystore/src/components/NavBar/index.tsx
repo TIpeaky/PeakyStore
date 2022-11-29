@@ -8,7 +8,7 @@ import * as React from 'react';
 import Popover from '@mui/material/Popover';
 import UserPopUp from './UserPopUp';
 import { useTheme } from '@mui/material/styles';
-import { Avatar, Box, ButtonBase } from '@mui/material';
+import { Avatar, Box } from '@mui/material';
 import { MenuOutlined } from '@mui/icons-material';
 //import { Collapse, FormControlLabel, Switch } from '@mui/material';
 
@@ -33,38 +33,33 @@ function NavBar ({ handleLeftDrawerToggle }: any ) {
         <header className={styles.header}>
             <Box
                 sx={{
-                    width: 228,
-                    display: 'flex',
-                    [theme.breakpoints.down('md')]: {
-                        width: 'auto'
-                    }
+                    width: 300,
+                    display: 'flex'
                 }}
             >
                 <Box className={styles.header_logo} >
                     <img src={logo} alt="logo" />
                 </Box>
-                <ButtonBase sx={{ borderRadius: '12px', overflow: 'hidden' }}>
-                    <Avatar
-                        variant="rounded"
-                        sx={{
-                            cursor: 'pointer',
-                            borderRadius: '8px',
-                            width: '34px',
-                            height: '34px',
-                            fontSize: '1.2rem',
-                            transition: 'all .2s ease-in-out',
-                            background: theme.palette.secondary.light,
-                            color: theme.palette.secondary.dark,
-                            '&:hover': {
-                                background: theme.palette.secondary.dark,
-                                color: theme.palette.secondary.light
-                            }
-                        }}
-                        onClick={handleLeftDrawerToggle}
-                    >
-                        <MenuOutlined />
-                    </Avatar>
-                </ButtonBase>
+                <Avatar className={styles.header_button}
+                    variant="rounded"
+                    sx={{
+                        cursor: 'pointer',
+                        borderRadius: '8px',
+                        width: '34px',
+                        height: '34px',
+                        fontSize: '1.2rem',
+                        transition: 'all .2s ease-in-out',
+                        background: theme.palette.secondary.light,
+                        color: theme.palette.secondary.dark,
+                        '&:hover': {
+                            background: theme.palette.secondary.dark,
+                            color: theme.palette.secondary.light
+                        }
+                    }}
+                    onClick={handleLeftDrawerToggle}
+                >
+                    <MenuOutlined />
+                </Avatar>
             </Box>
             
 

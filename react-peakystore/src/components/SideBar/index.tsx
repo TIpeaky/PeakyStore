@@ -2,6 +2,7 @@ import { useTheme } from '@mui/material/styles';
 import { Box, Drawer } from '@mui/material';
 import Navigation from './Navigation';
 import { useMemo } from 'react';
+import logo from '../../images/logoWhiteMin.png'
 
 export interface SidebarProps {
     drawerOpen: boolean;
@@ -17,7 +18,18 @@ function Sidebar ({ drawerOpen, drawerToggle, window }: SidebarProps) {
     const container = window !== undefined ? () => window.document.body : undefined;
 
     return (
-        <Box component="nav" sx={{ flexShrink: { md: 0 }, width: 260 }} aria-label="mailbox folders">
+        <>
+            <Box sx={{ display: { xs: 'block', md: 'none' } }}>
+                <Box >
+                    <img src={logo} alt="logo" />
+                </Box>
+            </Box>
+        <Box component="nav"
+                    sx={{ 
+                        flexShrink: { md: 0 }, 
+                        width: 260
+                    }} 
+                    aria-label="mailbox folders">
             <Drawer
                 container={container}
                 variant= 'persistent'
@@ -26,10 +38,10 @@ function Sidebar ({ drawerOpen, drawerToggle, window }: SidebarProps) {
                 onClose={drawerToggle}
                 sx={{
                     '& .MuiDrawer-paper': {
+                        marginTop: 8,
                         width: 260,
                         background: theme.palette.background.default,
                         color: theme.palette.text.primary,
-                        borderRight: 'none',
                     }
                 }}
                 ModalProps={{ keepMounted: true }}
@@ -38,6 +50,7 @@ function Sidebar ({ drawerOpen, drawerToggle, window }: SidebarProps) {
                 {drawerOpen && navigation}
             </Drawer>
         </Box>
+        </>
     );
 };
 
