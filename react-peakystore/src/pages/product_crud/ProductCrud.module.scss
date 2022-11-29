@@ -1,7 +1,9 @@
 .btn_save_product {
-    background-color: #004563 !important;
+    background-color: rgba(0, 68, 97, 0.75) !important;
     position: absolute;
-    top: 37px;
+    padding: 7px 15px !important;
+    top: 42px;
     left: 300px;
     z-index:1 !important;
+    border-radius: 15px !important;
 }

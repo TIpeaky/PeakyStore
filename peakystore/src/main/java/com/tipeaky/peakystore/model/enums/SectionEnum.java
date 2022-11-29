@@ -7,6 +7,7 @@ import java.util.Map;
 public enum SectionEnum {
     MALE("MA", "Male"),
     FEMALE("FE", "Female"),
+
     UNISEX("UN", "Unisex"),
     MALE_CHILDREN("MC", "Male Children"),
     FEMALE_CHILDREN("FC", "Female Children"),

@@ -16,34 +16,13 @@ import styles from './ProductCrud.module.scss'
 //Barra de pesquisa
 function QuickSearchToolbar() {
   return (
-    <Box sx={{p: 0.5,pb: 0, }}>
+    <Box sx={{ p: 0.5, pb: 0, }}>
       <GridToolbarQuickFilter />
     </Box>
   );
 }
 
-//Excluir produto
-const deleteProduct = (product: IProduct):void => {
-  //abrir modal de confirmação de exclusão. Se for false, dar um return;
 
-
-  http.delete('product/' + product.id)
-  .then((response) => {
-    console.log(response)
-    //remover produto da lista
-    //informar que o produto foi removido com sucesso
-
-  })
-  .catch(error => {
-      if (error?.response?.data?.message) {
-          alert(error.response.data.message)
-      } else {
-          alert('Aconteceu um erro inesperado ao excluir o produto! Entre em contato com o suporte!')
-          console.log(error)
-      }
-
-  })
-}
 
 
 const ProductCrud = () => {
@@ -68,20 +47,47 @@ const ProductCrud = () => {
     setProductList(productList)
   }, [productList])
 
-  const updateProductList = (newProduct: IProduct): void => {
-    let updatedList = [...productList]
-    let updated: boolean = false
-    productList.forEach((product, i) => {
-      if (product.id === newProduct.id) {
-        updatedList[i] = newProduct
-        setProductList(updatedList)
-        updated = true
+  const updateProductList = (targetProduct: IProduct, operation: string): void => {
+    let productListCopy = [...productList]
+    let index = productList.findIndex(product => product.id === targetProduct.id)
+
+    switch (operation) {
+      case "updateItem": {
+        if (index !== -1) productListCopy[index] = targetProduct;
+        break;
       }
-    })
-    if (!updated) {
-      updatedList.push(newProduct)
-      setProductList(updatedList)
+      case "addItem": {
+        productListCopy.push(targetProduct);
+        break;
+      }
+      case "removeItem": {
+        if (index !== -1) productListCopy.splice(index, 1)
+        break;
+      }
     }
+    setProductList(productListCopy)
+  }
+
+  //Excluir produto
+  const deleteProduct = (product: IProduct): void => {
+    //abrir modal de confirmação de exclusão. Se for false, dar um return;
+
+
+    http.delete('product/' + product.id)
+      .then(() => {
+        updateProductList(product, "removeItem")
+        //informar que o produto foi removido com sucesso
+
+      })
+      .catch(error => {
+        if (error?.response?.data?.message) {
+          alert(error.response.data.message)
+        } else {
+          alert('Aconteceu um erro inesperado ao excluir o produto! Entre em contato com o suporte!')
+          console.log(error)
+        }
+
+      })
   }
 
 
