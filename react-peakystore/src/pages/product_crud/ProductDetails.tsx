@@ -77,7 +77,6 @@ const ProductDetails = ({ product, operation, closeModal, updateProductList }: p
                     alert('Aconteceu um erro inesperado ao atualizar o produto! Entre em contato com o suporte!')
                     console.log(error)
                 }
-
             })
     }
 
@@ -109,12 +108,11 @@ const ProductDetails = ({ product, operation, closeModal, updateProductList }: p
                 {operation === "read" && (
                     <>
                         <Grid item xs={6}>
-                            <TextField value={productForm.id} id="id" label="ID" variant="outlined" fullWidth
-                                InputProps={{ readOnly: true }} />
+                            <TextField value={productForm.id} label="ID" fullWidth InputProps={{ readOnly: true }} />
                         </Grid>
+
                         <Grid item xs={6}>
-                            <TextField value={productForm.sku} id="sku" label="SKU" variant="outlined" fullWidth
-                                InputProps={{ readOnly: true }} />
+                            <TextField value={productForm.sku} label="SKU" fullWidth InputProps={{ readOnly: true }} />
                         </Grid>
                     </>
                 )}
@@ -123,36 +121,30 @@ const ProductDetails = ({ product, operation, closeModal, updateProductList }: p
                 <Grid container spacing={2} item xs={6}>
 
                     <Grid item xs={12}>
-                        <TextField value={operation !== "create" ? productForm.name : undefined} id="name"
-                            label="Nome"  variant="outlined" fullWidth
+                        <TextField value={operation !== "create" ? productForm.name : undefined}
                             {...(operation === "read" ? { inputProps: { readOnly: true } } : {})}
-                            name="name" onChange={handleChange} />
+                            label="Nome" fullWidth name="name" onChange={handleChange} />
                     </Grid>
+
                     <Grid item xs={6}>
-                        <TextField value={operation !== "create" ? productForm.purchasePrice.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}) : undefined}
-                            id="purchasePrice" label="Preço de compra" fullWidth 
+                        <TextField value={operation !== "create" ? productForm.purchasePrice.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) : undefined}
                             {...(operation === "read" ? { inputProps: { readOnly: true } } : {})}
-                            name="purchasePrice" onChange={handleChangeMoneyInput} />
+                            label="Preço de compra" fullWidth name="purchasePrice" onChange={handleChangeMoneyInput} />
                     </Grid>
+
                     <Grid item xs={6}>
-                        <TextField value={operation !== "create" ? productForm.salePrice.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'}) : undefined}
-                            id="salePrice" label="Preço de venda" fullWidth
+                        <TextField value={operation !== "create" ? productForm.salePrice.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) : undefined}
                             {...(operation === "read" ? { inputProps: { readOnly: true } } : {})}
-                            name="salePrice" onChange={handleChangeMoneyInput} />
+                            label="Preço de venda" fullWidth name="salePrice" onChange={handleChangeMoneyInput} />
                     </Grid>
 
                     <Grid item xs={6}>
                         <FormControl fullWidth>
                             <InputLabel id="product-color-label">Cor</InputLabel>
                             <Select
-                                labelId="product-color-label"
-                                id="product-color"
-                                name="color"
+                                labelId="product-color-label" name="color" onChange={handleChange}
                                 value={productForm && productForm.color ? productForm.color : ''}
-                                label="COR"
-                                onChange={handleChange}
-                                {...(operation === "read" ? { inputProps: { readOnly: true } } : {})}
-                            >
+                                {...(operation === "read" ? { inputProps: { readOnly: true } } : {})}>
                                 <MenuItem value={"BLACK"}>Preto</MenuItem>
                                 <MenuItem value={"WHITE"}>Branco</MenuItem>
                                 <MenuItem value={"GREY"}>Cinza</MenuItem>
@@ -172,15 +164,9 @@ const ProductDetails = ({ product, operation, closeModal, updateProductList }: p
                         <FormControl fullWidth>
                             <InputLabel id="product-brand-label">Marca</InputLabel>
                             <Select
-                                
-                                labelId="product-brand-label"
-                                id="product-brand"
-                                name="productBrand"
+                                labelId="product-brand-label" name="productBrand" onChange={handleChange}
                                 value={productForm && productForm.productBrand ? productForm.productBrand : ''}
-                                label="Marca"
-                                onChange={handleChange}
-                                {...(operation === "read" ? { inputProps: { readOnly: true } } : {})}
-                            >
+                                {...(operation === "read" ? { inputProps: { readOnly: true } } : {})}>
                                 <MenuItem value={"NIKE"}>Nike</MenuItem>
                                 <MenuItem value={"ADIDAS"}>Adidas</MenuItem>
                                 <MenuItem value={"PUMA"}>Puma</MenuItem>
@@ -197,15 +183,9 @@ const ProductDetails = ({ product, operation, closeModal, updateProductList }: p
                         <FormControl fullWidth>
                             <InputLabel id="product-size-label">Tamanho</InputLabel>
                             <Select
-                                
-                                labelId="product-size-label"
-                                id="product-size"
-                                name="size"
+                                labelId="product-size-label" name="size" onChange={handleChange}
                                 value={productForm && productForm.size ? productForm.size : ''}
-                                label="TAMANHO"
-                                onChange={handleChange}
-                                {...(operation === "read" ? { inputProps: { readOnly: true } } : {})}
-                            >
+                                {...(operation === "read" ? { inputProps: { readOnly: true } } : {})}>
                                 <MenuItem value={"XS"}>XP</MenuItem>
                                 <MenuItem value={"S"}>P</MenuItem>
                                 <MenuItem value={"M"}>M</MenuItem>
@@ -220,15 +200,9 @@ const ProductDetails = ({ product, operation, closeModal, updateProductList }: p
                         <FormControl fullWidth>
                             <InputLabel id="product-category-label">Categoria</InputLabel>
                             <Select
-                                
-                                labelId="product-category-label"
-                                id="product-category"
-                                name="category"
+                                labelId="product-category-label" name="category" onChange={handleChange}
                                 value={productForm && productForm.category ? productForm.category : ''}
-                                label="CATEGORIA"
-                                onChange={handleChange}
-                                {...(operation === "read" ? { inputProps: { readOnly: true } } : {})}
-                            >
+                                {...(operation === "read" ? { inputProps: { readOnly: true } } : {})}>
                                 <MenuItem value={"SHIRT"}>Camisa</MenuItem>
                                 <MenuItem value={"TSHIRT"}>Camiseta</MenuItem>
                                 <MenuItem value={"PANTS"}>Calça</MenuItem>
@@ -254,15 +228,9 @@ const ProductDetails = ({ product, operation, closeModal, updateProductList }: p
                         <FormControl fullWidth>
                             <InputLabel id="product-section-label">Seção</InputLabel>
                             <Select
-                                
-                                labelId="product-section-label"
-                                id="product-section"
-                                name="section"
+                                labelId="product-section-label" name="section" onChange={handleChange}
                                 value={productForm && productForm.section ? productForm.section : ''}
-                                label="SEÇÃO"
-                                onChange={handleChange}
-                                {...(operation === "read" ? { inputProps: { readOnly: true } } : {})}
-                            >
+                                {...(operation === "read" ? { inputProps: { readOnly: true } } : {})}>
                                 <MenuItem value={"MALE"}>Masculina</MenuItem>
                                 <MenuItem value={"FEMALE"}>Feminina</MenuItem>
                                 <MenuItem value={"UNISEX"}>Unisex</MenuItem>
@@ -275,9 +243,8 @@ const ProductDetails = ({ product, operation, closeModal, updateProductList }: p
 
                     <Grid item xs={6}>
                         <TextField value={operation !== "create" ? productForm.stockQuantity : undefined}
-                            id="stockQuantity" label="Estoque"  variant="outlined" fullWidth
                             {...(operation === "read" ? { inputProps: { readOnly: true } } : {})}
-                            type="number"
+                            type="number" label="Estoque" fullWidth
                             name="stockQuantity" onChange={handleChange} />
                     </Grid>
 
@@ -285,24 +252,27 @@ const ProductDetails = ({ product, operation, closeModal, updateProductList }: p
                 {/* Coluna da direita */}
                 <Grid container spacing={2} item xs={6}>
                     <Grid item xs={12}>
-                        <TextField label="Espaço destinado a inserção de fotos do produto" 
+                        <TextField label="Espaço destinado a inserção de fotos do produto"
                             multiline rows={4} fullWidth disabled />
                     </Grid>
+
                     <Grid item xs={12}>
                         <TextField value={operation !== "create" ? productForm.description : undefined}
-                            id="description" label="Descrição" 
-                            multiline rows={7} fullWidth {...(operation === "read" ? { inputProps: { readOnly: true } } : {})}
-                            name="description" onChange={handleChange} />
+                            label="Descrição" name="description" onChange={handleChange} fullWidth multiline
+                            rows={7} {...(operation === "read" ? { inputProps: { readOnly: true } } : {})} />
                     </Grid>
+
                     <Grid item className={styles.btn_container}>
-                        <Button className={styles.btn_voltar} onClick={closeModal} variant="outlined">
+                        <Button className={styles.btn_voltar} onClick={closeModal}>
                             Voltar
                         </Button>
+
                         {operation === "update" && (
                             <Button className={styles.btn} onClick={updateProduct} variant="contained" sx={{ marginLeft: 1 }}>
                                 Salvar alterações
                             </Button>
                         )}
+                        
                         {operation === "create" && (
                             <Button className={styles.btn} onClick={saveProduct} variant="contained" sx={{ marginLeft: 1 }}>
                                 Adicionar produto
