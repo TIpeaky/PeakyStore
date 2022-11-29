@@ -2,6 +2,7 @@ import { useTheme } from '@mui/material/styles';
 import { Box, Drawer } from '@mui/material';
 import { BrowserView } from 'react-device-detect';
 import ScrollArea from 'react-scrollbar';
+import Navigation from './Navigation';
 
 
 export interface SidebarProps {
@@ -17,7 +18,7 @@ function Sidebar ({ drawerOpen, drawerToggle, window }: SidebarProps) {
         <>
             <BrowserView>
                 <ScrollArea>
-
+                    <Navigation />
                 </ScrollArea>
             </BrowserView>
         </>
