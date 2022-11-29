@@ -16,9 +16,9 @@ h2 {
     margin-bottom: 20px;
 }
 
-.input {
-    margin-bottom: 15px !important;
-}
+// .input {
+//     margin-bottom: 15px !important;
+// }
 
 .close_icon {
     position: absolute;
@@ -33,4 +33,8 @@ h2 {
 
 .btn_voltar {
     color: rgba(0, 68, 97, 0.75) !important;
+}
+
+.btn_container {
+    margin-left: auto;
 }
