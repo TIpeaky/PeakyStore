@@ -1,11 +1,22 @@
 import { Outlet } from "react-router-dom"
-import NavBar from '../../../components/NavBar/index copy'
+import NavBar from '../../../components/NavBar'
 import Sidebar from '../../../components/SideBar'
 import { useDispatch, useSelector } from 'react-redux';
-import { SET_MENU } from '../../../store/actions';
+import { SET_MENU } from '../../../store/reducers/actions';
+import { AppBar, Box, CssBaseline, Toolbar } from '@mui/material';
+import { styled, useTheme } from '@mui/material/styles';
+import { useEffect, useState } from 'react';
+import { openDrawer } from '../../../store/reducers/menu';
+
+export interface Customization {
+    isOpen: undefined[];
+    fontFamily: any;
+    borderRadius: number;
+    opened: boolean;
+};
 
 export interface RootState {
-    customization: any;
+    customization: Customization;
     menu: any;
     name: string;
     openItem: string;
@@ -14,19 +25,103 @@ export interface RootState {
     componentDrawerOpen: boolean;
 }
 
+export interface MainProps {
+    theme: any;
+    open: boolean;
+}
+
+const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(({ theme, open }: MainProps) => ({
+    ...theme.typography?.mainContent,
+    ...(!open && {
+        borderBottomLeftRadius: 0,
+        borderBottomRightRadius: 0,
+        transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen
+        }),
+        [theme.breakpoints.up('md')]: {
+            marginLeft: -(260 - 20),
+            width: `calc(100% - 260px)`
+        },
+        [theme.breakpoints.down('md')]: {
+            marginLeft: '20px',
+            width: `calc(100% - 260px)`,
+            padding: '16px'
+        },
+        [theme.breakpoints.down('sm')]: {
+            marginLeft: '10px',
+            width: `calc(100% - 260px)`,
+            padding: '16px',
+            marginRight: '10px'
+        }
+    }),
+    ...(open && {
+        transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen
+        }),
+        marginLeft: 0,
+        borderBottomLeftRadius: 0,
+        borderBottomRightRadius: 0,
+        width: `calc(100% - 260px)`,
+        [theme.breakpoints.down('md')]: {
+            marginLeft: '20px'
+        },
+        [theme.breakpoints.down('sm')]: {
+            marginLeft: '10px'
+        }
+    })
+}));
+
 const PaginaBase = () => {
-    const leftDrawerOpened = useSelector((state: RootState) => state.customization.opened);
+    const theme = useTheme();
+
+    const { drawerOpen } = useSelector((state: RootState) => state.menu);
     const dispatch = useDispatch();
     const handleLeftDrawerToggle = () => {
-        dispatch({ type: SET_MENU, opened: !leftDrawerOpened });
+        dispatch({ type: SET_MENU, opened: !drawerOpen });
     };
 
+    const [open, setOpen] = useState(drawerOpen);
+    const handleDrawerToggle = () => {
+        setOpen(!open);
+        dispatch(openDrawer({ drawerOpen: !open }));
+    };
 
-    return (<main>
-        <NavBar />
-        <Sidebar drawerOpen={leftDrawerOpened} drawerToggle={handleLeftDrawerToggle} />
-        <Outlet />
-    </main>)
+    useEffect(() => {
+        if (open !== drawerOpen) setOpen(drawerOpen);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [drawerOpen]);
+
+
+    return (
+    <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
+        {/* header */}
+        <AppBar
+            enableColorOnDark
+            position="fixed"
+            color="inherit"
+            elevation={0}
+            sx={{
+                bgcolor: theme.palette.background.default,
+                transition: drawerOpen ? theme.transitions.create('width') : 'none'
+            }}
+        >
+            <Toolbar>
+                <NavBar handleLeftDrawerToggle={handleLeftDrawerToggle} />
+            </Toolbar>
+        </AppBar>
+
+        {/* drawer */}
+        <Sidebar drawerOpen={drawerOpen} drawerToggle={handleLeftDrawerToggle} />
+
+        {/* main content */}
+        <Main theme={theme} open={drawerOpen}>
+            <Outlet />
+        </Main>
+    </Box>
+    )
 }
 
 export default PaginaBase

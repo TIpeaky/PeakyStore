@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
-import { Avatar, Chip, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
-import { activeItem } from '../../../../../../store/reducers/menu';
+import { ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
+import { activeItem } from './../../../store/reducers/menu';
 
 // project import
 
@@ -150,15 +150,6 @@ const NavItem = ({ item, level }: NavItemProps) => {
                             {item.title}
                         </Typography>
                     }
-                />
-            )}
-            {(drawerOpen || (!drawerOpen && level !== 1)) && item.chip && (
-                <Chip
-                    color={item.chip.color}
-                    variant={item.chip.variant}
-                    size={item.chip.size}
-                    label={item.chip.label}
-                    avatar={item.chip.avatar && <Avatar>{item.chip.avatar}</Avatar>}
                 />
             )}
         </ListItemButton>

@@ -1,9 +1,7 @@
 import { useTheme } from '@mui/material/styles';
 import { Box, Drawer } from '@mui/material';
-import { BrowserView } from 'react-device-detect';
-import ScrollArea from 'react-scrollbar';
 import Navigation from './Navigation';
-
+import { useMemo } from 'react';
 
 export interface SidebarProps {
     drawerOpen: boolean;
@@ -14,15 +12,7 @@ export interface SidebarProps {
 function Sidebar ({ drawerOpen, drawerToggle, window }: SidebarProps) {
     const theme = useTheme();
 
-    const drawer = (
-        <>
-            <BrowserView>
-                <ScrollArea>
-                    <Navigation />
-                </ScrollArea>
-            </BrowserView>
-        </>
-    );
+    const navigation = useMemo(() => <Navigation />, []);
 
     const container = window !== undefined ? () => window.document.body : undefined;
 
@@ -45,7 +35,7 @@ function Sidebar ({ drawerOpen, drawerToggle, window }: SidebarProps) {
                 ModalProps={{ keepMounted: true }}
                 color="inherit"
             >
-                {drawer}
+                {drawerOpen && navigation}
             </Drawer>
         </Box>
     );

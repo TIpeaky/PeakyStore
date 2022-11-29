@@ -18,6 +18,9 @@ function UserPopUp() {
                 let name = fullName.split(" ")
                 setUser(name[0])
             }
+        } else {
+            setUserIsLoggedIn(false)
+            //navigate('/admin/login')
         }
     }, [])
 
@@ -26,30 +29,16 @@ function UserPopUp() {
         setUserIsLoggedIn(false)
         sessionStorage.removeItem('token')
         sessionStorage.removeItem('name')
-        navigate('/')
+        navigate('/admin/login')
     }
 
     return (
         <div className={styles.container}>
-            {userIsLoggedIn? (
-                <div>
-                <h3 className={styles.account_title}>Olá, {user}!</h3>
-                <ul className={styles.account_menu}>
-                    <li className={styles.link_standard}><a  href="#">Minha conta</a></li>
-                    <li className={styles.link_standard}><a  href="#">Meus pedidos</a></li>
-                    <li className={styles.link_standard}><a  href="#">Minha lista de desejos</a></li>
-                    <li className={styles.link_logout} onClick={efetuarLogout}>Sair da conta</li>
-                </ul>
-                </div>
-            ) : (
-                <div>
-                    <a href="#"><button 
-                    className={styles.btn_login} 
-                    onClick={() => navigate('/login')}>Fazer Login</button></a>
-                    <span className={styles.span_signup}>Cliente novo?</span>
-                    <a className={styles.link_signup} href="#">Cadastrar</a>
-                </div>
-            )}
+            <h3 className={styles.account_title}>Olá, {user}!</h3>
+            <ul className={styles.account_menu}>
+                <li className={styles.link_standard}><a  href="#">Minha conta</a></li>
+                <li className={styles.link_logout} onClick={efetuarLogout}>Sair da conta</li>
+            </ul>
         </div>
     )
 }

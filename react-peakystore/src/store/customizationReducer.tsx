@@ -1,8 +1,7 @@
-
-import * as actionTypes from './actions';
+import * as actionTypes from './reducers/actions';
 
 export const initialState = {
-    isOpen: [], 
+    isOpen: [], // for active default menu
     fontFamily: `'Roboto', sans-serif`,
     borderRadius: 12,
     opened: true
