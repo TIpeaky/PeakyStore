@@ -10,46 +10,21 @@ interface props {
 }
 
 const ProductCard = ({ name, price, img, link }: props) => {
-  const [favorite, setFavorite] = useState(false);
+  const [isActive, SetIsActive] = useState(false);
+  const [color, setColor] = useState("#FFFFFF");
+  const [stroke, setStroke] = useState("#000000");
 
   const changeFavorite = () => {
-    if (!favorite) {
-      Favorite = <FavoriteIcon
-          className={styles.card_icon}
-          onChange={changeFavorite}
-          sx={{
-            color: "#FF0000",
-            stroke: "#FF0000",
-            strokeWidth: 1.7,
-            cursor: "pointer",
-          }}
-      />
+    if(!isActive) {
+      setColor("#FF0000");
+      setStroke("#FF0000");
+      SetIsActive(true)
     } else {
-      Favorite = <FavoriteIcon
-        className={styles.card_icon}
-        onChange={changeFavorite}
-        sx={{
-          color: "#FFFFFF",
-          stroke: "#000000",
-          strokeWidth: 1.7,
-          "&:hover": { color: "#FF0000", stroke: "#FF0000", strokeWidth: 1.7 },
-          cursor: "pointer",
-        }}
-      />;
+      setColor("#FFFFFF");
+      setStroke("#000000");
+      SetIsActive(false);
     }
   };
-
-  let Favorite = <FavoriteIcon
-  className={styles.card_icon}
-  onChange={changeFavorite}
-  sx={{
-    color: "#FFFFFF",
-    stroke: "#000000",
-    strokeWidth: 1.7,
-    "&:hover": { color: "#FF0000", stroke: "#FF0000", strokeWidth: 1.7 },
-    cursor: "pointer",
-  }}
-/>;
 
   return (
     <div className={styles.card}>
@@ -60,9 +35,24 @@ const ProductCard = ({ name, price, img, link }: props) => {
       </a>
 
       <div className={styles.card_container}>
+
         <p className={styles.card_p}>R${price}</p>
 
-        {Favorite}
+        <FavoriteIcon
+          className={styles.card_icon}
+          onClick={changeFavorite}
+          sx={{
+            color: color,
+            stroke: stroke,
+            strokeWidth: 1.7,
+            "&:hover": {
+              color: "#FF0000",
+              stroke: "#FF0000",
+              strokeWidth: 1.7,
+            },
+            cursor: "pointer",
+          }}
+        />
 
         {/* <SvgIcon
           className="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium ProductCard_card_icon__BaRHv css-i4bv87-MuiSvgIcon-root"
