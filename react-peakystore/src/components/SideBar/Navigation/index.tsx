@@ -1,29 +1,20 @@
-// material-ui
-import { Box, Typography } from '@mui/material';
-
-// project import
-import NavGroup from './NavGroup';
+import { List} from '@mui/material';
+import NavItem from './NavItem';
 import menuItem from './../../../menu-items';
 
-// ==============================|| DRAWER CONTENT - NAVIGATION ||============================== //
 
-
+// ==============================|| NAVIGATION - LIST GROUP ||============================== //
 
 const Navigation = () => {
-    const navGroups = menuItem.items.map((item) => {
-        switch (item.type) {
-            case 'group':
-                return <NavGroup key={item.id} item={item} />;
-            default:
-                return (
-                    <Typography key={item.id} variant="h6" color="error" align="center">
-                        Fix - Navigation Group
-                    </Typography>
-                );
-        }
+    const navCollapse = menuItem.items.map((item) => {
+        return <NavItem key={item.id} item={item} level={1} />
     });
 
-    return <Box sx={{ pt: 2 }}>{navGroups}</Box>;
+    return (
+        <List >
+            {navCollapse}
+        </List>
+    );
 };
 
 export default Navigation;

@@ -1,13 +1,9 @@
 import { forwardRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
-// material-ui
 import { useTheme } from '@mui/material/styles';
 import { ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import { activeItem } from './../../../store/reducers/menu';
-
-// project import
 
 // ==============================|| NAVIGATION - LIST ITEM ||============================== //
 
@@ -15,7 +11,6 @@ import { activeItem } from './../../../store/reducers/menu';
 export interface Item {
     id: string;
     title: string;
-    type: string;
     url: string;
     icon: any;
     external?: boolean;
@@ -50,7 +45,7 @@ const NavItem = ({ item, level }: NavItemProps) => {
         itemTarget = '_blank';
     }
 
-    let listItemProps = { component: forwardRef((props, ref) => <Link to={item.url} target={itemTarget} />) };
+    let listItemProps = { component: forwardRef((props, ref) => <Link {...props} to={item.url} target={itemTarget} />) };
     if (item?.external) {
         <a href={item.url} target={itemTarget} />
     }
@@ -87,8 +82,8 @@ const NavItem = ({ item, level }: NavItemProps) => {
             selected={isSelected}
             sx={{
                 zIndex: 1201,
-                pl: drawerOpen ? `${level * 28}px` : 1.5,
-                py: !drawerOpen && level === 1 ? 1.25 : 1,
+                pl: drawerOpen ? `${level * 24}px` : 1.5,
+                py: !drawerOpen && level === 1 ? 1.2 : 1,
                 ...(drawerOpen && {
                     '&:hover': {
                         bgcolor: 'primary.lighter'

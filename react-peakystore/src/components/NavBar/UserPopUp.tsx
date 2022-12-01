@@ -7,26 +7,21 @@ function UserPopUp() {
     const token = sessionStorage.getItem('token')
     const fullName = sessionStorage.getItem('name')
 
-
-    const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(token != null)
     const [user, setUser] = useState<string>()
 
     useEffect(() => {
         if (token) {
-            setUserIsLoggedIn(true)
             if(fullName != null) {
                 let name = fullName.split(" ")
                 setUser(name[0])
             }
         } else {
-            setUserIsLoggedIn(false)
-            //navigate('/admin/login')
+            navigate('/admin/login')
         }
     }, [])
 
 
     const efetuarLogout = () => {
-        setUserIsLoggedIn(false)
         sessionStorage.removeItem('token')
         sessionStorage.removeItem('name')
         navigate('/admin/login')
