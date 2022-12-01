@@ -17,6 +17,11 @@
   object-fit: cover;
   height: 16rem;
   border-radius: 20px 20px 0px 0px;
+  transition: 0.3s;
+}
+
+.card_img:hover {
+  filter: brightness(50%);
 }
 
 .card_h1 {
