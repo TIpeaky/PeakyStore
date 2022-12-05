@@ -12,6 +12,8 @@ import { IProduct } from '../../interfaces/IProduct';
 import Button from '@mui/material/Button';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import styles from './ProductCrud.module.scss'
+import DeleteIcon from '@mui/icons-material/Delete';
+import WarningIcon from '@mui/icons-material/Warning';
 
 //Barra de pesquisa
 function QuickSearchToolbar() {
@@ -22,25 +24,33 @@ function QuickSearchToolbar() {
   );
 }
 
-
-
-
 const ProductCrud = () => {
 
   const [productList, setProductList] = useState<IProduct[]>([]);
-
   const [selectedProduct, setSelectedProduct] = useState<IProduct>()
 
-  //Modal
-  const [openModal, setOpenModal] = React.useState(false);
-  const [operation, setOperation] = useState("read");
+  //Modais
+  const [productDetailsModal, setProductDetailsModal] = React.useState(false);
+  const [deleteConfirmModal, setDeleteConfirmModal] = React.useState(false);
 
-  const handleOpen = (operation: string, product?: IProduct): void => {
+  const openProductDetailsModal = (operation: string, product?: IProduct): void => {
     setOperation(operation)
     setSelectedProduct(product)
-    setOpenModal(true)
+    setProductDetailsModal(true)
   };
-  const closeModal = (): void => { setOpenModal(false) }
+  const closeProductDetailsModal = (): void => { setProductDetailsModal(false) }
+
+  const openDeleteConfirmModal = (product: IProduct): void => {
+    setSelectedProduct(product)
+    setDeleteConfirmModal(true)
+  }
+
+  const closeDeleteConfirmModal = (): void => { setDeleteConfirmModal(false) }
+
+
+  //Operation pode ser read, update ou save. Modifica a forma de apresentação do modal productDetails
+  const [operation, setOperation] = useState("read");
+
 
   //atualiza a lista de produtos em tempo real
   useEffect(() => {
@@ -68,10 +78,8 @@ const ProductCrud = () => {
     setProductList(productListCopy)
   }
 
-  //Excluir produto
+  //Chama endpoint de excluir produto
   const deleteProduct = (product: IProduct): void => {
-    //abrir modal de confirmação de exclusão. Se for false, dar um return;
-
 
     http.delete('product/' + product.id)
       .then(() => {
@@ -88,6 +96,7 @@ const ProductCrud = () => {
         }
 
       })
+      setDeleteConfirmModal(false)
   }
 
 
@@ -111,20 +120,20 @@ const ProductCrud = () => {
           icon={<RemoveRedEyeOutlinedIcon />}
           label="Read"
           key="read"
-          onClick={() => handleOpen("read", param.row)}
+          onClick={() => openProductDetailsModal("read", param.row)}
 
         />,
         <GridActionsCellItem
           icon={<EditOutlinedIcon />}
           label="Update"
           key="update"
-          onClick={() => handleOpen("update", param.row)}
+          onClick={() => openProductDetailsModal("update", param.row)}
         />,
         <GridActionsCellItem
           icon={<DeleteOutlineOutlinedIcon />}
           label="Delete"
           key="delete"
-          onClick={() => deleteProduct(param.row)}
+          onClick={() => openDeleteConfirmModal(param.row)}
         />
       ]
     }
@@ -147,7 +156,7 @@ const ProductCrud = () => {
       <Box key={1} sx={{ height: 500, padding: 2 }}>
         <h1>Produtos</h1>
         <Button className={styles.btn_save_product} size="small" variant="contained" startIcon={<AddShoppingCartIcon />}
-          onClick={() => handleOpen("create")}>
+          onClick={() => openProductDetailsModal("create")}>
           Adicionar novo produto
         </Button>
         <DataGrid
@@ -157,11 +166,24 @@ const ProductCrud = () => {
       </Box>
 
       <Modal
-        open={openModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <ProductDetails product={selectedProduct!} operation={operation} closeModal={closeModal} updateProductList={updateProductList} />
+        open={productDetailsModal}>
+        <ProductDetails product={selectedProduct!} operation={operation} closeModal={closeProductDetailsModal} updateProductList={updateProductList} />
+      </Modal>
+
+      <Modal open={deleteConfirmModal}>
+        <div className={styles.delete_modal}>
+          <WarningIcon className={styles.warning_icon} />
+          <h3>Você tem certeza que deseja excluir este produto?</h3>
+          <Button variant="contained" startIcon={<DeleteIcon />}
+            className={styles.delete_btn} onClick={() => deleteProduct(selectedProduct!)}>
+            Excluir produto
+          </Button>
+          <Button variant="outlined" className={styles.cancel_btn}
+            onClick={closeDeleteConfirmModal}>
+            Cancelar
+          </Button>
+
+        </div>
       </Modal>
     </>
 
