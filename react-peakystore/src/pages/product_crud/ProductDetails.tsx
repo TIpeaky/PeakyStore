@@ -100,30 +100,6 @@ const ProductDetails = ({ product, operation, closeModal, updateProductList }: p
       })
   }
 
-  //validações
-  // const [text, setText] = useState("");
-  // const [errorMessage, setErrorMessage] = useState("");
-
-  // useEffect(() => {
-  //   // Set errorMessage only if text is equal or bigger than 10
-  //   if (productForm.name !== undefined && productForm.name.length === 0) {
-  //     setErrorMessage(
-  //       "Este campo é obrigatório"
-  //     );
-  //   } else {
-  //     setErrorMessage("")
-  //   }
-  // }, [errorMessage]);
-
-  // useEffect(() => {
-  //   // Set empty erroMessage only if text is less than 10
-  //   // and errorMessage is not empty.
-  //   // avoids setting empty errorMessage if the errorMessage is already empty
-  //   if (text.length < 10 && errorMessage) {
-  //     setErrorMessage("");
-  //   }
-  // }, [text, errorMessage]);
-
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
