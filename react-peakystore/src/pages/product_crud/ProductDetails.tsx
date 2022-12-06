@@ -5,13 +5,12 @@ import Box from '@mui/material/Box';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Button from '@mui/material/Button';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CloseIcon from '@mui/icons-material/Close';
 import http from "../../http"
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Grid from '@mui/material/Grid';
-
 
 interface productDetailsInterface {
   product: IProduct,
@@ -23,7 +22,7 @@ interface productDetailsInterface {
 const ProductDetails = ({ product, operation, closeModal, updateProductList }: productDetailsInterface) => {
 
   const [productForm, setProductForm] = useState<IProduct>(product)
- 
+
   //Preencher productform com os valores do input
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -31,7 +30,6 @@ const ProductDetails = ({ product, operation, closeModal, updateProductList }: p
       ...prevState,
       [name]: value
     }));
-    console.log(productForm)
   };
 
   //Preencher product form com os valores do input de preços
@@ -83,7 +81,6 @@ const ProductDetails = ({ product, operation, closeModal, updateProductList }: p
       })
   }
 
-
   //Chamar endpoint de salvar novo produto
   const saveProduct = () => {
 
@@ -102,6 +99,41 @@ const ProductDetails = ({ product, operation, closeModal, updateProductList }: p
 
       })
   }
+
+  //validações
+  // const [text, setText] = useState("");
+  // const [errorMessage, setErrorMessage] = useState("");
+
+  // useEffect(() => {
+  //   // Set errorMessage only if text is equal or bigger than 10
+  //   if (productForm.name !== undefined && productForm.name.length === 0) {
+  //     setErrorMessage(
+  //       "Este campo é obrigatório"
+  //     );
+  //   } else {
+  //     setErrorMessage("")
+  //   }
+  // }, [errorMessage]);
+
+  // useEffect(() => {
+  //   // Set empty erroMessage only if text is less than 10
+  //   // and errorMessage is not empty.
+  //   // avoids setting empty errorMessage if the errorMessage is already empty
+  //   if (text.length < 10 && errorMessage) {
+  //     setErrorMessage("");
+  //   }
+  // }, [text, errorMessage]);
+
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    if(productForm?.name !== undefined && productForm.name.length === 0) {
+      setErrorMessage("Este campo é obrigatório")
+    } else {
+      setErrorMessage("")
+    }
+  },[productForm?.name, errorMessage])
+
 
   return (
     <Box component="form" noValidate autoComplete="off" className={styles.container}>
@@ -126,16 +158,23 @@ const ProductDetails = ({ product, operation, closeModal, updateProductList }: p
         {/* Coluna da esquerda */}
         <Grid container spacing={2} item xs={6}>
 
+          {/* =================================================================================== */}
           <Grid item xs={12}>
-            <TextField value={operation !== "create" ? productForm.name : undefined}  
+            <TextField value={operation !== "create" ? productForm.name : undefined}
               {...(operation === "read" ? { inputProps: { readOnly: true } } : {})}
-              label="Nome" fullWidth name="name" onChange={handleChange}/>
+              label="Nome" fullWidth name="name" onChange={handleChange} onBlur={handleChange}
+              error={productForm?.name !== undefined && productForm.name.length === 0}
+              helperText={errorMessage}
+            />
           </Grid>
+
+          {/* =================================================================================== */}
 
           <Grid item xs={6}>
             <TextField value={operation !== "create" ? productForm.purchasePrice.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) : undefined}
               {...(operation === "read" ? { inputProps: { readOnly: true } } : {})}
-              label="Preço de compra" fullWidth name="purchasePrice" onChange={handleChangeMoneyInput} />
+              label="Preço de compra" fullWidth name="purchasePrice" onChange={handleChangeMoneyInput}
+            />
           </Grid>
 
           <Grid item xs={6}>
