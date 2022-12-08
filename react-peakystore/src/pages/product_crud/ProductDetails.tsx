@@ -271,7 +271,7 @@ const ProductDetails = ({ product, operation, closeModal, updateProductList }: p
             <FormControl fullWidth error={colorError !== ""}>
               <InputLabel id="product-color-label">Cor</InputLabel>
               <Select
-                labelId="product-color-label" name="color" onChange={handleChange} onBlur={colorIsValid}
+                labelId="product-color-label" name="color" label="Cor" onChange={handleChange} onBlur={colorIsValid}
                 value={productForm && productForm.color ? productForm.color : ''}
                 {...(operation === "read" ? { inputProps: { readOnly: true } } : {})}
               >
@@ -296,7 +296,7 @@ const ProductDetails = ({ product, operation, closeModal, updateProductList }: p
               <InputLabel id="product-brand-label">Marca</InputLabel>
               <Select
                 labelId="product-brand-label" name="productBrand" onChange={handleChange} onBlur={brandIsValid}
-                value={productForm && productForm.productBrand ? productForm.productBrand : ''}
+                value={productForm && productForm.productBrand ? productForm.productBrand : ''} label="Marca"
                 {...(operation === "read" ? { inputProps: { readOnly: true } } : {})} >
                 <MenuItem value={"NIKE"}>Nike</MenuItem>
                 <MenuItem value={"ADIDAS"}>Adidas</MenuItem>
@@ -316,7 +316,7 @@ const ProductDetails = ({ product, operation, closeModal, updateProductList }: p
               <InputLabel id="product-size-label">Tamanho</InputLabel>
               <Select
                 labelId="product-size-label" name="size" onChange={handleChange} onBlur={sizeIsValid}
-                value={productForm && productForm.size ? productForm.size : ''}
+                value={productForm && productForm.size ? productForm.size : ''} label="Tamanho"
                 {...(operation === "read" ? { inputProps: { readOnly: true } } : {})}>
                 <MenuItem value={"XS"}>XP</MenuItem>
                 <MenuItem value={"S"}>P</MenuItem>
@@ -334,7 +334,7 @@ const ProductDetails = ({ product, operation, closeModal, updateProductList }: p
               <InputLabel id="product-category-label">Categoria</InputLabel>
               <Select
                 labelId="product-category-label" name="category" onChange={handleChange} onBlur={categoryIsValid}
-                value={productForm && productForm.category ? productForm.category : ''}
+                value={productForm && productForm.category ? productForm.category : ''} label="Categoria"
                 {...(operation === "read" ? { inputProps: { readOnly: true } } : {})}>
                 <MenuItem value={"SHIRT"}>Camisa</MenuItem>
                 <MenuItem value={"TSHIRT"}>Camiseta</MenuItem>
@@ -363,7 +363,7 @@ const ProductDetails = ({ product, operation, closeModal, updateProductList }: p
               <InputLabel id="product-section-label">Seção</InputLabel>
               <Select
                 labelId="product-section-label" name="section" onChange={handleChange} onBlur={sectionIsValid}
-                value={productForm && productForm.section ? productForm.section : ''}
+                value={productForm && productForm.section ? productForm.section : ''} label="Seção"
                 {...(operation === "read" ? { inputProps: { readOnly: true } } : {})}>
                 <MenuItem value={"MALE"}>Masculina</MenuItem>
                 <MenuItem value={"FEMALE"}>Feminina</MenuItem>
