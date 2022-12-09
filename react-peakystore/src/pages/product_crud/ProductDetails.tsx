@@ -133,6 +133,7 @@ const ProductDetails = ({ product, operation, closeModal, updateProductList }: p
       setNameError("Este campo deve conter ao menos 3 caracteres");
       return false;
     } else setNameError("");
+
     return true;
   }
 
@@ -205,17 +206,17 @@ const ProductDetails = ({ product, operation, closeModal, updateProductList }: p
 
   const validateForm = (): boolean => {
     let errorExists = false;
-
-    if (!nameIsValid) errorExists = true;
-    if (!purchasePriceIsValid) errorExists = true;
-    if (!salePriceIsValid) errorExists = true;
-    if (!colorIsValid) errorExists = true;
-    if (!brandIsValid) errorExists = true;
-    if (!sizeIsValid) errorExists = true;
-    if (!categoryIsValid) errorExists = true;
-    if (!sectionIsValid) errorExists = true;
-    if (!stockIsValid) errorExists = true;
-    if (!descriptionIsValid) errorExists = true;
+    
+    if (!nameIsValid()) errorExists = true;
+    if (!purchasePriceIsValid()) errorExists = true;
+    if (!salePriceIsValid()) errorExists = true;
+    if (!colorIsValid()) errorExists = true;
+    if (!brandIsValid()) errorExists = true;
+    if (!sizeIsValid()) errorExists = true;
+    if (!categoryIsValid()) errorExists = true;
+    if (!sectionIsValid()) errorExists = true;
+    if (!stockIsValid()) errorExists = true;
+    if (!descriptionIsValid()) errorExists = true;
 
     if (errorExists) return false;
     return true;
@@ -396,7 +397,7 @@ const ProductDetails = ({ product, operation, closeModal, updateProductList }: p
 
           <Grid item xs={12}>
             <TextField value={operation !== "create" ? productForm.description : undefined}
-              label="Descrição" name="description" onChange={handleChange} onBlur={descriptionIsValid} fullWidth multiline 
+              label="Descrição" name="description" onChange={handleChange} onBlur={descriptionIsValid} fullWidth multiline
               rows={7} {...(operation === "read" ? { inputProps: { readOnly: true } } : {})}
               error={descriptionError !== ""} helperText={descriptionError} />
           </Grid>
