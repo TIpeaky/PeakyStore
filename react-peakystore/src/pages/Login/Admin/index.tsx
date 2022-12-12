@@ -4,7 +4,7 @@ import http from "../../../http"
 import LogoWhite from "./../../../images/peakystore.png"
 import { AbCampoTexto } from '../../../components/AbCampoTexto';
 import styled from './Login.module.scss';
-import { redirect, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const LoginAdmin = () => {
     let navigate = useNavigate()

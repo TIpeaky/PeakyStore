@@ -1,6 +1,5 @@
 package com.tipeaky.peakystore.services;
 
-import com.tipeaky.peakystore.exceptions.MethodNotAllowedException;
 import com.tipeaky.peakystore.model.dtos.ProductDTO;
 import com.tipeaky.peakystore.model.entities.Product;
 import com.tipeaky.peakystore.model.forms.ProductUpdateForm;
@@ -11,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.List;

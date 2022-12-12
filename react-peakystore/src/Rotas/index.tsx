@@ -11,9 +11,9 @@ const Rotas = () => {
     return (  
         <Routes>
           <Route path='/' element={<PaginaBase />}>
-            <Route path='/' element={<Home />} />
+            <Route path='' element={<Home />} />
             <Route path='login' element={<LoginUsuario />} />
-            <Route path='/register' element={<UserRegister />}/>
+            <Route path='register' element={<UserRegister />}/>
           </Route>
           <Route path='/admin'>
             <Route path='login' element={<LoginAdmin />} />
