@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AbBotao } from '../../../components/AbBotao';
 import http from "../../../http"
-import LogoWhite from "./assets/PeakyStore.png"
+import LogoWhite from "./../../../images/peakystore.png"
 import { AbCampoTexto } from '../../../components/AbCampoTexto';
 import styled from './Login.module.scss';
 import { redirect, useNavigate } from 'react-router-dom';

@@ -16,7 +16,7 @@ const Rotas = () => {
           <Route path='/admin'>
             <Route path='login' element={<LoginAdmin />} />
           </Route>
-        </Routes>)
+        </Routes>);
 }
 
 export default Rotas
