@@ -45,14 +45,6 @@ public class ProductService {
         product.get().setIsExcluded(true);
         productRepository.save(product.get());
 
-        /*
-        productRepository.deleteById(id);
-        Optional<Product> productDelete = productRepository.findById(id);
-        if(productDelete.isPresent()) {
-            throw new MethodNotAllowedException("Produto não pode ser excluído");
-        }
-        */
-
         return ResponseEntity.ok().body("Produto excluído com sucesso");
     }
     @Transactional
