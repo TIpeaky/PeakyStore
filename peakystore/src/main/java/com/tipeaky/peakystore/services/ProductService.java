@@ -29,7 +29,7 @@ public class ProductService {
     ModelMapper mapper;
 
     public ProductDTO getProduct (UUID id) {
-        Optional<Product> product = productRepository.findById(id);
+        Optional<Product> product = productRepository.findByIdNotExcluded(id);
         if(product.isEmpty()) {
             throw new EntityNotFoundException("Produto não encontrado");
         }
@@ -39,14 +39,12 @@ public class ProductService {
 
     public ResponseEntity<String> deleteProduct(UUID id) {
         Optional<Product> product = productRepository.findById(id);
-        if(product.isEmpty()) {
+        if(product.isEmpty() || product.get().getIsExcluded()) {
             throw new EntityNotFoundException("Produto não encontrado");
         }
-        productRepository.deleteById(id);
-        Optional<Product> productDelete = productRepository.findById(id);
-        if(productDelete.isPresent()) {
-            throw new MethodNotAllowedException("Produto não pode ser excluído");
-        }
+        product.get().setIsExcluded(true);
+        productRepository.save(product.get());
+
         return ResponseEntity.ok().body("Produto excluído com sucesso");
     }
     @Transactional
@@ -70,7 +68,7 @@ public class ProductService {
     }
 
     public List<ProductDTO> getAllProducts() {
-        List<Product> productList = productRepository.findAll();
+        List<Product> productList = productRepository.findAllNotExcluded();
         if(productList.isEmpty()) throw new EntityNotFoundException("Não há produtos cadastrados");
         return productList.stream().map(product -> mapper.map(product, ProductDTO.class)).toList();
     }

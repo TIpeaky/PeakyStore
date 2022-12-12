@@ -55,6 +55,9 @@ public class Product {
     @Column(nullable = false)
     private SectionEnum section;
 
+    @Column(nullable = false)
+    private Boolean isExcluded = false;
+
     @OneToMany(mappedBy = "product")
     private Set<Avaliation> avaliations = new HashSet<>();
 
