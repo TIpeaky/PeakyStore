@@ -5,6 +5,7 @@ import ButtonRegister from "../ButtonRegister";
 import logoGoogle from "./assets/logo-google.png";
 import logoFacebook from "./assets/logo-facebook.png";
 import { IGender } from "../../interfaces/IGender";
+import { maskCPF } from "../../Util/Mask"
 
 const UserRegister = () => {
   
@@ -60,6 +61,12 @@ const UserRegister = () => {
     }
 
   };
+
+  function handleChangeMaskCPF(event: any) {
+      const { value } = event.target
+
+      setCpf(maskCPF(value))
+  }
 
   const handleChangeNotification = (
     evento: React.ChangeEvent<HTMLInputElement>
@@ -136,7 +143,7 @@ const UserRegister = () => {
               id="cpf"
               name="cpf"
               value={cpf}
-              onChange={(evento) => setCpf(evento.target.value)}
+              onChange={handleChangeMaskCPF}
               placeholder="xxx.xxx.xxx-xx"
               required
             />
