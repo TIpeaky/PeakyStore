@@ -1,26 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { AbBotao } from '../../components/AbBotao';
-import http from "../../http"
-import LogoWhite from "./assets/PeakyStore.png"
-import { AbCampoTexto } from '../../components/AbCampoTexto';
+import { AbBotao } from '../../../components/AbBotao';
+import http from "../../../http"
+import LogoWhite from "./../../../images/peakystore.png"
+import { AbCampoTexto } from '../../../components/AbCampoTexto';
 import styled from './Login.module.scss';
-import { useNavigate } from 'react-router-dom';
+import { redirect, useNavigate } from 'react-router-dom';
 
-const LoginUsuario = () => {
+const LoginAdmin = () => {
     let navigate = useNavigate()
-
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-
-    //verificar se o usuário já está logado
-    useEffect(() => {
-        if (sessionStorage.getItem("token")) {
-            navigate(-1)
-        }
-    }, [navigate])
-
-
 
     const aoSubmeterFormular = (evento: React.FormEvent<HTMLFormElement>) => {
         evento.preventDefault()
@@ -30,16 +20,31 @@ const LoginUsuario = () => {
         }
 
         http.post('auth', usuario)
-            .then(resposta => {
-                sessionStorage.setItem('token', resposta.data.token)
-                setUsername('')
-                setPassword('')
-                navigate(-1)
+            .then(response => {
+                const roles = (response.data.roles)
+
+                for (const role in roles) {
+                    const authority = roles[role].authority
+                    if(authority.toUpperCase() === "ADMIN") {
+                        sessionStorage.setItem('token', response.data.token)
+                        setUsername('')
+                        setPassword('')
+                        //navigate('/dashboard')
+                        return;
+                    }
+                }
+                const error = "Usuário ou senha inválido(s)"
+                throw error
             })
             .catch(erro => {
+                console.log(erro)
                 if (erro?.response?.data?.message) {
                     alert(erro.response.data.message)
-                } else {
+                } 
+                else if(erro) {
+                    alert(erro)
+                }
+                else {
                     alert('Aconteceu um erro inesperado ao afetuar o seu login! Entre em contato com o suporte!')
                 }
 
@@ -55,7 +60,7 @@ const LoginUsuario = () => {
                 <div className={styled.login__block}></div>
                 <form onSubmit={aoSubmeterFormular}>
                     <h2>
-                        Já sou Cliente
+                        PeakyStore Administrativo
                     </h2>
                     <AbCampoTexto
                         label="E-mail"
@@ -71,18 +76,12 @@ const LoginUsuario = () => {
                         placeholder="Entre com o sua senha aqui"
                         type="password"
                     />
-                    <div className={styled.login__singIn__forgotPassword}>
-                        <a href=''>Esqueceu sua senha?</a>
-                    </div>
 
                     <AbBotao texto="Entrar" />
 
-                    <div className={styled.login__singIn__register} >
-                        Ainda não tem conta? <a href=''> Cadastrar</a>
-                    </div>
                 </form>
             </section>
         </div>)
 }
 
-export default LoginUsuario;
+export default LoginAdmin;

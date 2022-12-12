@@ -1,7 +1,8 @@
 import { Route, Routes} from 'react-router-dom'
 // import Footer from '../components/Footer'
 import Home from "../pages/Home"
-import LoginUsuario from '../pages/Login'
+import LoginAdmin from '../pages/Login/Admin'
+import LoginUsuario from '../pages/Login/User'
 import PaginaBase from "../pages/PageBase"
 import UserRegister from "../pages/UserRegister"
 
@@ -14,7 +15,10 @@ const Rotas = () => {
             <Route path='login' element={<LoginUsuario />} />
             <Route path='/register' element={<UserRegister />}/>
           </Route>
-        </Routes>)
+          <Route path='/admin'>
+            <Route path='login' element={<LoginAdmin />} />
+          </Route>
+        </Routes>);
 }
 
 export default Rotas

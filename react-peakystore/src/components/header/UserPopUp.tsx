@@ -1,11 +1,35 @@
-import {useState} from 'react'
+import { Session } from 'inspector';
+import {useEffect, useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import styles from './UserPopUp.module.scss'
 
 function UserPopUp() {
     let navigate = useNavigate();
-    const [userIsLoggedIn, setUserIsLoggedIn] = useState(false)
-    const [user, setUser] = useState("João")
+    const token = sessionStorage.getItem('token')
+    const fullName = sessionStorage.getItem('name')
+
+
+    const [userIsLoggedIn, setUserIsLoggedIn] = useState<boolean>(token != null)
+    const [user, setUser] = useState<string>()
+
+    useEffect(() => {
+        if (token) {
+            setUserIsLoggedIn(true)
+            if(fullName != null) {
+                let name = fullName.split(" ")
+                setUser(name[0])
+            }
+        }
+    }, [])
+
+
+    const efetuarLogout = () => {
+        setUserIsLoggedIn(false)
+        sessionStorage.removeItem('token')
+        sessionStorage.removeItem('name')
+        navigate('/')
+    }
+
     return (
         <div className={styles.container}>
             {userIsLoggedIn? (
@@ -15,7 +39,7 @@ function UserPopUp() {
                     <li className={styles.link_standard}><a  href="#">Minha conta</a></li>
                     <li className={styles.link_standard}><a  href="#">Meus pedidos</a></li>
                     <li className={styles.link_standard}><a  href="#">Minha lista de desejos</a></li>
-                    <li className={styles.link_logout}><a  href="#">Sair da conta</a></li>
+                    <li className={styles.link_logout} onClick={efetuarLogout}>Sair da conta</li>
                 </ul>
                 </div>
             ) : (
