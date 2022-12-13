@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AbBotao } from '../../../components/AbBotao';
 import http from "../../../http"
-import LogoWhite from "./assets/PeakyStore.png"
+import Logo from "./../../../images/peakystore.png"
 import { AbCampoTexto } from '../../../components/AbCampoTexto';
 import styled from './Login.module.scss';
 import { useNavigate } from 'react-router-dom';
@@ -49,7 +49,7 @@ const LoginUsuario = () => {
         <div className={styled.login__background}>
             <section className={styled.login} >
                 <figure>
-                    <img className={styled.login__img} src={LogoWhite} alt="Logo da empresa e seu nome" />
+                    <img className={styled.login__img} src={Logo} alt="Logo da empresa e seu nome" />
                 </figure>
                 <div className={styled.login__block}></div>
                 <form onSubmit={aoSubmeterFormular}>
