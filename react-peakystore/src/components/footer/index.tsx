@@ -8,8 +8,8 @@ const Footer = () => {
             <section>
                 <div className={Styles.div}>
                     <p className={Styles.ofertas}>Receba as nossas ofertas:</p>
-                    <input type="email" placeholder='Email' />
-                    <button>Ok</button>
+                    <input className={Styles.notification__input} type="email" placeholder='Email' />
+                    <button className={Styles.notification__button}>Ok</button>
                     <br/>
                     <span className={Styles.redes}>Redes sociais</span>
                     <br/>

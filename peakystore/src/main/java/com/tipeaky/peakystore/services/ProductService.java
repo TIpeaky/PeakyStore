@@ -1,6 +1,5 @@
 package com.tipeaky.peakystore.services;
 
-import com.tipeaky.peakystore.exceptions.MethodNotAllowedException;
 import com.tipeaky.peakystore.model.dtos.ProductDTO;
 import com.tipeaky.peakystore.model.entities.Product;
 import com.tipeaky.peakystore.model.forms.ProductUpdateForm;
@@ -11,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -28,9 +25,9 @@ public class ProductService {
     @Autowired
     ModelMapper mapper;
 
-    public ProductDTO getProduct (UUID id) {
-        Optional<Product> product = productRepository.findById(id);
-        if(product.isEmpty()) {
+    public ProductDTO getProduct(UUID id) {
+        Optional<Product> product = productRepository.findByIdNotExcluded(id);
+        if (product.isEmpty()) {
             throw new EntityNotFoundException("Produto não encontrado");
         }
 
@@ -39,16 +36,15 @@ public class ProductService {
 
     public ResponseEntity<String> deleteProduct(UUID id) {
         Optional<Product> product = productRepository.findById(id);
-        if(product.isEmpty()) {
+        if (product.isEmpty() || product.get().getIsExcluded()) {
             throw new EntityNotFoundException("Produto não encontrado");
         }
-        productRepository.deleteById(id);
-        Optional<Product> productDelete = productRepository.findById(id);
-        if(productDelete.isPresent()) {
-            throw new MethodNotAllowedException("Produto não pode ser excluído");
-        }
+        product.get().setIsExcluded(true);
+        productRepository.save(product.get());
+
         return ResponseEntity.ok().body("Produto excluído com sucesso");
     }
+
     @Transactional
     public ProductDTO update(ProductUpdateForm productUpdateForm) {
         ProductDTO recoveryProductDTO = getProduct(productUpdateForm.getId());
@@ -64,14 +60,20 @@ public class ProductService {
         Product product = mapper.map(productRegisterForm, Product.class);
         product.setLastUpdateDate(LocalDateTime.now());
         product.setSku(product.generateSku());
-        productRepository.save(product);
 
+        Optional<Product> duplicatedProduct = productRepository.findBySku(product.getSku());
+        if (productRepository.findBySku(product.getSku()).isPresent() && duplicatedProduct.get().getIsExcluded()) {
+            product.setIsExcluded(false);
+            product.setId(duplicatedProduct.get().getId());
+        }
+        productRepository.save(product);
         return mapper.map(product, ProductDTO.class);
     }
 
     public List<ProductDTO> getAllProducts() {
-        List<Product> productList = productRepository.findAll();
-        if(productList.isEmpty()) throw new EntityNotFoundException("Não há produtos cadastrados");
+        List<Product> productList = productRepository.findAllNotExcluded();
+        if (productList.isEmpty()) throw new EntityNotFoundException("Não há produtos cadastrados");
         return productList.stream().map(product -> mapper.map(product, ProductDTO.class)).toList();
     }
 }
+

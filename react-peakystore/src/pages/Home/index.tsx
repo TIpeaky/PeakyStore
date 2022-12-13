@@ -6,32 +6,44 @@ import childishImage from "../../images/ChildishImage.png";
 import Pagination from "./Pagination";
 import Arrow from "../../images/Vector.png"
 import estilos from "./Home.module.scss";
+import ProductCard from '../../components/ProductCard';
 
 function App() {
 
   const [data, setData] = useState([]);
+  const [brandData, setBrandData] = useState([]);
   const carousel = useRef(null) as unknown as MutableRefObject<HTMLDivElement>;
+  const brandCarousel = useRef(null) as unknown as MutableRefObject<HTMLDivElement>;
 
   useEffect(() => {
     fetch('http://localhost:3000/static/categories.json')
       .then((response) => response.json())
       .then(setData);
+
+    fetch('http://localhost:3000/static/brands.json')
+      .then((response) => response.json())
+      .then(setBrandData);
+
   }, [])
 
   const handleLeftClick = (event: any) => {
     event.preventDefault();
-    console.log(carousel.current.offsetWidth);
-
     carousel.current.scrollLeft -= carousel.current.offsetWidth;
-    console.log(carousel.current.scrollLeft)
-
   }
 
   const handleRightClick = (event: any) => {
     event.preventDefault();
-    console.log(carousel.current.offsetWidth);
     carousel.current.scrollLeft += carousel.current.offsetWidth;
-    console.log(carousel.current.scrollLeft)
+  }
+
+  const handleBrandLeftClick = (event: any) => {
+    event.preventDefault();
+    brandCarousel.current.scrollLeft -= brandCarousel.current.offsetWidth;
+  }
+
+  const handleBrandRightClick = (event: any) => {
+    event.preventDefault();
+    brandCarousel.current.scrollLeft += brandCarousel.current.offsetWidth;
   }
 
   if (!data || !data.length) return null;
@@ -80,7 +92,7 @@ function App() {
           <button onClick={handleLeftClick}><img src={Arrow} alt="Scroll Left" /></button>
         </div>
 
-        <div className={estilos.carrousel} ref={carousel}>
+        <div className={estilos.categoryCarrousel} ref={carousel}>
           {data.map((item) => {
             const { id, urlImg, categoryName } = item;
             return (
@@ -95,6 +107,34 @@ function App() {
 
         <div className={estilos.buttons}>
           <button className={estilos.rightButton} onClick={handleRightClick}><img src={Arrow} alt="Scroll Right" /></button>
+        </div>
+      </div>
+
+      <div className={estilos.brandContainer}>
+        <h4>Marcas</h4>
+        <div className={estilos.brandLine}>
+        </div>
+
+        <div className={estilos.brandCarouselContainer} >
+          <div className={estilos.buttons}>
+            <button onClick={handleBrandLeftClick}><img src={Arrow} alt="Scroll Left" /></button>
+          </div>
+
+          <div className={estilos.brandCarrousel} ref={brandCarousel}>
+            {brandData.map((item) => {
+              const { id, urlImg, brandName } = item;
+              return (
+                <div className={estilos.brandCard} key={id}>
+                  <div className={estilos.brandImage}>
+                    <a href=""><img src={urlImg} alt={brandName} /></a>
+                  </div>
+                </div>)
+            })}
+          </div>
+
+          <div className={estilos.buttons}>
+            <button className={estilos.rightButton} onClick={handleBrandRightClick}><img src={Arrow} alt="Scroll Right" /></button>
+          </div>
         </div>
       </div>
     </div>
