@@ -190,4 +190,4 @@ const ProductCrud = () => {
   )
 }
 
-export default ProductCrud
+export default ProductCrud;
