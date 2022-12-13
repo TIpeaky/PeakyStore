@@ -8,10 +8,12 @@ import image_6 from "../../images/Products/camiseta_listrada.jpg";
 import image_7 from "../../images/Products/shorts.jpg";
 import image_8 from "../../images/Products/vestido.jpg";
 import styles from "./Products.module.scss";
+import FilterProduct from '../../components/FilterProduct';
 
 const Products = () => {
   return (
     <div className={styles.page}>
+       <FilterProduct />
       <section className={styles.container_products}>
 
         <ProductCard name="Camiseta Peak" price="49,90" img={image_1} link="#" />
