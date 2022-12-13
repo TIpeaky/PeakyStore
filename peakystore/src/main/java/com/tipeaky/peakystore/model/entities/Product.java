@@ -61,9 +61,6 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private Set<Avaliation> avaliations = new HashSet<>();
 
-    @Column(nullable = false)
-    private Boolean isExcluded = false;
-
     public String generateSku() {
         this.sku = this.color.getKey() + this.size.getKey() + this.category.getKey() + this.section.getKey() + this.productBrand.getKey();
         return sku;

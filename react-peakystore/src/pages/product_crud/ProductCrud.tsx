@@ -115,7 +115,7 @@ const ProductCrud = () => {
       type: 'actions',
       headerName: 'AÇÕES',
       width: 80,
-      renderCell: (param) => [
+      renderCell: (param: any) => [
         <GridActionsCellItem
           icon={<RemoveRedEyeOutlinedIcon />}
           label="Read"
