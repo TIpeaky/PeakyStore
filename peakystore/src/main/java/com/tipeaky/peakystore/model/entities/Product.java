@@ -9,12 +9,11 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -55,6 +54,12 @@ public class Product {
     private CategoryEnum category;
     @Column(nullable = false)
     private SectionEnum section;
+
+    @Column(nullable = false)
+    private Boolean isExcluded = false;
+
+    @OneToMany(mappedBy = "product")
+    private Set<Avaliation> avaliations = new HashSet<>();
 
     @Column(nullable = false)
     private Boolean isExcluded = false;
