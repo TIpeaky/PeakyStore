@@ -42,7 +42,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody @Valid ProductRegisterForm productRegisterForm) {
+    public ResponseEntity<ProductDTO> save(@RequestBody @Valid ProductRegisterForm productRegisterForm) {
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(productRegisterForm));
     }
     @PutMapping("/{id}")

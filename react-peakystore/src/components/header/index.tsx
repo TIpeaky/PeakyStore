@@ -46,7 +46,7 @@ function Header() {
 
             <ul className={styles.header_nav}>
                 <li><Link to="/">Home</Link></li>
-                <li><Link to="/produto">Produtos</Link></li>
+                <li><Link to="/products">Produtos</Link></li>
                 <div>
                     <li className={styles.category_li}>
                         <a className={styles.category_link} onClick={handleClickCategory}>Categorias
