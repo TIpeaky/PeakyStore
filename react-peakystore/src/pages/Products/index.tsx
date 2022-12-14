@@ -6,6 +6,7 @@ import styles from "./Products.module.scss";
 // Components
 import ProductCard from "../../components/ProductCard";
 import OrdinationSelector from "../../components/OrdinationSelector";
+import http from "../../http";
 
 // MUI Material
 import Box from "@mui/material/Box";
@@ -24,16 +25,15 @@ import image_8 from "../../images/Products/vestido.jpg";
 const Products = () => {
   const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await fetch("http://localhost:8080/product")
-        .then((response) => response.json)
-        .then(data => data);
-
-      setProducts(result);
-    }
-    fetchData()
-  }, []);
+  http
+    .get("/product")
+    .then((response) => {
+      console.log(response);
+      setProducts(response.data);
+    })
+    .catch((error) => {
+      alert("Erro ao realizar requisição!")
+    });
 
   const arrayProducts: Array<product> = [
     {
