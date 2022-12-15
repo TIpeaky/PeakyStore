@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, ChangeEvent } from "react";
 
 // Style
 import styles from "./Products.module.scss";
@@ -21,104 +21,82 @@ import image_5 from "../../images/Products/meias.jpg";
 import image_6 from "../../images/Products/camiseta_listrada.jpg";
 import image_7 from "../../images/Products/shorts.jpg";
 import image_8 from "../../images/Products/vestido.jpg";
+import PaginationComponent from "../../components/PaginationComponent";
+import { Pagination } from "@mui/material";
+
+interface productApi {
+  category: string;
+  color: string;
+  description: string;
+  id: string;
+  lastUpdateDate: string;
+  name: string;
+  productBrand: string;
+  purchasePrice: number;
+  salePrice: number;
+  section: string;
+  size: string;
+  sku: string;
+  stockQuantity: number;
+}
+
+// ?size=(número de elementos por página)&page=(número da página)
 
 const Products = () => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<productApi[]>([]);
+  const [pageSize, setPageSize] =  useState(1);
+  const [pageNumber, setPageNumber] =  useState(Number);
 
-  http
-    .get("/product")
-    .then((response) => {
-      console.log(response);
-      setProducts(response.data);
-    })
-    .catch((error) => {
-      alert("Erro ao realizar requisição!")
-    });
+  useEffect(() => {
+    const fecthData = async () => {
+      http
+        .get("/product?size=" + pageSize + "&page=" + pageNumber)
+        .then((response) => {
+          setProducts(response.data["content"]);
+        })
+        .catch();
+    };
+    fecthData();
+  }, [pageNumber]);
 
-  const arrayProducts: Array<product> = [
-    {
-      product1: (
-        <ProductCard
-          name="Camiseta Peak"
-          price="49,90"
-          img={image_1}
-          link="#"
-        />
-      ),
-    },
-    {
-      product1: (
-        <ProductCard name="Pijama Peak" price="49,90" img={image_3} link="#" />
-      ),
-    },
-    {
-      product1: (
-        <ProductCard
-          name="Camiseta Peak"
-          price="49,90"
-          img={image_1}
-          link="#"
-        />
-      ),
-    },
-    {
-      product1: (
-        <ProductCard
-          name="Camiseta Peak"
-          price="49,90"
-          img={image_1}
-          link="#"
-        />
-      ),
-    },
-    {
-      product1: (
-        <ProductCard
-          name="Camiseta Peak"
-          price="49,90"
-          img={image_1}
-          link="#"
-        />
-      ),
-    },
-    {
-      product1: (
-        <ProductCard
-          name="Camiseta Peak"
-          price="49,90"
-          img={image_1}
-          link="#"
-        />
-      ),
-    },
-  ];
+  const changePage = (event: ChangeEvent<unknown>, pagina: number) => {
+    
+    setPageNumber(pagina)
+    console.log(pageNumber);
 
-  interface product {
-    product1: object;
   }
 
   return (
     <div className={styles.page}>
-      <OrdinationSelector />
-
-      <Box sx={{ flexGrow: 1 }}>
+      <div>
+        <OrdinationSelector/>
+      </div>
+      
         <Grid
+          className={styles.grid}
+          spacing={3}
           container
-          spacing={{ xs: 2, md: 3 }}
-          columns={{ xs: 4, sm: 8, md: 12 }}
+          width="70%"
         >
-          {arrayProducts.map(
+          {products.map(
             (
               product,
               position // Tamanho do array = quantidade de produtos
             ) => (
-              <Grid item xs={12} sm={4} md={4} key={position}>
-                {position}
+              <Grid item xs={3} key={position}>
+                <ProductCard
+                  name={product.name}
+                  price={product.salePrice}
+                  img={image_1}
+                  link="#"
+                />
               </Grid>
             )
           )}
         </Grid>
-      </Box>
+
+        <Pagination count={10} onChange={changePage} page={pageNumber}/>
+      
     </div>
   );
 };
