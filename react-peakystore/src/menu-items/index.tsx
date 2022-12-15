@@ -45,7 +45,7 @@ const menuItems = {
         {
             id: 'Produtos',
             title: 'Produtos',
-            url: '/produtos',
+            url: '/admin/products',
             icon: icons.ShoppingCartOutlined,
             breadcrumbs: false
         },

@@ -109,7 +109,7 @@ const ProductCrud = () => {
     { field: 'productBrand', headerName: 'MARCA', width: 130 },
     { field: 'color', headerName: 'COR', width: 130 },
     { field: 'size', headerName: 'TAMANHO', width: 100 },
-    { field: 'stockQuantity', headerName: 'ESTOQUE', width: 130 },
+    { field: 'stockQuantity', headerName: 'ESTOQUE', width: 90 },
     {
       field: 'actions',
       type: 'actions',
@@ -153,13 +153,13 @@ const ProductCrud = () => {
 
   return (
     <>
-      <Box key={1} sx={{ height: 500, padding: 2 }}>
+      <Box key={1} className={styles.container}>
         <h1>Produtos</h1>
         <Button className={styles.btn_save_product} size="small" variant="contained" startIcon={<AddShoppingCartIcon />}
           onClick={() => openProductDetailsModal("create")}>
           Adicionar novo produto
         </Button>
-        <DataGrid
+        <DataGrid className={styles.data_grid}
           rows={productList} columns={columns} disableSelectionOnClick disableColumnSelector disableDensitySelector
           components={{ Toolbar: QuickSearchToolbar }}
           initialState={{ pagination: { pageSize: 25, } }} />

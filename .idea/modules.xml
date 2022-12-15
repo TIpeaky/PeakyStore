@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/PeakyStore.iml" filepath="$PROJECT_DIR$/.idea/PeakyStore.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PeakyStore/peakystore.iml" filepath="$PROJECT_DIR$/PeakyStore/peakystore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/peakystore/peakystore.iml" filepath="$PROJECT_DIR$/peakystore/peakystore.iml" />
     </modules>
   </component>
 </project>

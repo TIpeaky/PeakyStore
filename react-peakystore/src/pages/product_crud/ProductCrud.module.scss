@@ -1,9 +1,17 @@
+.container {
+    margin-top: 60px;
+    margin-left: 9px;
+    height: 78vh;
+    width: 97vw !important;
+    position: absolute;
+}
+
 .btn_save_product {
     background-color: rgba(0, 68, 97, 0.75) !important;
     position: absolute !important;
     padding: 7px 15px !important;
-    top: 60px !important;
-    left: 300px !important;
+    top: 52px !important;
+    left: 280px !important;
     z-index: 1 !important;
     border-radius: 15px !important;
 }
