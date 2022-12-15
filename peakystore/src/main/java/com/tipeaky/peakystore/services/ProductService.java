@@ -8,6 +8,8 @@ import com.tipeaky.peakystore.model.forms.ProductRegisterForm;
 import com.tipeaky.peakystore.repositories.ProductRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -69,9 +71,9 @@ public class ProductService {
         return mapper.map(product, ProductDTO.class);
     }
 
-    public List<ProductDTO> getAllProducts() {
-        List<Product> productList = productRepository.findAll();
+    public Page<ProductDTO> getAllProducts(Pageable pageable) {
+        Page<Product> productList = productRepository.findAll(pageable);
         if(productList.isEmpty()) throw new EntityNotFoundException("Não há produtos cadastrados");
-        return productList.stream().map(product -> mapper.map(product, ProductDTO.class)).toList();
+        return productList.map(product -> mapper.map(product, ProductDTO.class));
     }
 }

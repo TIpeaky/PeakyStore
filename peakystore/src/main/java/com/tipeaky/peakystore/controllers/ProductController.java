@@ -6,6 +6,8 @@ import com.tipeaky.peakystore.model.forms.ProductUpdateForm;
 import com.tipeaky.peakystore.model.forms.ProductRegisterForm;
 import com.tipeaky.peakystore.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,8 +34,8 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProductDTO>> getAllProducts() {
-        return ResponseEntity.status(HttpStatus.OK).body(productService.getAllProducts());
+    public ResponseEntity<Page<ProductDTO>> getAllProducts(Pageable pageable) {
+        return ResponseEntity.status(HttpStatus.OK).body(productService.getAllProducts(pageable));
     }
 
     @DeleteMapping("/{id}")
