@@ -4,7 +4,7 @@ import Home from "../pages/Home"
 import LoginAdmin from '../pages/Login/Admin'
 import LoginUsuario from '../pages/Login/User'
 import PaginaBase from "../pages/PageBase"
-
+import DetalhesProduto from "../pages/DetalhesProduto/DetalhesProduto"
 
 const Rotas = () => {
     return (  
@@ -12,6 +12,7 @@ const Rotas = () => {
           <Route path='/' element={<PaginaBase />}>
             <Route path='/' element={<Home />} />
             <Route path='login' element={<LoginUsuario />} />
+            <Route path='produto/:sku' element={<DetalhesProduto/>}/>
           </Route>
           <Route path='/admin'>
             <Route path='login' element={<LoginAdmin />} />
