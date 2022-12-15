@@ -2,6 +2,7 @@
 .page {
     display: flex;
     justify-content: center;
+    flex-direction: column;
 }
 
 .container_products {
@@ -13,8 +14,6 @@
     margin-left: 10rem;
 }
 
-.grid {
-
-    width: 30%;
-
+.selector {
+    
 }
