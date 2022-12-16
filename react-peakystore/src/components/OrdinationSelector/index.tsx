@@ -7,11 +7,15 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-const OrdinationSelector = () => {
+const OrdinationSelector = ({ onAddOption }: any) => {
   const [option, setOption] = useState('');
 
   const handleChange = (event: SelectChangeEvent) => {
     setOption(event.target.value as string);
+
+    onAddOption(event.target.value as string);
+
+    console.log(option);
   };
 
   return (
@@ -24,10 +28,10 @@ const OrdinationSelector = () => {
           label="Age"
           onChange={handleChange}
         >
-          <MenuItem value={1}>Preço Crescente</MenuItem>
-          <MenuItem value={2}>Preço Decrescente</MenuItem>
-          <MenuItem value={3}>A - Z</MenuItem>
-          <MenuItem value={3}>Z - A</MenuItem>
+          <MenuItem value={"salePrice,asc"}>Preço Crescente</MenuItem>
+          <MenuItem value={"salePrice,desc"}>Preço Decrescente</MenuItem>
+          <MenuItem value={"name,asc"}>A - Z</MenuItem>
+          <MenuItem value={"name,desc"}>Z - A</MenuItem>
         </Select>
       </FormControl>
   );
