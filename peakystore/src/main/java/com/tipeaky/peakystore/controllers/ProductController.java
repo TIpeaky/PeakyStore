@@ -1,7 +1,9 @@
 package com.tipeaky.peakystore.controllers;
 
 import com.tipeaky.peakystore.exceptions.NullObjectException;
+import com.tipeaky.peakystore.model.dtos.EnumsDTO;
 import com.tipeaky.peakystore.model.dtos.ProductDTO;
+import com.tipeaky.peakystore.model.enums.BrandEnum;
 import com.tipeaky.peakystore.model.forms.ProductUpdateForm;
 import com.tipeaky.peakystore.model.forms.ProductRegisterForm;
 import com.tipeaky.peakystore.services.ProductService;
@@ -51,5 +53,10 @@ public class ProductController {
 
         form.setId(id);
         return ResponseEntity.ok().body(productService.update(form));
+    }
+
+    @GetMapping("/teste")
+    public ResponseEntity<EnumsDTO> getAllEnums() {
+        return ResponseEntity.status(HttpStatus.OK).body(productService.getAllEnums());
     }
 }

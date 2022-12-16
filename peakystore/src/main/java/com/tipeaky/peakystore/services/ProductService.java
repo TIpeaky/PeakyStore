@@ -1,7 +1,10 @@
 package com.tipeaky.peakystore.services;
 
+import com.tipeaky.peakystore.model.dtos.EnumsDTO;
+import com.tipeaky.peakystore.model.dtos.EnumsDTOs;
 import com.tipeaky.peakystore.model.dtos.ProductDTO;
 import com.tipeaky.peakystore.model.entities.Product;
+import com.tipeaky.peakystore.model.enums.*;
 import com.tipeaky.peakystore.model.forms.ProductUpdateForm;
 import com.tipeaky.peakystore.model.forms.ProductRegisterForm;
 import com.tipeaky.peakystore.repositories.ProductRepository;
@@ -12,9 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class ProductService {
@@ -74,6 +75,39 @@ public class ProductService {
         List<Product> productList = productRepository.findAllNotExcluded();
         if (productList.isEmpty()) throw new EntityNotFoundException("Não há produtos cadastrados");
         return productList.stream().map(product -> mapper.map(product, ProductDTO.class)).toList();
+    }
+
+    public EnumsDTO getAllEnums() {
+        EnumsDTO teste;
+
+        List<EnumsDTOs> brandEnums = new ArrayList<>();
+        List<EnumsDTOs> categoryEnums = new ArrayList<>();
+        List<EnumsDTOs> colorEnums = new ArrayList<>();
+        List<EnumsDTOs> sectionEnums = new ArrayList<>();
+        List<EnumsDTOs> sizeEnums = new ArrayList<>();
+
+        for(BrandEnum brandEnum : BrandEnum.values()) {
+            brandEnums.add( new EnumsDTOs(brandEnum.ordinal(), brandEnum.getDescription()));
+        }
+
+        for(ColorEnum colorEnum : ColorEnum.values()) {
+            colorEnums.add( new EnumsDTOs(colorEnum.ordinal(), colorEnum.getDescription()));
+        }
+
+        for(CategoryEnum categoryEnum : CategoryEnum.values()) {
+            categoryEnums.add( new EnumsDTOs(categoryEnum.ordinal(), categoryEnum.getDescription()));
+        }
+
+        for(SectionEnum sectionEnum : SectionEnum.values()) {
+            sectionEnums.add( new EnumsDTOs(sectionEnum.ordinal(), sectionEnum.getDescription()));
+        }
+        for(SizeEnum sizeEnum : SizeEnum.values()) {
+            sizeEnums.add( new EnumsDTOs(sizeEnum.ordinal(), sizeEnum.getDescription()));
+        }
+
+        teste = new EnumsDTO(brandEnums, colorEnums, sizeEnums, categoryEnums, sectionEnums);
+
+        return teste;
     }
 }
 

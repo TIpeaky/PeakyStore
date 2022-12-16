@@ -1,37 +1,59 @@
 import { useState } from 'react';
+import http from '../../http';
 import styles from './FilterProduct.module.scss'
 
-function FilterProduct() {
+export interface IOpcao {
+    id: number;
+    name: string;
+}
 
-    const [notification, setNotification] = useState(false);
+export interface Props {
+  filtro: number | null;
+  setFiltro: React.Dispatch<React.SetStateAction<number | null>>
+}
 
-    const handleChange = (
-        evento: React.ChangeEvent<HTMLInputElement>
-      ) => {
-        if (evento.target.value == "true") {
-          if (notification == true) {
-            console.log("Desmarcado");
-          }
-          setNotification(!notification);
+function FilterProduct({ filtro, setFiltro }: Props) {
+
+    const [categorys, setCategorys] = useState([]);
+
+    http.get('product/teste')
+    .then(resposta => {
+        setCategorys(resposta.data)
+    })
+    .catch(erro => {
+        if (erro?.response?.data?.message) {
+            alert(erro.response.data.message)
+        } else {
+            alert('Aconteceu um erro inesperado! Entre em contato com o suporte!')
         }
-      };
+
+    })
+
+    function handleChange(opcao: IOpcao) {
+        if (filtro === opcao.id) return setFiltro(null);
+        return setFiltro(opcao.id);
+      }
 
     return (
         <section>
             <div className={styles.filter_product}>
                 <h5 className={styles.filter_product__title}>Categorias</h5>
                 <div className={styles.filter_product__item}>
-                    <input
-                    type="checkbox"
-                    id="notification"
-                    className={styles.filter_product__input}
-                    name="notification"
-                    value="true"
-                    onChange={handleChange}
-                    />
-                    <label htmlFor="notification" className={styles.filter_product__label}>
-                    Nike
-                    </label>
+                    {categorys.map ( opcao => (
+                        <>
+                            <input
+                            key={opcao.id}
+                            type="checkbox"
+                            id={opcao.id}
+                            className={styles.filter_product__input}
+                            name={opcao.name}
+                            value="true"
+                            onClick={() => handleChange(opcao)}/>
+                            <label htmlFor={opcao.name} className={styles.filter_product__label}>
+                                {opcao.name}
+                            </label></>
+                        </>
+                    ))}
                 </div>
                 <span className={styles.filter_product__button}>+ ver mais</span>
                 
@@ -44,7 +66,7 @@ function FilterProduct() {
                         className={styles.filter_product__input}
                         name="notification"
                         value="true"
-                        onChange={handleChange}
+                        //onChange={handleChange}
                         />
                         <label htmlFor="notification" className={styles.filter_product__label}>
                         XS
@@ -88,7 +110,7 @@ function FilterProduct() {
                         className={styles.filter_product__input}
                         name="notification"
                         value="true"
-                        onChange={handleChange}
+                        //onChange={handleChange}
                         />
                         <label htmlFor="notification" className={styles.filter_product__label}>
                         Unissex
@@ -101,7 +123,7 @@ function FilterProduct() {
                         className={styles.filter_product__input}
                         name="notification"
                         value="true"
-                        onChange={handleChange}
+                        //onChange={handleChange}
                         />
                         <label htmlFor="notification" className={styles.filter_product__label}>
                         Masculino
@@ -114,7 +136,7 @@ function FilterProduct() {
                         className={styles.filter_product__input}
                         name="notification"
                         value="true"
-                        onChange={handleChange}
+                        //onChange={handleChange}
                         />
                         <label htmlFor="notification" className={styles.filter_product__label}>
                         Feminino
@@ -132,7 +154,7 @@ function FilterProduct() {
                             className={styles.filter_product__input}
                             name="notification"
                             value="true"
-                            onChange={handleChange}
+                            //onChange={handleChange}
                             />
                             <label htmlFor="notification" className={styles.filter_product__label}>
                             Nike
@@ -145,7 +167,7 @@ function FilterProduct() {
                             className={styles.filter_product__input}
                             name="notification"
                             value="true"
-                            onChange={handleChange}
+                            //onChange={handleChange}
                             />
                             <label htmlFor="notification" className={styles.filter_product__label}>
                             Puma
