@@ -46,9 +46,9 @@ const ProductCard = ({ name, price, img, link }: props) => {
             stroke: stroke,
             strokeWidth: 1.7,
             "&:hover": {
-              color: "#FF0000",
               stroke: "#FF0000",
               strokeWidth: 1.7,
+              height: "101%"
             },
             cursor: "pointer",
           }}
