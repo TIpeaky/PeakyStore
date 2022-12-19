@@ -9,6 +9,7 @@ import ProductCrud from '../pages/product_crud/ProductCrud'
 import Products from '../pages/Products'
 import UserRegister from "../pages/UserRegister"
 import PaginaBaseAdmin from "../pages/PageBase/Admin"
+import NewPassword from '../pages/NewPassword'
 
 
 const Rotas = () => {
@@ -19,6 +20,7 @@ const Rotas = () => {
         <Route path='login' element={<LoginUsuario />} />
         <Route path='products' element={<Products />} />
         <Route path='register' element={<UserRegister />} />
+        <Route path='/newPassword' element={<NewPassword/>} />
       </Route>
       <Route path='/admin'>
         <Route path='login' element={<LoginAdmin />} />
