@@ -8,11 +8,6 @@ export interface IOpcao {
     name: string;
 }
 
-export interface Icategory {
-    id: number;
-    name: string;
-}
-
 export interface Props {
   filtro: number | null;
   setFiltro: React.Dispatch<React.SetStateAction<number | null>>
@@ -23,25 +18,19 @@ function FilterProduct({ filtro, setFiltro }: Props) {
     const [checked, setChecked] = useState(false);
 
     const [collapseCategory, setCollapseCategory] = useState('+ ver mais');
-
-    const handleChangeChecked = () => {
-        setChecked((prev) => !prev);
-        if (checked) {
-            setCollapseCategory('+ ver mais');
-        } else {
-            setCollapseCategory('- ver menos');
-        }
-    };
+    const [collapseSize, setCollapseSize] = useState('+ ver mais');
 
     const [category, setCategory] = useState('');
 
-    const [categorys, setCategorys] = useState<Icategory[]>([]);
-
-    
+    const [categorys, setCategorys] = useState<IOpcao[]>([]);
+    const [sizes, setSizes] = useState<IOpcao[]>([]);
 
     useEffect(() => {
-        http.get<{ category: Icategory[] }>('product/teste')
-        .then(resposta => setCategorys(resposta.data.category))
+        http.get<{ category: IOpcao[], size: IOpcao[]}>('product/teste')
+        .then(resposta => {
+            setCategorys(resposta.data.category)
+            setSizes(resposta.data.size)
+        })
         .catch(erro => {
             if (erro?.response?.data?.message) {
                 alert(erro.response.data.message)
@@ -56,6 +45,15 @@ function FilterProduct({ filtro, setFiltro }: Props) {
         if (filtro === opcao.id) return setFiltro(null);
         return setFiltro(opcao.id);
     }
+
+    function handleChangeCollapse( setcollapse: React.Dispatch<React.SetStateAction<string | null>>)  {
+        setChecked((prev) => !prev);
+        if (checked) {
+            setcollapse('+ ver mais');
+        } else {
+            setcollapse('- ver menos');
+        }
+    };
 
     return (
         <section>
@@ -76,24 +74,26 @@ function FilterProduct({ filtro, setFiltro }: Props) {
                         </div>
                     ))}
                 </Collapse>
-                <button onClick={handleChangeChecked} className={styles.filter_product__button}>{collapseCategory}</button>
+                <button onClick={handleChangeCollapse(setCollapseCategory)} className={styles.filter_product__button}>{collapseCategory}</button>
                 
-                <div className={styles.filter_product__tamanhos}>
-                    <h5 className={styles.filter_product__title}>Tamanhos</h5>
-                    <div className={styles.filter_product__item}>
-                        <input
-                        type="checkbox"
-                        id="notification"
-                        className={styles.filter_product__input}
-                        name="notification"
-                        value="true"
-                        //onChange={handleChange}
-                        />
-                        <label htmlFor="notification" className={styles.filter_product__label}>
-                        XS
-                        </label>
-                    </div>
-                </div>
+
+                <h5 className={styles.filter_product__title}>Tamanhos</h5>
+                <Collapse orientation="vertical" in={checked} collapsedSize={142}>
+                    {sizes.map ( opcao => (
+                        <div className={styles.filter_product__item}>
+                            <input
+                            key={opcao.id}
+                            type="checkbox"
+                            className={styles.filter_product__input}
+                            name={opcao.name}
+                            onClick={() => handleChange(opcao)}/>
+                            <label htmlFor={opcao.name} className={styles.filter_product__label}>
+                                {opcao.name}
+                            </label>
+                        </div>
+                    ))}
+                </Collapse>
+                <button onClick={handleChangeCollapse(setCollapseSize)} className={styles.filter_product__button}>{collapseSize}</button>
 
                 <section className={styles.filter_product__cores}>
                     <h5 className={styles.filter_product__title}>Cores</h5>
