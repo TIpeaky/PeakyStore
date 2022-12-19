@@ -46,7 +46,8 @@
 .filter_product__item {
     display: flex;
     margin-bottom: 5px;
-    margin-left: 10px;}
+    margin-left: 10px;
+}
 
 .filter_product__input {
     width: 16px;
@@ -59,6 +60,8 @@
 }
 
 .filter_product__button {
-    margin-bottom: 5px;
-    margin-left: 15px;
+    padding: 0;
+    font-size: 20px;
+    border:none;
+    background: none;
 }

@@ -1,8 +1,14 @@
-import { useState } from 'react';
+import { Collapse } from '@mui/material';
+import { useEffect, useState } from 'react';
 import http from '../../http';
 import styles from './FilterProduct.module.scss'
 
 export interface IOpcao {
+    id: number;
+    name: string;
+}
+
+export interface Icategory {
     id: number;
     name: string;
 }
@@ -14,48 +20,54 @@ export interface Props {
 
 function FilterProduct({ filtro, setFiltro }: Props) {
 
-    const [categorys, setCategorys] = useState([]);
+    const [checked, setChecked] = useState(false);
 
-    http.get('product/teste')
-    .then(resposta => {
-        setCategorys(resposta.data)
-    })
-    .catch(erro => {
-        if (erro?.response?.data?.message) {
-            alert(erro.response.data.message)
-        } else {
-            alert('Aconteceu um erro inesperado! Entre em contato com o suporte!')
-        }
+    const handleChangeChecked = () => {
+        setChecked((prev) => !prev);
+    };
 
-    })
+    const [category, setCategory] = useState('');
+
+    const [categorys, setCategorys] = useState<Icategory[]>([]);
+
+    useEffect(() => {
+        http.get<{ category: Icategory[] }>('product/teste')
+        .then(resposta => setCategorys(resposta.data.category))
+        .catch(erro => {
+            if (erro?.response?.data?.message) {
+                alert(erro.response.data.message)
+            } else {
+                alert('Aconteceu um erro inesperado! Entre em contato com o suporte!')
+            }
+
+        })
+    }, [])
 
     function handleChange(opcao: IOpcao) {
         if (filtro === opcao.id) return setFiltro(null);
         return setFiltro(opcao.id);
-      }
+    }
 
     return (
         <section>
             <div className={styles.filter_product}>
                 <h5 className={styles.filter_product__title}>Categorias</h5>
-                <div className={styles.filter_product__item}>
+                <Collapse orientation="vertical" in={checked} collapsedSize={200}>
                     {categorys.map ( opcao => (
-                        <>
+                        <div className={styles.filter_product__item}>
                             <input
                             key={opcao.id}
                             type="checkbox"
-                            id={opcao.id}
                             className={styles.filter_product__input}
                             name={opcao.name}
-                            value="true"
                             onClick={() => handleChange(opcao)}/>
                             <label htmlFor={opcao.name} className={styles.filter_product__label}>
                                 {opcao.name}
-                            </label></>
-                        </>
+                            </label>
+                        </div>
                     ))}
-                </div>
-                <span className={styles.filter_product__button}>+ ver mais</span>
+                </Collapse>
+                <button onClick={handleChangeChecked} className={styles.filter_product__button}>+ ver mais</button>
                 
                 <div className={styles.filter_product__tamanhos}>
                     <h5 className={styles.filter_product__title}>Tamanhos</h5>

@@ -9,11 +9,15 @@ import image_7 from "../../images/Products/shorts.jpg";
 import image_8 from "../../images/Products/vestido.jpg";
 import styles from "./Products.module.scss";
 import FilterProduct from '../../components/FilterProduct';
+import { useState } from 'react';
 
 const Products = () => {
+
+  const [filtro, setFiltro] = useState<number | null>(null);
+  
   return (
     <div className={styles.page}>
-       <FilterProduct />
+       <FilterProduct filtro={filtro} setFiltro={setFiltro}/>
       <section className={styles.container_products}>
 
         <ProductCard name="Camiseta Peak" price="49,90" img={image_1} link="#" />
