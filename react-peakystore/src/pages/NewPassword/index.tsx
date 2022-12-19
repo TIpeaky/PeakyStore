@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { AbBotao } from '../../components/AbBotao';
 import http from "../../http"
 import Logo from "./../../images/PeakyStore.png"
 import { AbCampoTexto } from '../../components/AbCampoTexto';
 import styled from './NewPassword.module.scss';
 import { useNavigate } from 'react-router-dom';
-import { style } from '@mui/system';
 
 const NewPassword = () => {
     let navigate = useNavigate()
@@ -22,7 +21,7 @@ const NewPassword = () => {
             newPassword,
         }
 
-        if (confirmPassword == newPassword) {
+        if (confirmPassword === newPassword) {
             http.post('user/newPassword', usuario, {
                 headers: {
                     Authorization: `Bearer ${sessionStorage.getItem('token')}`
