@@ -22,13 +22,22 @@ function FilterProduct({ filtro, setFiltro }: Props) {
 
     const [checked, setChecked] = useState(false);
 
+    const [collapseCategory, setCollapseCategory] = useState('+ ver mais');
+
     const handleChangeChecked = () => {
         setChecked((prev) => !prev);
+        if (checked) {
+            setCollapseCategory('+ ver mais');
+        } else {
+            setCollapseCategory('- ver menos');
+        }
     };
 
     const [category, setCategory] = useState('');
 
     const [categorys, setCategorys] = useState<Icategory[]>([]);
+
+    
 
     useEffect(() => {
         http.get<{ category: Icategory[] }>('product/teste')
@@ -52,7 +61,7 @@ function FilterProduct({ filtro, setFiltro }: Props) {
         <section>
             <div className={styles.filter_product}>
                 <h5 className={styles.filter_product__title}>Categorias</h5>
-                <Collapse orientation="vertical" in={checked} collapsedSize={200}>
+                <Collapse orientation="vertical" in={checked} collapsedSize={142}>
                     {categorys.map ( opcao => (
                         <div className={styles.filter_product__item}>
                             <input
@@ -67,7 +76,7 @@ function FilterProduct({ filtro, setFiltro }: Props) {
                         </div>
                     ))}
                 </Collapse>
-                <button onClick={handleChangeChecked} className={styles.filter_product__button}>+ ver mais</button>
+                <button onClick={handleChangeChecked} className={styles.filter_product__button}>{collapseCategory}</button>
                 
                 <div className={styles.filter_product__tamanhos}>
                     <h5 className={styles.filter_product__title}>Tamanhos</h5>

@@ -60,8 +60,12 @@
 }
 
 .filter_product__button {
-    padding: 0;
+    margin-left: -35px;
     font-size: 20px;
     border:none;
     background: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
 }
