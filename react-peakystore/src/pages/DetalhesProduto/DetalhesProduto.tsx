@@ -2,15 +2,15 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { IProduct } from '../../interfaces/IProduct'
 import styles from './DetalhesProduto.module.scss'
-import imgprincipal from './Rectangle.png'
+import img1 from './Rectangle.png'
+import img2 from './thumb.jpg'
+import img3 from './img3.png'
+
 import iconPix from './pix.png'
 import iconCards from './cartoes.png'
 import InputMask from "react-input-mask"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AddIcon from '@mui/icons-material/Add';
-
-
-
 
 
 const DetalhesProduto = () => {
@@ -28,8 +28,6 @@ const DetalhesProduto = () => {
         category: "masculina",
         section: "a",
         description: "A Camisa manga curta PeakyStore é produzida em mix de fibras, sendo muito macia e confortável. Com modelagem regular, a peça possui mangas curtas e decote redondo. Aposte! Combine com uma bermuda de sarja e tênis para um visual casual."
-
-
 
     }, {
         id: "456",
@@ -75,57 +73,68 @@ WHITE("WH", "White"),
 BLACK("BA", "Black"); */
 
     const [colorList, setColorList] = useState<String[]>([])
-    const addColors = () => {
-        let listaTemporaria: String[] = []
 
-        produtos.forEach((produto) => {
-            switch (produto.color) {
-                case "BLUE": listaTemporaria.push("#1E90FF"); break;
 
-            }
+    useEffect(() => {
+        const addColors = () => {
+            let listaTemporaria: String[] = []
 
-        })
-        setColorList(listaTemporaria)
-    }
+            produtos.forEach((produto) => {
+                switch (produto.color) {
+                    case "BLUE": listaTemporaria.push("#1E90FF"); break;
 
-    useEffect(() => { addColors() }, [produtos, addColors])
+                }
+
+            })
+            setColorList(listaTemporaria)
+        }
+        addColors()
+    }, [produtos])
 
     const [sizeList, setSizeList] = useState<String[]>([])
-    const addSize = () => {
-        let listaTemporaria: String[] = []
+    
 
-        produtos.forEach((produto) => {
-            switch (produto.size) {
-                case "XS": listaTemporaria.push("PP"); break;
-                case "S": listaTemporaria.push("P"); break;
-                case "M": listaTemporaria.push("M"); break;
-                case "L": listaTemporaria.push("G"); break;
-                case "XL": listaTemporaria.push("GG"); break;
-                case "XXL": listaTemporaria.push("XG"); break;
-            }
+    useEffect(() => { 
+        const addSize = () => {
+            let listaTemporaria: String[] = []
+    
+            produtos.forEach((produto) => {
+                switch (produto.size) {
+                    case "XS": listaTemporaria.push("PP"); break;
+                    case "S": listaTemporaria.push("P"); break;
+                    case "M": listaTemporaria.push("M"); break;
+                    case "L": listaTemporaria.push("G"); break;
+                    case "XL": listaTemporaria.push("GG"); break;
+                    case "XXL": listaTemporaria.push("XG"); break;
+                }
+            })
+            setSizeList(listaTemporaria)
+        }
+        addSize() }, [produtos])
 
-        })
-        setSizeList(listaTemporaria)
-    }
-
-    useEffect(() => { addSize() }, [produtos, addSize])
+        // Eventos de mudança nas imagens
+        const [mainImage, setMainImage] = useState<string>(img1);
 
 
 
+        const changeImage = (target: any) => {
+            const imageUrl:string = target.src;
+            setMainImage(imageUrl);
+        }
 
     return (
         <div className={styles.container}>
             <div className={styles.carrousel}>
-                <h1>Carrousel</h1>
-                
-
+                <img onClick={(ev) => changeImage(ev.target)} className={styles.miniatura} src={img1} alt="miniatura 1" />
+                <img onClick={(ev) => changeImage(ev.target)} className={styles.miniatura} src={img2} alt="miniatura 2" />
+                <img onClick={(ev) => changeImage(ev.target)} className={styles.miniatura} src={img3} alt="miniatura 3" />
             </div>
 
             <div className={styles.right_column}>
 
                 <div className={styles.principal}>
                     <div className={styles.imagem_principal}>
-                        < img src={imgprincipal} alt="imagem_do_produto" />
+                        <img src={mainImage} alt="imagem_do_produto" />
                     </div>
 
                     <div className={styles.info_produto}>
@@ -152,7 +161,7 @@ BLACK("BA", "Black"); */
                             <h2 className={styles.shipping} >Calcular Frete</h2>
                             <InputMask className={styles.input_shipping} mask="99999-999" />
                             <button className={styles.button_shipping} >OK</button>
-                            <a className={styles.link_shipping} href='https://buscacepinter.correios.com.br/app/endereco/index.php' target="_blank" >Não sabe seu cep?</a>
+                            <a className={styles.link_shipping} rel="noreferrer" href='https://buscacepinter.correios.com.br/app/endereco/index.php' target="_blank" >Não sabe seu cep?</a>
                         </div>
                         <div className={styles.container_finish}>
                             <button className={styles.btn_cart}><ShoppingCartIcon className={styles.icon_cart} /><AddIcon className={styles.icon_cart} /></button>
@@ -167,13 +176,13 @@ BLACK("BA", "Black"); */
                 <div className={styles.container_description} >
                     <h1>Descrição</h1>
                     <p>{produtos[0].description}</p>
-                    
+
                     <h3>Características</h3>
                     <ul>
                         <li>Marca: {produtos[0].productBrand}</li>
                         <li>Categoria: {produtos[0].category}</li>
-                                
-                    
+
+
                     </ul>
                 </div>
             </div>
