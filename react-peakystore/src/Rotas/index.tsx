@@ -1,23 +1,34 @@
-import { Route, Routes} from 'react-router-dom'
+import { Dashboard } from '@mui/icons-material'
+import { Route, Routes } from 'react-router-dom'
 // import Footer from '../components/Footer'
 import Home from "../pages/Home"
 import LoginAdmin from '../pages/Login/Admin'
 import LoginUsuario from '../pages/Login/User'
 import PaginaBase from "../pages/PageBase"
+import ProductCrud from '../pages/product_crud/ProductCrud'
+import Products from '../pages/Products'
+import UserRegister from "../pages/UserRegister"
+import PaginaBaseAdmin from "../pages/PageBase/Admin"
 import DetalhesProduto from "../pages/DetalhesProduto/DetalhesProduto"
 
 const Rotas = () => {
-    return (  
-        <Routes>
-          <Route path='/' element={<PaginaBase />}>
-            <Route path='/' element={<Home />} />
-            <Route path='login' element={<LoginUsuario />} />
+  return (
+    <Routes>
+      <Route path='/' element={<PaginaBase />}>
+        <Route path='' element={<Home />} />
+        <Route path='login' element={<LoginUsuario />} />
+        <Route path='products' element={<Products />} />
+        <Route path='register' element={<UserRegister />} />
             <Route path='produto/:sku' element={<DetalhesProduto/>}/>
-          </Route>
-          <Route path='/admin'>
-            <Route path='login' element={<LoginAdmin />} />
-          </Route>
-        </Routes>);
+      </Route>
+      <Route path='/admin'>
+        <Route path='login' element={<LoginAdmin />} />
+      </Route>
+      <Route path='/admin' element={<PaginaBaseAdmin />} >
+        <Route path='' element={<Dashboard />} />
+        <Route path='products' element={<ProductCrud />} />
+      </Route>
+    </Routes>);
 }
 
 export default Rotas

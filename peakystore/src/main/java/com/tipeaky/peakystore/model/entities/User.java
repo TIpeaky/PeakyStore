@@ -39,7 +39,16 @@ public class User implements UserDetails {
     private String email;
     @Column(nullable = false)
     private String password;
-    private GenderEnum gender;
+
+//    @ElementCollection
+//    @CollectionTable(name = "user_gender", joinColumns = @JoinColumn(name = "user_id"))
+//    @Column(name = "gender")
+//    private List<GenderEnum> genderEnumList;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private List<Gender> genderList = new ArrayList<>();
+
     //private Longblob avatar; imagem do usuário
     private LocalDate birthDate;
     private Boolean notification;
@@ -50,6 +59,10 @@ public class User implements UserDetails {
 
     public void setRoles(Role role) {
         this.roles.add(role);
+    }
+
+    public void setGender(Gender gender) {
+        this.genderList.add(gender);
     }
 
     @OneToMany(cascade = CascadeType.ALL)

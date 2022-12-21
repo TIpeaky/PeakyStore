@@ -1,9 +1,12 @@
 import { BrowserRouter } from 'react-router-dom';
+import NavigationScroll from './components/NavigationScroll';
 import Rotas from './Rotas';
 
 function App() {
   return (<BrowserRouter>
-      <Rotas />
+      <NavigationScroll>
+        <Rotas />
+      </NavigationScroll>
     </BrowserRouter>
   );
 }
