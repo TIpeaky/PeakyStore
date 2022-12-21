@@ -87,4 +87,11 @@ public class UserController {
     public void deleteEmployee(@PathVariable UUID userId) {
         userService.deleteEmployee(userId);
     }
+
+    @PutMapping("/employee/{userId}")
+    @ResponseStatus(HttpStatus.OK)
+    public void updateEmployee(@RequestBody @Valid UserForm userForm, @PathVariable UUID userId) {
+        userService.updateEmployee(userForm, userId);
+    }
 }
+

@@ -190,4 +190,31 @@ public class UserService {
 
         userRepository.delete(employee);
     }
+
+    public void updateEmployee(UserForm user, UUID userId) {
+
+        if (!userRepository.findById(userId).isPresent()) {
+            throw new EntityNotFoundException("Funcionário nâo encontrado");
+        }
+
+        User lastData = userRepository.findById(userId).get();
+
+        Role role = lastData.getRoles().get(0);
+
+        if (!role.getAuthority().equalsIgnoreCase("Employee")) {
+            throw new MethodNotAllowedException("Usuário não é um funcionário");
+        }
+
+        if (!lastData.getCpf().equals(user.getCpf())) {
+            throw new MethodNotAllowedException("Cpf não pode ser alterado");
+        }
+
+        User actualData = mapper.map(user, User.class);
+
+        actualData.setId(lastData.getId());
+
+        actualData.setRoles(role);
+
+        userRepository.save(actualData);
+    }
 }
