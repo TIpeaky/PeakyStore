@@ -30,7 +30,7 @@ button {
 
 .imagem_principal {
     padding: 20px 0;
-    width: 50%;
+    width: 40%;
 }
 
 .icon_pix {
@@ -119,6 +119,7 @@ button {
 
 .button_shipping {
     margin-bottom: 0;
+    margin-left: 10px;
     background-color: #137DAB;
     color: white;
     border-radius: 10px;
@@ -126,8 +127,6 @@ button {
     height: max-content;
     width: max-content;
 }
-
-//===============INICIO
 
 .container_finish {
     display: flex;
@@ -158,8 +157,6 @@ button {
     height: 80px;
     margin-bottom: 0;
 }
-
-//===============FIM
 
 .container_description h1 {
     font-size: 40px;

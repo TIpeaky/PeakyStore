@@ -1,126 +1,86 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import { IProduct } from '../../interfaces/IProduct'
 import styles from './DetalhesProduto.module.scss'
 import img1 from './img/Rectangle.png'
 import img2 from './img/thumb.jpg'
 import img3 from './img/img3.png'
-
 import iconPix from './img/pix.png'
 import iconCards from './img/cartoes.png'
 import InputMask from "react-input-mask"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AddIcon from '@mui/icons-material/Add';
-
+import http from "../../http"
+import { useNavigate } from 'react-router-dom';
 
 const DetalhesProduto = () => {
-    const [produtos, setProdutos] = useState<IProduct[]>([{
-        id: "123",
-        sku: "ABC123",
-        name: "Camisa manga curta branca",
-        purchasePrice: 30.00,
-        salePrice: 50.00,
-        stockQuantity: 20,
-        productBrand: "Adidas",
-        lastUpdateDate: "01/12/2022",
-        color: "BLUE",
-        size: "M",
-        category: "masculina",
-        section: "a",
-        description: "A Camisa manga curta PeakyStore é produzida em mix de fibras, sendo muito macia e confortável. Com modelagem regular, a peça possui mangas curtas e decote redondo. Aposte! Combine com uma bermuda de sarja e tênis para um visual casual."
 
-    }, {
-        id: "456",
-        sku: "ABC456",
-        name: "Camisa manga curta preta",
-        purchasePrice: 30.00,
-        salePrice: 50.00,
-        stockQuantity: 20.00,
-        productBrand: "Adidas",
-        lastUpdateDate: "01/12/2022",
-        color: "BLACK",
-        size: "S",
-        category: "masculina",
-        section: "b",
-        description: "A Camisa manga curta PeakyStore é produzida em mix de fibras, sendo muito macia e confortável. Com modelagem regular, a peça possui mangas curtas e decote redondo. Aposte! Combine com uma bermuda de sarja e tênis para um visual casual."
-    },
-    {
-        id: "678",
-        sku: "ABC789",
-        name: "Camisa manga curta verde",
-        purchasePrice: 30.00,
-        salePrice: 50.00,
-        stockQuantity: 20,
-        productBrand: "Adidas",
-        lastUpdateDate: "01/12/2022",
-        color: "GREEN",
-        size: "L",
-        category: "masculina",
-        section: "c",
-        description: "A Camisa manga curta PeakyStore é produzida em mix de fibras, sendo muito macia e confortável. Com modelagem regular, a peça possui mangas curtas e decote redondo. Aposte! Combine com uma bermuda de sarja e tênis para um visual casual."
-    }])
+    const [mainProduct, setMainProduct] = useState<IProduct>()
+    const [productList, setProductList] = useState<IProduct[]>([])
 
-    /*BLUE("BL", "Blue"),
-GREEN("GR", "Green"),
-YELLOW("YE", "Yellow"),
-PURPLE("PU", "Purple"),
-PINK("PI", "Pink"),
-RED("RE", "Red"),
-ORANGE("OR", "Orange"),
-BROWN("BR", "Brown"),
-GREY("GR", "Grey"),
-WHITE("WH", "White"),
-BLACK("BA", "Black"); */
-
-    const [colorList, setColorList] = useState<String[]>([])
-
-
+    //Buscar produto principal
+    const { sku } = useParams();
     useEffect(() => {
-        const addColors = () => {
-            let listaTemporaria: String[] = []
-
-            produtos.forEach((produto) => {
-                switch (produto.color) {
-                    case "BLUE": listaTemporaria.push("#1E90FF"); break;
-
-                }
-
+        let auxList = productList;
+        http.get('product/sku/' + sku)
+            .then(response => {
+                setMainProduct(response.data);
+                auxList.push(response.data)
+                setProductList(auxList)
+                addSize();
+                addColors();
             })
-            setColorList(listaTemporaria)
-        }
-        addColors()
-    }, [produtos])
+            .catch(erro => {
+                console.log(erro);
+            })
+    }, [])
 
+    //Lista de cores disponíveis
+    const [colorList, setColorList] = useState<String[]>([])
+    const addColors = () => {
+        let auxList: String[] = []
+        productList.forEach((produto) => {
+            switch (produto.color) {
+                case "BLUE": if (!auxList.includes("#0d6efd")) { auxList.push("#0d6efd"); } break;
+                case "GREEN": if (!auxList.includes("#198754")) { auxList.push("#198754"); } break;
+                case "YELLOW": if (!auxList.includes("#ffc107")) { auxList.push("#ffc107"); } break;
+                case "PURPLE": if (!auxList.includes("#6f42c1")) { auxList.push("#6f42c1"); } break;
+                case "PINK": if (!auxList.includes("#d63384")) { auxList.push("#d63384"); } break;
+                case "RED": if (!auxList.includes("#dc3545")) { auxList.push("#dc3545"); } break;
+                case "ORANGE": if (!auxList.includes("#fd7e14")) { auxList.push("#fd7e14"); } break;
+                case "BROWN": if (!auxList.includes("#4e342e")) { auxList.push("#4e342e"); } break;
+                case "GREY": if (!auxList.includes("#adb5bd")) { auxList.push("#adb5bd"); } break;
+                case "WHITE": if (!auxList.includes("#ffffff")) { auxList.push("#ffffff"); } break;
+                case "BLACK": if (!auxList.includes("#000000")) { auxList.push("#000000"); } break;
+            }
+        })
+        setColorList(auxList)
+    }
+
+    //Lista de tamanhos disponíveis
     const [sizeList, setSizeList] = useState<String[]>([])
-    
+    const addSize = () => {
+        let auxList: String[] = []
+        productList.forEach((produto) => {
+            switch (produto.size) {
+                case "XS": if (!auxList.includes("PP")) { auxList.push("PP"); } break;
+                case "S": if (!auxList.includes("P")) { auxList.push("P"); } break;
+                case "M": if (!auxList.includes("M")) { auxList.push("M"); } break;
+                case "L": if (!auxList.includes("G")) { auxList.push("G"); } break;
+                case "XL": if (!auxList.includes("GG")) { auxList.push("GG"); } break;
+                case "XXL": if (!auxList.includes("XG")) { auxList.push("XG"); } break;
+            }
+        })
+        setSizeList(auxList)
+    }
 
-    useEffect(() => { 
-        const addSize = () => {
-            let listaTemporaria: String[] = []
-    
-            produtos.forEach((produto) => {
-                switch (produto.size) {
-                    case "XS": listaTemporaria.push("PP"); break;
-                    case "S": listaTemporaria.push("P"); break;
-                    case "M": listaTemporaria.push("M"); break;
-                    case "L": listaTemporaria.push("G"); break;
-                    case "XL": listaTemporaria.push("GG"); break;
-                    case "XXL": listaTemporaria.push("XG"); break;
-                }
-            })
-            setSizeList(listaTemporaria)
-        }
-        addSize() }, [produtos])
-
-        // Eventos de mudança nas imagens
-        const [mainImage, setMainImage] = useState<string>(img1);
-
-
-
-        const changeImage = (target: any) => {
-            const imageUrl:string = target.src;
-            setMainImage(imageUrl);
-        }
+    // Eventos de mudança nas imagens
+    const [mainImage, setMainImage] = useState<string>(img1);
+    const changeImage = (target: any) => {
+        const imageUrl: string = target.src;
+        setMainImage(imageUrl);
+    }
 
     return (
         <div className={styles.container}>
@@ -138,8 +98,8 @@ BLACK("BA", "Black"); */
                     </div>
 
                     <div className={styles.info_produto}>
-                        <h1> {produtos[0].name}</h1>
-                        <div> <span className={styles.preco}> {produtos[0].salePrice.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})} </span>
+                        <h1> {mainProduct?.name}</h1>
+                        <div> <span className={styles.preco}> {mainProduct?.salePrice.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })} </span>
                             < img className={styles.icon_pix} src={iconPix} alt="icone_pix" />
                             <span className={styles.divisor}> | </span>
                             < img className={styles.icon_cards} src={iconCards} alt="icone_card" />
@@ -175,14 +135,12 @@ BLACK("BA", "Black"); */
                 </div>
                 <div className={styles.container_description} >
                     <h1>Descrição</h1>
-                    <p>{produtos[0].description}</p>
+                    <p>{mainProduct?.description}</p>
 
                     <h3>Características</h3>
                     <ul>
-                        <li>Marca: {produtos[0].productBrand}</li>
-                        <li>Categoria: {produtos[0].category}</li>
-
-
+                        <li>Marca: {mainProduct?.productBrand}</li>
+                        <li>Categoria: {mainProduct?.category}</li>
                     </ul>
                 </div>
             </div>
