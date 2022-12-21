@@ -1,4 +1,3 @@
-import { Dashboard } from '@mui/icons-material'
 import { Route, Routes } from 'react-router-dom'
 import Home from "../pages/Home"
 import LoginAdmin from '../pages/Login/Admin'
@@ -8,6 +7,7 @@ import ProductCrud from '../pages/product_crud/ProductCrud'
 import Products from '../pages/Products'
 import UserRegister from "../pages/UserRegister"
 import PaginaBaseAdmin from "../pages/PageBase/Admin"
+import Dashboard from '../pages/Dashboard'
 
 
 const Rotas = () => {
