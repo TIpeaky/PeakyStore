@@ -43,16 +43,21 @@ public class Product {
     @Column(nullable = false)
     private Integer stockQuantity;
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private BrandEnum productBrand;
     @Column(nullable = false)
     private LocalDateTime lastUpdateDate;
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private ColorEnum color;
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private SizeEnum size;
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private CategoryEnum category;
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private SectionEnum section;
 
     @Column(nullable = false)
