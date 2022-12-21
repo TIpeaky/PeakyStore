@@ -2,12 +2,12 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { IProduct } from '../../interfaces/IProduct'
 import styles from './DetalhesProduto.module.scss'
-import img1 from './Rectangle.png'
-import img2 from './thumb.jpg'
-import img3 from './img3.png'
+import img1 from './img/Rectangle.png'
+import img2 from './img/thumb.jpg'
+import img3 from './img/img3.png'
 
-import iconPix from './pix.png'
-import iconCards from './cartoes.png'
+import iconPix from './img/pix.png'
+import iconCards from './img/cartoes.png'
 import InputMask from "react-input-mask"
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AddIcon from '@mui/icons-material/Add';
@@ -18,9 +18,9 @@ const DetalhesProduto = () => {
         id: "123",
         sku: "ABC123",
         name: "Camisa manga curta branca",
-        purchasePrice: "R$30.00",
-        salePrice: "R$50.00",
-        stockQuantity: "20",
+        purchasePrice: 30.00,
+        salePrice: 50.00,
+        stockQuantity: 20,
         productBrand: "Adidas",
         lastUpdateDate: "01/12/2022",
         color: "BLUE",
@@ -33,9 +33,9 @@ const DetalhesProduto = () => {
         id: "456",
         sku: "ABC456",
         name: "Camisa manga curta preta",
-        purchasePrice: "R$30.00",
-        salePrice: "R$50.00",
-        stockQuantity: "20",
+        purchasePrice: 30.00,
+        salePrice: 50.00,
+        stockQuantity: 20.00,
         productBrand: "Adidas",
         lastUpdateDate: "01/12/2022",
         color: "BLACK",
@@ -48,9 +48,9 @@ const DetalhesProduto = () => {
         id: "678",
         sku: "ABC789",
         name: "Camisa manga curta verde",
-        purchasePrice: "R$30.00",
-        salePrice: "R$50.00",
-        stockQuantity: "20",
+        purchasePrice: 30.00,
+        salePrice: 50.00,
+        stockQuantity: 20,
         productBrand: "Adidas",
         lastUpdateDate: "01/12/2022",
         color: "GREEN",
@@ -139,7 +139,7 @@ BLACK("BA", "Black"); */
 
                     <div className={styles.info_produto}>
                         <h1> {produtos[0].name}</h1>
-                        <div> <span className={styles.preco}> {produtos[0].salePrice} </span>
+                        <div> <span className={styles.preco}> {produtos[0].salePrice.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})} </span>
                             < img className={styles.icon_pix} src={iconPix} alt="icone_pix" />
                             <span className={styles.divisor}> | </span>
                             < img className={styles.icon_cards} src={iconCards} alt="icone_card" />
