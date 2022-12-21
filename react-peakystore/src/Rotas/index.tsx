@@ -10,6 +10,7 @@ import Products from '../pages/Products'
 import UserRegister from "../pages/UserRegister"
 import PaginaBaseAdmin from "../pages/PageBase/Admin"
 import NewPassword from '../pages/NewPassword'
+import NotFound from '../pages/NotFound'
 
 
 const Rotas = () => {
@@ -21,6 +22,7 @@ const Rotas = () => {
         <Route path='products' element={<Products />} />
         <Route path='register' element={<UserRegister />} />
         <Route path='/newPassword' element={<NewPassword/>} />
+        <Route path='*' element={<NotFound />} />
       </Route>
       <Route path='/admin'>
         <Route path='login' element={<LoginAdmin />} />
@@ -28,7 +30,9 @@ const Rotas = () => {
       <Route path='/admin' element={<PaginaBaseAdmin />} >
         <Route path='' element={<Dashboard />} />
         <Route path='products' element={<ProductCrud />} />
+        <Route path='*' element={<NotFound />} />
       </Route>
+      
     </Routes>);
 }
 
