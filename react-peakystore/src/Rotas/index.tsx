@@ -1,5 +1,4 @@
 import { Route, Routes} from 'react-router-dom'
-// import Footer from '../components/Footer'
 import Home from "../pages/Home"
 import LoginAdmin from '../pages/Login/Admin'
 import LoginUsuario from '../pages/Login/User'
