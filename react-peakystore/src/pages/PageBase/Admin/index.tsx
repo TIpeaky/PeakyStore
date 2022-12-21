@@ -91,7 +91,6 @@ const PaginaBase = () => {
     return (
     <Box sx={{ display: 'flex'}}>
         <CssBaseline />
-        {/* header */}
         <AppBar
             enableColorOnDark
             position="fixed"
@@ -105,10 +104,8 @@ const PaginaBase = () => {
             <NavBar handleLeftDrawerToggle={handleDrawerToggle} />
         </AppBar>
 
-        {/* drawer */}
         <Sidebar drawerOpen={drawerOpen} drawerToggle={handleDrawerToggle} />
 
-        {/* main content */}
         <Main theme={theme} open={drawerOpen}>
             <Outlet />
         </Main>

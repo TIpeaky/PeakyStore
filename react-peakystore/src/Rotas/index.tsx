@@ -30,7 +30,6 @@ const Rotas = () => {
       <Route path='/admin' element={<PaginaBaseAdmin />} >
         <Route path='' element={<Dashboard />} />
         <Route path='products' element={<ProductCrud />} />
-        <Route path='*' element={<NotFound />} />
       </Route>
       
     </Routes>);
