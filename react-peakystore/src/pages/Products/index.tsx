@@ -9,8 +9,8 @@ import OrdinationSelector from "../../components/OrdinationSelector";
 import http from "../../http";
 
 // MUI Material
-import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
+import { Pagination } from "@mui/material";
 
 // Images
 import image_1 from "../../images/Products/Produto - 1.png";
@@ -21,8 +21,6 @@ import image_5 from "../../images/Products/meias.jpg";
 import image_6 from "../../images/Products/camiseta_listrada.jpg";
 import image_7 from "../../images/Products/shorts.jpg";
 import image_8 from "../../images/Products/vestido.jpg";
-import PaginationComponent from "../../components/PaginationComponent";
-import { Pagination } from "@mui/material";
 
 interface productApi {
   category: string;
@@ -44,8 +42,9 @@ interface productApi {
 
 const Products = () => {
   const [products, setProducts] = useState<productApi[]>([]);
-  const [pageSize, setPageSize] = useState(3);
+  const [pageSize, setPageSize] = useState(1);
   const [pageNumber, setPageNumber] = useState(Number);
+  const [totalPages, setTotalPages] = useState(Number);
   const [sort, setSort] = useState("");
 
   useEffect(() => {
@@ -56,6 +55,7 @@ const Products = () => {
         )
         .then((response) => {
           setProducts(response.data["content"]);
+          setTotalPages(response.data["totalPages"]);
         })
         .catch();
     };
@@ -64,7 +64,6 @@ const Products = () => {
 
   const changePage = (event: ChangeEvent<unknown>, pagina: number) => {
     setPageNumber(pagina - 1);
-    console.log(pageNumber);
   };
 
   const onChangeSelector = (option: string) => {
@@ -103,7 +102,7 @@ const Products = () => {
       </Grid>
       <Pagination
         className={styles.pagination}
-        count={10}
+        count={totalPages}
         onChange={changePage}
         page={pageNumber + 1}
       />
