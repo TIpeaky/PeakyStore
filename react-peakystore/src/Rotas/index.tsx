@@ -9,6 +9,7 @@ import ProductCrud from '../pages/product_crud/ProductCrud'
 import Products from '../pages/Products'
 import UserRegister from "../pages/UserRegister"
 import PaginaBaseAdmin from "../pages/PageBase/Admin"
+import EmployeeCrud from '../pages/employee_crud/EmployeeCrud'
 
 
 const Rotas = () => {
@@ -26,6 +27,7 @@ const Rotas = () => {
       <Route path='/admin' element={<PaginaBaseAdmin />} >
         <Route path='' element={<Dashboard />} />
         <Route path='products' element={<ProductCrud />} />
+        <Route path='employee' element={<EmployeeCrud />} />
       </Route>
     </Routes>);
 }

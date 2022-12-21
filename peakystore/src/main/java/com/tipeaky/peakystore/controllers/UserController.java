@@ -76,8 +76,15 @@ public class UserController {
     }
 
     @PostMapping("/employee")
-    @PreAuthorize("hasAnyRole('ADMIN')")
+//    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<UserDTO> saveEmployee(@RequestBody @Valid UserForm userForm){
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveEmployee(userForm));
+    }
+
+    @DeleteMapping("/employee/{userId}")
+//    @PreAuthorize("hasAnyRole('ADMIN')")
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteEmployee(@PathVariable UUID userId) {
+        userService.deleteEmployee(userId);
     }
 }

@@ -3,6 +3,7 @@ package com.tipeaky.peakystore.services;
 import com.tipeaky.peakystore.config.security.TokenService;
 import com.tipeaky.peakystore.exceptions.DuplicatedEntityException;
 import com.tipeaky.peakystore.exceptions.EntityNotFoundException;
+import com.tipeaky.peakystore.exceptions.MethodNotAllowedException;
 import com.tipeaky.peakystore.model.dtos.CardDTO;
 import com.tipeaky.peakystore.exceptions.UnauthorizedException;
 import com.tipeaky.peakystore.model.dtos.NotificationDTO;
@@ -174,5 +175,19 @@ public class UserService {
         Optional<Address> optionalAddress = addressRepository.findById(addressId);
         if (optionalAddress.isEmpty()) throw new EntityNotFoundException("Endereço não encontrado");
         return mapper.map(optionalAddress.get(), AddressDTO.class);
+    }
+
+    public void deleteEmployee(UUID userId) {
+        if (!userRepository.findById(userId).isPresent()) throw new EntityNotFoundException("Funcionário não encontrado");
+
+        User employee = userRepository.findById(userId).get();
+
+        Role role = employee.getRoles().get(0);
+
+        if (!role.getAuthority().equals("Employee")) {
+            throw new MethodNotAllowedException("Usuário não é um funcionário");
+        }
+
+        userRepository.delete(employee);
     }
 }
