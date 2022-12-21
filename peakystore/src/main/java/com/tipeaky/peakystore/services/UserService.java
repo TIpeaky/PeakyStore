@@ -1,6 +1,5 @@
 package com.tipeaky.peakystore.services;
 
-import com.tipeaky.peakystore.config.security.TokenService;
 import com.tipeaky.peakystore.exceptions.DuplicatedEntityException;
 import com.tipeaky.peakystore.exceptions.EntityNotFoundException;
 import com.tipeaky.peakystore.model.dtos.CardDTO;
@@ -23,8 +22,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -40,9 +37,6 @@ public class UserService {
 
     @Autowired
     private AuthenticationManager authManager;
-
-    @Autowired
-    private TokenService tokenService;
 
     @Autowired
     private EmailService emailService;
