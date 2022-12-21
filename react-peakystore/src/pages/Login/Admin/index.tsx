@@ -25,12 +25,12 @@ const LoginAdmin = () => {
 
                 for (const role in roles) {
                     const authority = roles[role].authority
-                    if(authority.toUpperCase() === "ADMIN" || authority.toUpperCase() === "EMPLOYEE") {
+                    if(authority.toUpperCase() === "ADMIN" ||
+                    authority.toUpperCase() === "EMPLOYEE") {
                         sessionStorage.setItem('token', response.data.token)
                         setUsername('')
                         setPassword('')
                         navigate('/admin')
-                        return;
                     }
                 }
                 const error = "Usuário ou senha inválido(s)"
