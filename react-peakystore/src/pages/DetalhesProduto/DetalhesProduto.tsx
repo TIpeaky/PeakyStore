@@ -15,6 +15,7 @@ import http from "../../http"
 import { useNavigate } from 'react-router-dom';
 
 const DetalhesProduto = () => {
+    let navigate = useNavigate()
 
     const [mainProduct, setMainProduct] = useState<IProduct>()
     const [productList, setProductList] = useState<IProduct[]>([])
@@ -23,8 +24,12 @@ const DetalhesProduto = () => {
     const { sku } = useParams();
     useEffect(() => {
         let auxList = productList;
+        
         http.get('product/sku/' + sku)
             .then(response => {
+                if(response.status === 404) {
+                    navigate('/produto')
+                }
                 setMainProduct(response.data);
                 auxList.push(response.data)
                 setProductList(auxList)
@@ -33,6 +38,7 @@ const DetalhesProduto = () => {
             })
             .catch(erro => {
                 console.log(erro);
+                navigate('/produto')
             })
     }, [])
 

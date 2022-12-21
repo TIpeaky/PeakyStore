@@ -1,0 +1,18 @@
+.container_evaluation {
+    background: rgb(183, 237, 241);
+    justify-content: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 25px;
+}
+
+.container_evaluation h1 {
+    font-size: 40px;
+    font-weight: 400;
+}
+
+.container_evaluation p {
+    text-align: justify;
+    font-size: 20px;
+}
