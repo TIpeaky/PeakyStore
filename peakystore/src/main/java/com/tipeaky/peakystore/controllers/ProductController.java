@@ -2,6 +2,7 @@ package com.tipeaky.peakystore.controllers;
 
 import com.tipeaky.peakystore.exceptions.NullObjectException;
 import com.tipeaky.peakystore.model.dtos.ProductDTO;
+import com.tipeaky.peakystore.model.enums.*;
 import com.tipeaky.peakystore.model.forms.ProductUpdateForm;
 import com.tipeaky.peakystore.model.forms.ProductRegisterForm;
 import com.tipeaky.peakystore.services.ProductService;
@@ -34,8 +35,8 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<ProductDTO>> getAllProducts(Pageable pageable) {
-        return ResponseEntity.status(HttpStatus.OK).body(productService.getAllProducts(pageable));
+    public ResponseEntity<Page<ProductDTO>> getAllProducts(Pageable pageable, ColorEnum color, BrandEnum productBrand, SizeEnum size, CategoryEnum category, SectionEnum section) {
+        return ResponseEntity.status(HttpStatus.OK).body(productService.getAllProducts(pageable, color, productBrand, size, category, section));
     }
 
     @DeleteMapping("/{id}")
