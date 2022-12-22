@@ -13,10 +13,6 @@ Wpeakystore/src/main/java/com/tipeaky/peakystore/exceptions/EntityNotFoundExcept
 Ypeakystore/src/main/java/com/tipeaky/peakystore/exceptions/MethodNotAllowedException.java,b\7\b778ba0814a1a7b622c459a5c00c1f32f0ea2497
 €
 Ppeakystore/src/main/java/com/tipeaky/peakystore/repositories/UserRepository.java,d\f\df5bcd13d47226643cd7ae7d9603821d76abf61c
-y
-Ipeakystore/src/main/java/com/tipeaky/peakystore/model/forms/UserForm.java,c\c\cc43976370d6b59b6f5a4e702c1faa4cf03edc12
-9
-	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
 `
 0react-peakystore/src/pages/Home/Home.module.scss,9\c\9cdb19c6d4bf7fcb496d833146b2819514e36c91
 Y

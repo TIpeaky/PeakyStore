@@ -13,6 +13,9 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import AddIcon from '@mui/icons-material/Add';
 import http from "../../http"
 import { useNavigate } from 'react-router-dom';
+import Avaliacoes from '../../components/Avaliacoes/Avaliacoes'
+
+
 
 const DetalhesProduto = () => {
     let navigate = useNavigate()
@@ -131,7 +134,7 @@ const DetalhesProduto = () => {
                         </div>
                         <div className={styles.container_finish}>
                             <button className={styles.btn_cart}><ShoppingCartIcon className={styles.icon_cart} /><AddIcon className={styles.icon_cart} /></button>
-                            <button className={styles.btn_finish}>Finalizar a Compra</button>
+                            <button className={styles.btn_finish}>Comprar</button>
                         </div>
 
 
@@ -149,9 +152,11 @@ const DetalhesProduto = () => {
                         <li>Categoria: {mainProduct?.category}</li>
                     </ul>
                 </div>
+                <Avaliacoes/>
             </div>
-
+                 
         </div>
+
     )
 }
 
