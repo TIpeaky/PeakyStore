@@ -51,7 +51,7 @@ const Products = () => {
     const fecthData = async () => {
       http
         .get(
-          "/product?size=" + pageSize + "&page=" + pageNumber + "&sort=" + sort
+          "/product?pageSize=" + pageSize + "&pageNumber=" + pageNumber + "&pageSort=" + sort
         )
         .then((response) => {
           setProducts(response.data["content"]);
