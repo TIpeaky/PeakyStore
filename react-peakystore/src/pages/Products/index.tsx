@@ -7,6 +7,7 @@ import styles from "./Products.module.scss";
 import ProductCard from "../../components/ProductCard";
 import OrdinationSelector from "../../components/OrdinationSelector";
 import http from "../../http";
+import FilterProduct from '../../components/FilterProduct';
 
 // MUI Material
 import Grid from "@mui/material/Grid";
@@ -46,6 +47,7 @@ const Products = () => {
   const [pageNumber, setPageNumber] = useState(Number);
   const [totalPages, setTotalPages] = useState(Number);
   const [sort, setSort] = useState("");
+  const [filtro, setFiltro] = useState<number | null>(null);
 
   useEffect(() => {
     const fecthData = async () => {
@@ -74,6 +76,10 @@ const Products = () => {
     <div className={styles.page_products}>
       <div className={styles.selector}>
         <OrdinationSelector onAddOption={onChangeSelector} />
+      </div>
+
+      <div>
+        <FilterProduct filtro={filtro} setFiltro={setFiltro}/>
       </div>
 
       <Grid

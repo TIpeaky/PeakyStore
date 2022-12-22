@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { AbBotao } from '../../../components/AbBotao';
 import http from "../../../http"
-import LogoWhite from "./assets/PeakyStore.png"
+import LogoWhite from "./../../../images/PeakyStore.png"
 import { AbCampoTexto } from '../../../components/AbCampoTexto';
 import styled from './Login.module.scss';
-import { redirect, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const LoginAdmin = () => {
     let navigate = useNavigate()
@@ -25,12 +25,12 @@ const LoginAdmin = () => {
 
                 for (const role in roles) {
                     const authority = roles[role].authority
-                    if(authority.toUpperCase() === "ADMIN") {
+                    if(authority.toUpperCase() === "ADMIN" ||
+                    authority.toUpperCase() === "EMPLOYEE") {
                         sessionStorage.setItem('token', response.data.token)
                         setUsername('')
                         setPassword('')
-                        //navigate('/dashboard')
-                        return;
+                        navigate('/admin')
                     }
                 }
                 const error = "Usuário ou senha inválido(s)"
