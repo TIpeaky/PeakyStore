@@ -93,5 +93,12 @@ public class UserController {
     public void updateEmployee(@RequestBody @Valid UserForm userForm, @PathVariable UUID userId) {
         userService.updateEmployee(userForm, userId);
     }
+
+    @GetMapping("/employee")
+    @ResponseStatus(HttpStatus.OK)
+    public List<UserDTO> getAllEmployees() {
+        return userService.getAllEmployees();
+    }
+
 }
 

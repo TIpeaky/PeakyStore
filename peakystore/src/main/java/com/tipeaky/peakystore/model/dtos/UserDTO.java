@@ -22,7 +22,7 @@ public class UserDTO {
     private String name;
     private String email;
     //private Longblob avatar; imagem do usuário
-    private List<GenderDTO> genderDTOList;
+    private List<Gender> genderList;
     private LocalDate birthDate;
     private Boolean notification;
     private List<AddressDTO> addressDTOList;

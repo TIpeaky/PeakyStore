@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -216,5 +217,27 @@ public class UserService {
         actualData.setRoles(role);
 
         userRepository.save(actualData);
+    }
+
+    public List<UserDTO> getAllEmployees() {
+
+        List<User> users = userRepository.findAll();
+        List<User> employees = new ArrayList<>();
+
+        if(users.isEmpty()){
+            throw new EntityNotFoundException("Não há usuários cadastrados");
+        }
+
+        for (User user: users) {
+            if (user.getRoles().get(0).getAuthority().equalsIgnoreCase("Employee")) {
+                employees.add(user);
+            }
+        }
+
+        if (employees.isEmpty()) {
+            throw new EntityNotFoundException("Não há funcionários cadastrados");
+        }
+
+        return employees.stream().map(employee -> mapper.map(employee, UserDTO.class)).toList();
     }
 }

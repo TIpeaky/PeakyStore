@@ -8,7 +8,7 @@ import Modal from '@mui/material/Modal';
 import http from "../../http"
 import { useState, useEffect } from 'react';
 import ProductDetails from './EmployeeDetails';
-import { IProduct } from '../../interfaces/IProduct';
+import { IUser } from '../../interfaces/IUser';
 import Button from '@mui/material/Button';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import styles from './EmployeeCrud.module.scss'
@@ -26,21 +26,21 @@ function QuickSearchToolbar() {
 
 const EmployeeCrud = () => {
 
-  const [productList, setProductList] = useState<IProduct[]>([]);
-  const [selectedProduct, setSelectedProduct] = useState<IProduct>()
+  const [employeeList, setemployeeList] = useState<IUser[]>([]);
+  const [selectedProduct, setSelectedProduct] = useState<IUser>()
 
   //Modais
   const [productDetailsModal, setProductDetailsModal] = React.useState(false);
   const [deleteConfirmModal, setDeleteConfirmModal] = React.useState(false);
 
-  const openProductDetailsModal = (operation: string, product?: IProduct): void => {
+  const openProductDetailsModal = (operation: string, product?: IUser): void => {
     setOperation(operation)
     setSelectedProduct(product)
     setProductDetailsModal(true)
   };
   const closeProductDetailsModal = (): void => { setProductDetailsModal(false) }
 
-  const openDeleteConfirmModal = (product: IProduct): void => {
+  const openDeleteConfirmModal = (product: IUser): void => {
     setSelectedProduct(product)
     setDeleteConfirmModal(true)
   }
@@ -54,36 +54,36 @@ const EmployeeCrud = () => {
 
   //atualiza a lista de funcionários em tempo real
   useEffect(() => {
-    setProductList(productList)
-  }, [productList])
+    setemployeeList(employeeList)
+  }, [employeeList])
 
-  const updateProductList = (targetProduct: IProduct, operation: string): void => {
-    let productListCopy = [...productList]
-    let index = productList.findIndex(product => product.id === targetProduct.id)
+  const updateEmployeeList = (targetProduct: IUser, operation: string): void => {
+    let employeeListCopy = [...employeeList]
+    let index = employeeList.findIndex(product => product.id === targetProduct.id)
 
     switch (operation) {
       case "updateItem": {
-        if (index !== -1) productListCopy[index] = targetProduct;
+        if (index !== -1) employeeListCopy[index] = targetProduct;
         break;
       }
       case "addItem": {
-        productListCopy.push(targetProduct);
+        employeeListCopy.push(targetProduct);
         break;
       }
       case "removeItem": {
-        if (index !== -1) productListCopy.splice(index, 1)
+        if (index !== -1) employeeListCopy.splice(index, 1)
         break;
       }
     }
-    setProductList(productListCopy)
+    setemployeeList(employeeListCopy)
   }
 
   //Chama endpoint de excluir funcionário
-  const deleteProduct = (product: IProduct): void => {
+  const deleteProduct = (employee: IUser): void => {
 
-    http.delete('product/' + product.id)
+    http.delete('user/employee/' + employee.id)
       .then(() => {
-        updateProductList(product, "removeItem")
+        updateEmployeeList(employee, "removeItem")
         //informar que o funcionário foi removido com sucesso
 
       })
@@ -140,9 +140,9 @@ const EmployeeCrud = () => {
 
   //LINHAS DA TABELA
   useEffect(() => {
-    http.get('product')
+    http.get('user/employee')
       .then(response => {
-        setProductList(response.data)
+        setemployeeList(response.data)
       })
       .catch(erro => {
         console.log(erro)
@@ -158,14 +158,14 @@ const EmployeeCrud = () => {
           Adicionar novo funcionário
         </Button>
         <DataGrid className={styles.data_grid}
-          rows={productList} columns={columns} disableSelectionOnClick disableColumnSelector disableDensitySelector
+          rows={employeeList} columns={columns} disableSelectionOnClick disableColumnSelector disableDensitySelector
           components={{ Toolbar: QuickSearchToolbar }}
           initialState={{ pagination: { pageSize: 25, } }} />
       </Box>
 
       <Modal
         open={productDetailsModal}>
-        <ProductDetails product={selectedProduct!} operation={operation} closeModal={closeProductDetailsModal} updateProductList={updateProductList} />
+        <ProductDetails employee={selectedProduct!} operation={operation} closeModal={closeProductDetailsModal} updateEmployeeList={updateEmployeeList} />
       </Modal>
 
       <Modal open={deleteConfirmModal}>

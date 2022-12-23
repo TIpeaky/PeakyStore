@@ -4,7 +4,12 @@ export interface IUser  {
     name : string
     email : string
     password : string
-    gender : string
+    genderList : [
+        {
+            id : string
+            genderEnum : string
+        }
+    ]
     birthDate : string
     notification : string
 } 

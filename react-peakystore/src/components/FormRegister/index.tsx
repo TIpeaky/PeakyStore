@@ -14,7 +14,7 @@ const UserRegister = () => {
   const [email, setEmail] = useState("");
   const [password, setPassWord] = useState("");
   const [passwordConfirm, setPassWordConfirm] = useState("");
-  const [genderFormList, setGenderFormList] = useState<IGender[]>([]);
+  const [genderList, setGenderList] = useState<IGender[]>([]);
   const [birthDate, setBirthDate] = useState("");
   const [notification, setNotification] = useState(false);
 
@@ -26,7 +26,7 @@ const UserRegister = () => {
       name,
       email,
       password,
-      genderFormList,
+      genderList,
       birthDate,
       notification,
     };
@@ -35,7 +35,7 @@ const UserRegister = () => {
     console.log("Usuário - nome: " + user.name);
     console.log("Usuário - email: " + user.email);
     console.log("Usuário - senha: " + user.password);
-    console.log("Usuário - preferências (lista): " + user.genderFormList);
+    console.log("Usuário - preferências (lista): " + user.genderList);
     console.log("Usuário - data de nascimento: " + user.birthDate);
     console.log("Usuário - notificação: " + user.notification);
 
@@ -47,7 +47,7 @@ const UserRegister = () => {
         setName("");
         setEmail("");
         setPassWord("");
-        setGenderFormList([]);
+        setGenderList([]);
         setBirthDate("");
         setNotification(Boolean);
       })
@@ -71,8 +71,8 @@ const UserRegister = () => {
   const handleChangeNotification = (
     evento: React.ChangeEvent<HTMLInputElement>
   ) => {
-    if (evento.target.value == "true") {
-      if (notification == true) {
+    if (evento.target.value === "true") {
+      if (notification === true) {
         console.log("Desmarcado");
       }
       setNotification(!notification);
@@ -82,11 +82,11 @@ const UserRegister = () => {
   const handleChangePreferences = (
     evento: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setGenderFormList((prevState) => {
+    setGenderList((prevState) => {
       let exist: boolean = false;
 
       prevState.forEach(function (value) {
-        if(value.genderEnum == evento.target.value) {
+        if(value.genderEnum === evento.target.value) {
           exist = true;
         }
       })
@@ -102,7 +102,7 @@ const UserRegister = () => {
   };
 
   const validatePassword = () => {
-    if(passwordConfirm != password) {
+    if(passwordConfirm !== password) {
       alert("Senhas estão diferentes!");
       return false;
     } return true;
