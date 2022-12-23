@@ -1,0 +1,11 @@
+
+t
+java:S1192N"YDefine a constant instead of duplicating this literal "UsuÃ¡rio nÃ£o encontrado" 4 times.(¾ˆ‡ñşÿÿÿÿ
+{
+java:S1488‚"_Immediately return this expression instead of assigning it to the temporary variable "cardDTO".(øşŠÿÿÿÿÿ
+T
+java:S1854€"8Remove this useless assignment to local variable "user".(ŠË…–ùÿÿÿÿ
+E
+java:S1481€")Remove this unused "user" local variable.(ŠË…–ùÿÿÿÿ
+F
+java:S1128"0Remove this unused import 'java.util.ArrayList'.(÷‰îƒ

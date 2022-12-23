@@ -34,6 +34,7 @@ const DetalhesProduto = () => {
                     navigate('/produto')
                 }
                 setMainProduct(response.data);
+                console.log('agora o main product não está mais vazio')
                 auxList.push(response.data)
                 setProductList(auxList)
                 addSize();
@@ -152,7 +153,7 @@ const DetalhesProduto = () => {
                         <li>Categoria: {mainProduct?.category}</li>
                     </ul>
                 </div>
-                <Avaliacoes/>
+                <Avaliacoes product={mainProduct!}/>
             </div>
                  
         </div>

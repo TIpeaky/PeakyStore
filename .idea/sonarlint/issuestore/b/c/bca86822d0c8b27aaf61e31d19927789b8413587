@@ -1,0 +1,9 @@
+
+z
+java:S1192"XDefine a constant instead of duplicating this literal "Produto nÃ£o encontrado" 3 times.(Ñ©—Äûÿÿÿÿ8ªÏ©ÏÓ0
+G
+java:S5411-"*Use the primitive boolean expression here.(ˆÎ¯Ë8®Ï©ÏÓ0
+L
+java:S5411G"*Use the primitive boolean expression here.(ˆëñ¤ÿÿÿÿÿ8®Ï©ÏÓ0
+„
+java:S3655G"bCall "duplicatedProduct.isPresent()" or "!duplicatedProduct.isEmpty()" before accessing the value.(ˆëñ¤ÿÿÿÿÿ8íÏ©ÏÓ0
