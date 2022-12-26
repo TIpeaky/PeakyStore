@@ -107,7 +107,7 @@ const EmployeeCrud = () => {
     { field: 'cpf', headerName: 'CPF', width: 130 },
     { field: 'email', headerName: 'EMAIL', width: 130 },
     { field: 'birthDate', headerName: 'NASCIMENTO', width: 130 },
-    { field: 'gender', headerName: 'GÊNERO', width: 130 },
+    { field: 'genderList[0].genderEnum', headerName: 'GÊNERO', width: 130 },
     {
       field: 'actions',
       type: 'actions',

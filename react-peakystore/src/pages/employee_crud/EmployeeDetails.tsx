@@ -26,34 +26,14 @@ const EmployeeDetails = ({ employee, operation, closeModal, updateEmployeeList }
 
   //Preencher employeeForm com os valores do input
   const handleChange = (e: any) => {
+
     const { name, value } = e.target;
+
     setEmployeeForm(prevState => ({
       ...prevState,
       [name]: value
     }));
     console.log(employeeForm);
-  };
-
-  function moneyMask(e: any) {
-    const onlyDigits = e.target.value
-      .split("")
-      .filter((s: any) => /\d/.test(s))
-      .join("")
-      .padStart(3, "0");
-    const digitsFloat = onlyDigits.slice(0, -2) + "." + onlyDigits.slice(-2);
-    return maskCurrency(digitsFloat);
-  }
-  function maskCurrency(valor: any, locale = 'pt-BR', currency = 'BRL') {
-    return new Intl.NumberFormat(locale, {
-      style: 'currency',
-      currency
-    }).format(valor)
-  }
-  //impedir números negativos no input number
-  const preventMinus = (e: any) => {
-    if (e.code === 'Minus' || e.code === "KeyE") {
-      e.preventDefault();
-    }
   };
 
   //Chamar endpoint de atualizar produto
@@ -217,14 +197,14 @@ const EmployeeDetails = ({ employee, operation, closeModal, updateEmployeeList }
             <TextField value={operation !== "create" ? employeeForm.password : undefined}
               {...(operation === "read" ? { inputProps: { readOnly: true } } : {})}
               label="Senha" fullWidth name="password" onChange={handleChange} onBlur={passwordIsValid}
-              error={passwordError !== ""} helperText={passwordError} />
+              error={passwordError !== ""} helperText={passwordError} type="password" />
           </Grid>
 
           <Grid item xs={6}>
             <FormControl fullWidth error={passwordError !== ""}>
               <InputLabel id="product-color-label">Gênero</InputLabel>
               <Select
-                labelId="product-color-label" name="gender" label="Gênero" onChange={handleChange} onBlur={genderIsValid}
+                labelId="product-color-label" name={employeeForm.genderList[0].genderEnum} label="Gênero" onChange={handleChange} onBlur={genderIsValid}
                 value={employeeForm && employeeForm.genderList[0].genderEnum ? employeeForm.genderList[0].genderEnum : ''}
                 {...(operation === "read" ? { inputProps: { readOnly: true } } : {})}
               >
