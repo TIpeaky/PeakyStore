@@ -25,7 +25,7 @@ const OrdinationSelector = ({ onAddOption }: any) => {
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={option}
-          label="Age"
+          label="Ordenacao"
           onChange={handleChange}
         >
           <MenuItem value={"salePrice,asc"}>Preço Crescente</MenuItem>

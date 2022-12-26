@@ -87,8 +87,15 @@ public class ProductService {
 
         GenericSpecificationsBuilder<Product> builder = new GenericSpecificationsBuilder<>();
 
+        ColorEnum colorWHITE = ColorEnum.WHITE;
+
+        ArrayList arrayList = new ArrayList();
+        arrayList.add(color);
+
+        // Concatenar os arrays com as especificações
+
         if(Objects.nonNull(color)) {
-            builder.with(productSpecificationFactory.isEqual("color", color));
+            builder.with(productSpecificationFactory.isEqual("color", arrayList));
         }
 
         if(Objects.nonNull(productBrand)) {
@@ -110,13 +117,6 @@ public class ProductService {
         Page<Product> productList = productRepository.findAll(builder.build(), pageable);
         if(productList.isEmpty()) throw new EntityNotFoundException("Não há produtos cadastrados");
         return productList.map(product -> mapper.map(product, ProductDTO.class));
-    }
-
-
-    public List<ProductDTO> getAllProducts() {
-        List<Product> productList = productRepository.findAllNotExcluded();
-        if (productList.isEmpty()) throw new EntityNotFoundException("Não há produtos cadastrados");
-        return productList.stream().map(product -> mapper.map(product, ProductDTO.class)).toList();
     }
 
     public ListEnumsDTO getAllEnums() {

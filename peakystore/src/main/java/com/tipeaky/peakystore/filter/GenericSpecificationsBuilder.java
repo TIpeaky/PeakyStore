@@ -25,26 +25,44 @@ public class GenericSpecificationsBuilder<T> {
         params.add(new SearchCriteria(key, operationEnum, isOrOperation, arguments));
         return this;
     }
+
     public final GenericSpecificationsBuilder<T> with(Specification<T> specification) {
         specifications.add(specification);
         return this;
     }
+
     public Specification<T> build() {
         Specification<T> result = null;
         if (!params.isEmpty()) {
             result = new GenericSpecification<>(params.get(0));
             for (int index = 1; index < params.size(); ++index) {
                 SearchCriteria searchCriteria = params.get(index);
-                result = searchCriteria.isOrOperation() ? Specification.where(result).or(new GenericSpecification<>(searchCriteria)) : Specification.where(result).and(new    GenericSpecification<>(searchCriteria));
+
+                System.out.println("Critério de busca: " + searchCriteria);
+
+//                // ?
+//
+//                for(int i = 0; i < searchCriteria.getArguments().size(); i++) {
+//
+//                }
+//
+//                //
+
+                result = searchCriteria.isOrOperation() ? Specification.where(result).
+                        or(new GenericSpecification<>(searchCriteria)) : Specification.where(result).
+                        and(new GenericSpecification<>(searchCriteria));
             }
         }
         if (!specifications.isEmpty()) {
             int index = 0;
             if (Objects.isNull(result)) {
                 result = specifications.get(index++);
+                System.out.println("Result 1: " + result.toString());
             }
-            for (; index < specifications.size(); ++index) {
+            while (index < specifications.size()) {
                 result = Specification.where(result).and(specifications.get(index));
+                System.out.println("Result 2: " + result);
+                ++index;
             }
         }
         return result;

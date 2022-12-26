@@ -18,7 +18,7 @@ export interface Props {
   setFiltro: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
-function FilterProduct({ filtro, setFiltro }: Props) {
+function FilterProduct({onAddFilter}: any, { filtro, setFiltro }: Props) {
   const [checkedCategory, setCheckedCategory] = useState(false);
   const [checkedSize, setCheckedSize] = useState(false);
   const [checkedProductBrand, setCheckedProductBrand] = useState(false);
@@ -82,6 +82,8 @@ function FilterProduct({ filtro, setFiltro }: Props) {
         sectionFormList,
         colorFormList,
     };
+
+    onAddFilter(filter);
   };
 
   function handleClick(opcao: IOpcao) {

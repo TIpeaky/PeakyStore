@@ -75,6 +75,7 @@
 
     &:hover {
         text-decoration: underline;
+        cursor: pointer;
     }
 }
 
@@ -95,5 +96,6 @@
         padding: 8px 23px;
         margin: 16px 0px -2px 36px;
         background: rgb(60, 231, 243);
+        cursor: pointer;
     }
 }

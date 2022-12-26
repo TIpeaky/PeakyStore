@@ -7,7 +7,7 @@ import styles from "./Products.module.scss";
 import ProductCard from "../../components/ProductCard";
 import OrdinationSelector from "../../components/OrdinationSelector";
 import http from "../../http";
-import FilterProduct from '../../components/FilterProduct';
+import FilterProduct from "../../components/FilterProduct";
 
 // MUI Material
 import Grid from "@mui/material/Grid";
@@ -39,21 +39,51 @@ interface productApi {
   stockQuantity: number;
 }
 
+interface filter {
+    categoryFormList: [];
+    sizeFormList: [];
+    productBrandFormList: [];
+    sectionFormList: [];
+    colorFormList: [];
+}
+
+export interface IOpcao {
+  id: number;
+  name: string;
+}
+
 // ?size=(número de elementos por página)&page=(número da página)
 
 const Products = () => {
   const [products, setProducts] = useState<productApi[]>([]);
-  const [pageSize, setPageSize] = useState(1);
+  const [pageSize, setPageSize] = useState(2);
   const [pageNumber, setPageNumber] = useState(Number);
   const [totalPages, setTotalPages] = useState(Number);
   const [sort, setSort] = useState("");
+
+  const [color, setColor] = useState([]);
+  const [productBrand, setProductBrand] = useState([]);
+  const [size, setSize] = useState([]);
+  const [category, setCategory] = useState([]);
+  const [section, setSection] = useState([]);
+
   const [filtro, setFiltro] = useState<number | null>(null);
 
   useEffect(() => {
     const fecthData = async () => {
       http
         .get(
-          "/product?pageSize=" + pageSize + "&pageNumber=" + pageNumber + "&pageSort=" + sort
+          "/product?pageSize=" +
+            pageSize +
+            "&pageNumber=" +
+            pageNumber +
+            "&pageSort=" +
+            sort +
+            "&color=" + color.map((option: IOpcao, position) => (option.name.toUpperCase())) +
+            "&productBrand=" + productBrand.map((option: IOpcao, position) => (option.name.toUpperCase())) +
+            "&size=" + size.map((option: IOpcao, position) => (option.name.toUpperCase())) +
+            "&category=" + category.map((option: IOpcao, position) => (option.name.toUpperCase())) +
+            "&section=" + section.map((option: IOpcao, position) => (option.name.toUpperCase()))
         )
         .then((response) => {
           setProducts(response.data["content"]);
@@ -62,7 +92,7 @@ const Products = () => {
         .catch();
     };
     fecthData();
-  }, [pageNumber, sort]);
+  }, [pageNumber, sort, color, productBrand, size, category, section]);
 
   const changePage = (event: ChangeEvent<unknown>, pagina: number) => {
     setPageNumber(pagina - 1);
@@ -72,40 +102,57 @@ const Products = () => {
     setSort(option);
   };
 
+  const onChangeFilter = (filter: filter) => {
+    setColor(filter["colorFormList"]);
+    setProductBrand(filter["productBrandFormList"]);
+    setSize(filter["sizeFormList"]);
+    setCategory(filter["categoryFormList"]);
+    setSection(filter["sectionFormList"]);
+
+    console.log(color)
+    console.log(productBrand)
+    console.log(size)
+    console.log(category)
+    console.log(section)
+
+    color.map((option: IOpcao, position) => (console.log(option.name.toUpperCase())))
+  }
+
   return (
     <div className={styles.page_products}>
       <div className={styles.selector}>
         <OrdinationSelector onAddOption={onChangeSelector} />
       </div>
 
-      <div>
-        <FilterProduct filtro={filtro} setFiltro={setFiltro}/>
+      <div className={styles.container_filter}>
+        <Grid
+          className={styles.container_products}
+          spacing={3}
+          container
+          width="70%"
+          marginRight="5%"
+          marginTop="1%"
+        >
+          <FilterProduct filtro={filtro} setFiltro={setFiltro} onAddFilter={onChangeFilter} />
+
+          {products.map(
+            (
+              product,
+              position // Tamanho do array = quantidade de produtos
+            ) => (
+              <Grid item xs={3} key={position}>
+                <ProductCard
+                  name={product.name}
+                  price={product.salePrice}
+                  img={image_1}
+                  link="#"
+                />
+              </Grid>
+            )
+          )}
+        </Grid>
       </div>
 
-      <Grid
-        className={styles.container_products}
-        spacing={3}
-        container
-        width="70%"
-        marginRight="5%"
-        marginTop="1%"
-      >
-        {products.map(
-          (
-            product,
-            position // Tamanho do array = quantidade de produtos
-          ) => (
-            <Grid item xs={3} key={position}>
-              <ProductCard
-                name={product.name}
-                price={product.salePrice}
-                img={image_1}
-                link="#"
-              />
-            </Grid>
-          )
-        )}
-      </Grid>
       <Pagination
         className={styles.pagination}
         count={totalPages}
